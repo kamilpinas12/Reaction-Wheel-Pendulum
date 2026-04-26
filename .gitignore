@@ -2,3 +2,8 @@ slprj
 *.slxc
 work_in_progress
 *.asv
+__pycache__
+.env
+logs
+models
+runs
