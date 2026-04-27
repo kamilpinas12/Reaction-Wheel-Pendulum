@@ -8,11 +8,12 @@ import torch.nn as nn
 from torch.utils.tensorboard import SummaryWriter
 from torch.utils.data import DataLoader, random_split
 from visualizations import *
+from torchinfo import summary
 
 from reac_wheel_sim.pend_sim_dataset import PendSimDataset
 from reac_wheel_sim.signal_generator import SquareSignal, TrapezoidSignal
 
-from nets.parameter_estimator import PhysicalParameterEstimator
+from nets.parameter_estimator import *
 from config import LOGS_DIR, MODELS_DIR
 
 
@@ -36,7 +37,7 @@ def setup_training_logger(log_dir: Path) -> logging.Logger:
 
     formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
 
-    file_handler = logging.FileHandler(log_file, encoding="utf-8")
+    file_handler = logging.FileHandler(log_file, mode="w", encoding="utf-8")
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 
@@ -66,19 +67,16 @@ def train_parameter_estimator(
     logger,
     criterion,
     epochs=50,
-    checkpoint_dir=None,
-    device="cpu",
+    device="cuda",
+    hparams=None,
 ):
-    if checkpoint_dir is None:
-        checkpoint_dir = LOGS_DIR / "train_param_estimator" / "checkpoints"
+    checkpoint_dir = LOGS_DIR / "train_param_estimator" / "checkpoints"
     checkpoint_dir = Path(checkpoint_dir)
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
 
     # Default TensorBoard directory: runs/
-    writer = SummaryWriter(
-        comment="-param-estimator-GRU"
-    )
+    writer = SummaryWriter(comment="-ParamEstimator")
     model.to(device)
     train_losses, val_losses = [], []
     best_val_loss, best_epoch = float("inf"), 0
@@ -155,6 +153,11 @@ def train_parameter_estimator(
         best_epoch,
         best_val_loss,
     )
+    metrics = {
+        "hparam/val_loss": best_val_loss,
+    }
+    if hparams is not None:
+        writer.add_hparams(hparams, metrics)
     return {
         "train_losses": train_losses,
         "val_losses": val_losses,
@@ -173,11 +176,18 @@ def main():
         SquareSignal(amplitude_range=(0.2, 1.0)),
         TrapezoidSignal(amplitude_range=(0.2, 1.0)),
     ]
+    # HYPERPARAMETERS
+    seq_len = 128
+    n_epsiodes = 4000
+    lr = 1e-3
+    epochs = 50
+    hidden_dim = 32
+    fc_dim = 32
 
     dataset = PendSimDataset(
-        n_episodes=500,
-        max_seq_len=64,
-        range_pct=10.0,
+        n_episodes=n_epsiodes,
+        max_seq_len=seq_len,
+        range_pct=4.0,
         noise_levels=[0.01, 0.01, 0.01, 0.01, 0.01],
         signals=signals,
         seed=42,
@@ -196,13 +206,34 @@ def main():
     train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 
-    model = PhysicalParameterEstimator()
-    optimizer = torch.optim.Adam(model.parameters(), lr=4e-4)
+    model = ParamEstimatorGRU(
+        n_features=5, n_params=3, hidden_dim=hidden_dim, fc_dim=fc_dim
+    )
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     criterion = nn.MSELoss()
     device = "cuda" if torch.cuda.is_available() else "cpu"
     checkpoint_dir = run_log_dir / "checkpoints"
 
+    # log model
+    example_batch, _ = next(iter(train_loader))
+    input_shape = example_batch.shape
+    model_stats = summary(model, input_size=input_shape, verbose=0)
+    summary_str = str(model_stats)
+    logger.info(f"Model Summary:\n{summary_str}")
+
     if train_mode:
+        hparams = {
+            "Model": "GRU",
+            "hidden_dim": hidden_dim,
+            "fc_dim": fc_dim,
+            "seq_length": seq_len,
+            "n_episodes_in_epoch": n_epsiodes,
+            "epochs": epochs,
+            "criterion": "MSELOSS",
+            "optimizer": "Adam",
+            "lr": lr,
+        }
+        logger.info(f"Hyperapras: {hparams}")
         train_parameter_estimator(
             model=model,
             train_loader=train_loader,
@@ -210,9 +241,9 @@ def main():
             optimizer=optimizer,
             logger=logger,
             criterion=criterion,
-            epochs=50,
-            checkpoint_dir=checkpoint_dir,
+            epochs=epochs,
             device=device,
+            hparams=hparams,
         )
 
     if eval_mode:
@@ -221,11 +252,10 @@ def main():
             logger.error("Checkpoint not found: %s", model_checkpoint_path)
             return
 
-        model = PhysicalParameterEstimator(n_features=5, n_params=3, hidden_dim=32)
         checkpoint = torch.load(model_checkpoint_path, map_location=device)
         model.load_state_dict(checkpoint["model_state_dict"])
         logger.info("Loaded checkpoint: %s", model_checkpoint_path)
-        evaluate_and_visualize_model(model, val_loader, device=device)
+        evaluate_and_visualize_model(model, val_loader, save_dir= LOGS_DIR / "train_param_estimator", device=device)
         logger.info("Evaluation finished")
 
 
