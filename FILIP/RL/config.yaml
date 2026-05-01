@@ -1,0 +1,32 @@
+base_agent:
+  learning_rate: 1e-3
+  gamma: 0.99
+  seed: 42
+  device: "gpu"
+
+dqn_agent:
+  buffer_size: 100000        
+  learning_starts: 1000       
+  
+  batch_size: 32               
+  train_freq: 1                
+  target_update_interval: 10000  
+  tau: 1.0                     
+  
+  exploration_fraction: 0.1   
+  exploration_initial_eps: 1.0 
+  exploration_final_eps: 0.05  
+  
+  policy: "MlpPolicy"      
+
+training:
+  total_timesteps: 100000
+  
+  num_eval_episodes: 10
+
+  deterministic_eval: true
+
+  save_interval: 10000
+
+  output_dir: "./checkpoints"
+
