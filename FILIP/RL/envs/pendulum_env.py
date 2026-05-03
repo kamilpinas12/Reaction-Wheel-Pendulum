@@ -14,6 +14,7 @@ class ReactionWheelEnv(gym.Env):
 
         self.action_num = 7
         self.action_space = spaces.Discrete(self.action_num)
+        self.torques = np.linspace(-0.9, 0.9, self.action_num)
         self.observation_space = spaces.Box(low=-np.inf, high=np.inf, shape=(4,), dtype=np.float32)
 
         # Constants from the nonlinear model
@@ -35,7 +36,7 @@ class ReactionWheelEnv(gym.Env):
         self.step_count = 0
         self.prev_u = 0.0
 
-        theta0 = self._angle_normalize(self.np_random.uniform(-0.25, 0.25))
+        theta0 = self.np_random.uniform(-0.25, 0.25)
         theta_dot0 = self.np_random.uniform(-0.1, 0.1)
         phi0 = self.np_random.uniform(-0.1, 0.1)
 
@@ -45,8 +46,7 @@ class ReactionWheelEnv(gym.Env):
     def step(self, action):
         self.step_count += 1
 
-        torques = np.linspace(-0.9, 0.9, self.action_num)
-        u_cmd = float(torques[action])
+        u_cmd = float(self.torques[action])
 
         self.prev_u = u_cmd
         self.state = self._rk4_step(self.state, u_cmd).astype(np.float32)

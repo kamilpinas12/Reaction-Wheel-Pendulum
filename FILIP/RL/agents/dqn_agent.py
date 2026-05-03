@@ -8,8 +8,8 @@ from utils.config_manager import get as cfg_get
 
 
 class DQNAgent(BaseAgent):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, env):
+        super().__init__(env)
         g = lambda k: cfg_get(f'dqn_agent.{k}')
         self.policy, self.buffer_size, self.learning_starts = g('policy'), g('buffer_size'), g('learning_starts')
         self.batch_size, self.target_update_interval = g('batch_size'), g('target_update_interval')

@@ -8,11 +8,9 @@ from utils.config_manager import get as cfg_get
 
 class BaseAgent(ABC):
 
-    def __init__(self):
-        self.env = cfg_get('base_agent.env')
-        # ensure numeric types for learning rate and gamma
-        lr = cfg_get('base_agent.learning_rate')
-        self.learning_rate = float(lr) if lr is not None else 1e-3
+    def __init__(self, env=None):
+        self.env = env
+        self.learning_rate = float(cfg_get('base_agent.learning_rate'))
         gm = cfg_get('base_agent.gamma')
         self.gamma = float(gm) if gm is not None else 0.99
         self.seed = cfg_get('base_agent.seed')

@@ -2,11 +2,7 @@ from pathlib import Path
 import yaml
 
 p=Path(__file__).resolve().parents[1]/"config.yaml"
-
-try:
-    CONFIG=yaml.safe_load(p.read_text())
-except Exception:
-    CONFIG={}
+CONFIG=yaml.safe_load(p.read_text())
     
 def get(key,default=None):
     d=CONFIG
