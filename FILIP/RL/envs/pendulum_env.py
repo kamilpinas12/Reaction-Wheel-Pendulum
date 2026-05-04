@@ -8,7 +8,7 @@ class ReactionWheelEnv(gym.Env):
 
         self.dt = 0.02
         self.u_max = 1.0
-        self.max_episode_steps = 500
+        self.max_episode_steps = 1000
         self.step_count = 0
         self.prev_u = 0.0
 
@@ -67,12 +67,28 @@ class ReactionWheelEnv(gym.Env):
     
     def _get_reward(self, state, u):
         theta, theta_dot, phi = state
+        err = abs(self._angle_normalize(theta - np.pi))
 
-        upright_reward = np.cos(theta + np.pi)
-        shaping_penalty = 0.01 * theta_dot**2 + 0.001 * phi**2 + 0.001 * u**2
-        near_upright_bonus = 2.0 if abs(self._angle_normalize(theta - np.pi)) < 0.3 and abs(theta_dot) < 1.5 else 0.0
-        
-        return upright_reward - shaping_penalty + near_upright_bonus
+        # 1. Primary Goal: Stay upright
+        # Increased weight to make it more attractive than spinning
+        upright_reward = 5.0 * np.exp(-3.0 * err)
+
+        # 2. Phi Penalty: ONLY penalty near the physical limit
+        phi_limit = 130.0
+        phi_penalty = 0.0
+        if abs(phi) > phi_limit:
+            phi_penalty = 0.1 * (abs(phi) - phi_limit)**2
+
+        # 3. Efficiency: Penalize spinning (The "Anti-Loop" penalty)
+        # This is the secret to stopping the multiple circles.
+        spinning_penalty = 0.1 * (theta_dot**2)
+
+        # 4. Stay-Still Bonus: High reward for being at the top AND stopped
+        stability_bonus = 0.0
+        if err < 0.1:
+            stability_bonus = 5.0 / (abs(theta_dot) + 0.1)
+
+        return upright_reward + stability_bonus - phi_penalty - spinning_penalty - (0.001 * u**2)
 
     def _dynamics(self, state, u):
         theta, theta_dot, phi = state

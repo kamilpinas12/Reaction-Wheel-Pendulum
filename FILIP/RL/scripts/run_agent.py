@@ -14,8 +14,9 @@ from utils.rollout import RolloutData, plot_rollout
 def main():
     env = ReactionWheelEnv()
     agent = DQNAgent(env)
+    seed = 123
 
-    training = cfg_get('training') or {}
+    training = cfg_get('training')
     checkpoint = Path(training.get('output_dir', './data')) / 'final.zip'
     if checkpoint.exists():
         agent.load(str(checkpoint))

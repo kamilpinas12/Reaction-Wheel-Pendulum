@@ -1,32 +1,32 @@
 base_agent:
-  learning_rate: 1e-3
+  learning_rate: 3e-4
   gamma: 0.99
   seed: 42
   device: "cuda"
 
 dqn_agent:
   buffer_size: 100000        
-  learning_starts: 1000       
+  learning_starts: 20000       
   
-  batch_size: 32               
+  batch_size: 128               
   train_freq: 1                
-  target_update_interval: 10000  
-  tau: 1.0                     
+  target_update_interval: 5000  
+  tau: 0.1                     
   
-  exploration_fraction: 0.1   
+  exploration_fraction: 0.8
   exploration_initial_eps: 1.0 
-  exploration_final_eps: 0.05  
+  exploration_final_eps: 0.1  
   
   policy: "MlpPolicy"      
 
 training:
-  total_timesteps: 100000
+  total_timesteps: 300000
   
   num_eval_episodes: 10
 
   deterministic_eval: true
 
-  save_interval: 10000
+  save_interval: 50000
 
   output_dir: "./data"
 
