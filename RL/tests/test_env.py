@@ -2,7 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from reac_wheel_sim.reaction_wheel_env import *
 from scipy.io import loadmat
-from config import LOGS_DIR
+from utils.custom_paths import LOGS_DIR
+import os
 
 import pytest
 import logging

@@ -1,7 +1,7 @@
 import logging
 import datetime
 import pytest
-import config
+import utils.custom_paths as custom_paths
 
 # Używamy hooka sesji, aby zapisać start sesji przez logger
 def pytest_sessionstart(session):

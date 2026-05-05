@@ -1,9 +1,6 @@
 import gymnasium as gym
 from gymnasium import spaces
 import numpy as np
-import matplotlib.pyplot as plt
-import os
-import torch
 
 
 class ReactionWheelEnv(gym.Env):
@@ -12,7 +9,7 @@ class ReactionWheelEnv(gym.Env):
 
         self.dt = 0.01
         self.u_max = 1.0
-        self.du_max = 0.5  # Increased from 0.08 to allow more aggressive control
+        self.du_max = 0.5
         self.max_episode_steps = 5000
         self.step_count = 0
         self.prev_u = 0.0
@@ -40,23 +37,23 @@ class ReactionWheelEnv(gym.Env):
 
         self.state = None
 
-
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)
         self.step_count = 0
         self.prev_u = 0.0
 
-        theta0 = self.np_random.uniform(-0.1, 0.1)
-        theta_dot0 = self.np_random.uniform(-0.1, 0.1)
-        phi0 = self.np_random.uniform(-0.1, 0.1)
+        # TODO move to wrapper
+        pend_pos = self.np_random.uniform(-0.1, 0.1)
+        pend_vel = self.np_random.uniform(-0.1, 0.1)
+        wheel_vel = self.np_random.uniform(-0.1, 0.1)
 
-        self.state = np.array([theta0, theta_dot0, phi0], dtype=np.float32)
+        self.state = np.array([pend_pos, pend_vel, wheel_vel], dtype=np.float32)
         return self._get_observation(), {}
 
     def _get_observation(self):
-        theta, theta_dot, phi = self.state
+        pend_pos, pend_vel, wheel_vel = self.state
         return np.array(
-            [np.sin(theta), np.cos(theta), theta_dot, phi, self.prev_u],
+            [np.sin(pend_pos), np.cos(pend_pos), pend_vel, wheel_vel, self.prev_u],
             dtype=np.float32,
         )
 
@@ -82,16 +79,27 @@ class ReactionWheelEnv(gym.Env):
     def step(self, action):
         self.step_count += 1
 
-        # Policy command (normalized to [-1, 1]) and physical command scaling.
+        # Preporcess action
         u_cmd = float(np.clip(action[0], -1.0, 1.0)) * self.u_max
-
-        # Slew-rate limiter to prevent direct min-max switching.
         u_low = self.prev_u - self.du_max
         u_high = self.prev_u + self.du_max
         u = float(np.clip(u_cmd, u_low, u_high))
-        self.state = self._rk4_step(self.state, u).astype(np.float32)
-        self.state[0] = (self.state[0])
 
+        # Env step
+        self.state = self._rk4_step(self.state, u).astype(np.float32)
+        self.state[0] = self.state[0]
+
+        reward = self.calcualate_reward(u)
+
+        # Safety termination only for clearly divergent trajectories.
+        # terminated = bool(abs(new_phi) > 150 or abs(new_theta_dot) > 30)
+        truncated = self.step_count >= self.max_episode_steps
+
+        delta_u = u - self.prev_u
+        info = {"u_cmd": u_cmd, "u_applied": u, "delta_u": delta_u}
+        return self._get_observation(), reward, False, truncated, info
+
+    def calcualate_reward(self, u):
         new_theta, new_theta_dot, new_phi = self.state
         delta_u = u - self.prev_u
         self.prev_u = u
@@ -107,59 +115,7 @@ class ReactionWheelEnv(gym.Env):
             + 0.05 * delta_u**2
         )
         near_upright_bonus = (
-            2.0
-            if abs((new_theta - np.pi)) < 0.3
-            and abs(new_theta_dot) < 1.5
-            else 0.0
+            2.0 if abs((new_theta - np.pi)) < 0.3 and abs(new_theta_dot) < 1.5 else 0.0
         )
         reward = upright_reward - shaping_penalty + near_upright_bonus
-
-        # Safety termination only for clearly divergent trajectories.
-        # terminated = bool(abs(new_phi) > 150 or abs(new_theta_dot) > 30)
-        truncated = self.step_count >= self.max_episode_steps
-
-        info = {"u_cmd": u_cmd, "u_applied": u, "delta_u": delta_u}
-        return self._get_observation(), reward, False, truncated, info
-
-
-class ParamRandomizationWrapper(gym.Wrapper):
-    def __init__(self, env, range_pct=0.2):
-        super().__init__(env)
-        self.range_pct = range_pct
-
-    def reset(self, **kwargs):
-        e = self.env.unwrapped
-        e.K_sin = e.nominal_params["K_sin"] * np.random.uniform(
-            1 - self.range_pct, 1 + self.range_pct
-        )
-        e.K_reac_wheel = e.nominal_params["K_reac_wheel"] * np.random.uniform(
-            1 - self.range_pct, 1 + self.range_pct
-        )
-        e.K_pend_vel = e.nominal_params["K_pend_vel"] * np.random.uniform(
-            1 - self.range_pct, 1 + self.range_pct
-        )
-
-        obs, info = self.env.reset(**kwargs)
-        info["ground_truth_params"] = np.array(
-            [e.K_sin, e.K_reac_wheel, e.K_pend_vel], dtype=np.float32
-        )
-
-        return obs, info
-
-
-class ObservationNoiseWrapper(gym.ObservationWrapper):
-    def __init__(self, env, noise_levels=None):
-        super().__init__(env)
-        if noise_levels is None:
-            # [sin(theta), cos(theta), theta_dot, phi, prev_u]
-            noise_levels = [0.01, 0.01, 0.01, 0.01, 0.0]
-        self.noise_levels = np.array(noise_levels, dtype=np.float32)
-        if self.noise_levels.shape != (self.observation_space.shape[0],):
-            raise ValueError(
-                "noise_levels must match observation dimension "
-                f"{self.observation_space.shape[0]}"
-            )
-
-    def observation(self, obs):
-        noise = np.random.normal(0, self.noise_levels)
-        return (obs + noise).astype(np.float32)
+        return reward

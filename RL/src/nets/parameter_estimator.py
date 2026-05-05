@@ -1,6 +1,6 @@
 import numpy as np
 import torch.nn as nn
-
+from torch.nn.utils.rnn import pack_padded_sequence
 
 
 class ParamEstimatorGRU(nn.Module):
@@ -27,8 +27,12 @@ class ParamEstimatorLSTM(nn.Module):
             nn.Linear(fc_dim, n_params),
         )
 
-    def forward(self, x):
-        _, (h_n, _) = self.lstm(x)
+    def forward(self, x, lengths):
+        lengths_cpu = lengths.cpu()
+        packed_x = pack_padded_sequence(
+            x, lengths_cpu, batch_first=True, enforce_sorted=False
+        )
+        _, (h_n, _) = self.lstm(packed_x)
         return self.head(h_n[-1])
 
 class ParamEstimatorConv(nn.Module):
@@ -36,15 +40,15 @@ class ParamEstimatorConv(nn.Module):
         super(ParamEstimatorConv, self).__init__()
         self.features = nn.Sequential(
             nn.Conv1d(n_features, hidden_dim, kernel_size=5, padding=2),
+            nn.BatchNorm1d(hidden_dim),
             nn.ReLU(),
-            nn.Conv1d(hidden_dim, hidden_dim, kernel_size=3, padding=1),
-            nn.ReLU(),
-            nn.Conv1d(hidden_dim, hidden_dim, kernel_size=3, padding=1),
+            nn.Conv1d(hidden_dim, hidden_dim*2, kernel_size=3, padding=1),
+            nn.BatchNorm1d(hidden_dim*2),
             nn.ReLU(),
         )
         self.pool = nn.AdaptiveAvgPool1d(1)
         self.head = nn.Sequential(
-            nn.Linear(hidden_dim, fc_dim),
+            nn.Linear(hidden_dim*2, fc_dim),
             nn.ReLU(),
             nn.Linear(fc_dim, n_params),
         )

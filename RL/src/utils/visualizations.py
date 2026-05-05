@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import torch
 import numpy as np
 
-from config import LOGS_DIR
+from utils.custom_paths import LOGS_DIR
 
 
 def _get_logger(log_dir=None):
@@ -65,11 +65,11 @@ def evaluate_and_visualize_model(
     all_ground_truth = []
     
     with torch.no_grad():
-        for x_batch, y_batch in test_loader:
+        for x_batch, y_batch, lengths in test_loader:
             x_batch = x_batch.to(device)
             y_batch = y_batch.to(device)
             
-            y_pred = model(x_batch)
+            y_pred = model(x_batch, lengths)
             
             all_predictions.append(y_pred.cpu().numpy())
             all_ground_truth.append(y_batch.cpu().numpy())
@@ -174,3 +174,85 @@ def evaluate_and_visualize_model(
         "rmse": rmse_per_param,
         "r2": r2_per_param,
     }
+
+def visualize_dataset_samples(
+    dataset, 
+    n_samples: int = 4, 
+    save_path = None, 
+    show: bool = True
+):
+    """
+    Wizualizuje wybrane próbki z PendSimDataset.
+    
+    Args:
+        dataset: Instancja PendSimDataset.
+        n_samples: Liczba epizodów do narysowania (domyślnie 4).
+        save_path: Ścieżka do zapisu pliku (opcjonalna).
+        show: Czy wyświetlić wykres za pomocą plt.show() (domyślnie True).
+    """
+    if len(dataset) == 0:
+        logging.warning("Dataset jest pusty. Przerywam wizualizację.")
+        return
+
+    n_samples = min(int(n_samples), len(dataset))
+    fig, axes = plt.subplots(
+        n_samples, 4, 
+        figsize=(16, 3.5 * n_samples), 
+        sharex="col", 
+        squeeze=False
+    )
+
+    for row in range(n_samples):
+        # Odbieramy 3 wartości z nowego formatu datasetu
+        seq, target, valid_len = dataset[row]
+        
+        # Konwertujemy do numpy i odcinamy zera z paddingu
+        seq_np = seq.numpy()[:valid_len] 
+        target_np = target.numpy()
+        t = np.arange(valid_len)
+
+        # 1. Kolumna: Trig
+        axes[row, 0].plot(t, seq_np[:, 0], label="sin(theta)")
+        axes[row, 0].plot(t, seq_np[:, 1], label="cos(theta)")
+        axes[row, 0].set_ylabel("Trig")
+        
+        # 2. Kolumna: theta_dot
+        axes[row, 1].plot(t, seq_np[:, 2], label="theta_dot")
+        axes[row, 1].set_ylabel("theta_dot")
+        
+        # 3. Kolumna: phi
+        axes[row, 2].plot(t, seq_np[:, 3], label="phi")
+        axes[row, 2].set_ylabel("phi")
+        
+        # 4. Kolumna: Control (prev_u)
+        axes[row, 3].plot(t, seq_np[:, 4], label="prev_u", color="tab:orange")
+        axes[row, 3].set_ylabel("Control")
+
+        # Ustawienia estetyczne
+        for col in range(4):
+            axes[row, col].grid(True, alpha=0.3)
+            axes[row, col].legend(fontsize=8, loc="upper right")
+            
+        axes[row, 0].set_title(
+            f"Epizod {row} (len={valid_len}) | Cel: [{target_np[0]:.3f}, {target_np[1]:.3f}, {target_np[2]:.3f}]",
+            fontsize=10
+        )
+
+    # Etykiety osi X tylko na samym dole
+    for col in range(4):
+        axes[-1, col].set_xlabel("Krok symulacji")
+
+    fig.tight_layout()
+    
+    # Obsługa zapisu
+    if save_path is not None:
+        save_path = Path(save_path)
+        save_path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(save_path, dpi=150, bbox_inches="tight")
+        logging.info(f"Zapisano wizualizację do: {save_path}")
+
+    # Obsługa wyświetlania
+    if show:
+        plt.show()
+    else:
+        plt.close(fig)

@@ -1,57 +1,34 @@
 import os
+import shutil
 import logging
 from pathlib import Path
 
-import numpy as np
 import torch
 import torch.nn as nn
-from torch.utils.tensorboard import SummaryWriter
 from torch.utils.data import DataLoader, random_split
-from visualizations import *
-from torchinfo import summary
 
+# --- PYTORCH LIGHTNING IMPORTS ---
+import pytorch_lightning as pl
+from pytorch_lightning.callbacks import ModelCheckpoint, RichProgressBar
+from pytorch_lightning.loggers import TensorBoardLogger
+
+from utils.visualizations import *
 from reac_wheel_sim.pend_sim_dataset import PendSimDataset
+from reac_wheel_sim.reaction_wheel_env import ReactionWheelEnv
+from reac_wheel_sim.reaction_wheel_wrappers import *
 from reac_wheel_sim.signal_generator import SquareSignal, TrapezoidSignal
 
 from nets.parameter_estimator import *
-from config import LOGS_DIR, MODELS_DIR
-
-
-class ParameterNormalizer:
-    def __init__(self, min_vals, max_vals):
-        self.min_vals = np.asarray(min_vals, dtype=np.float32)
-        self.max_vals = np.asarray(max_vals, dtype=np.float32)
-        self.ranges = self.max_vals - self.min_vals
-
-    def normalize(self, params):
-        return (params - self.min_vals) / self.ranges
+from utils.custom_paths import LOGS_DIR, MODELS_DIR, DATASETS_DIR
+from utils.common import ParameterNormalizer, setup_file_logger
 
 
 def setup_training_logger(log_dir: Path) -> logging.Logger:
-    log_dir.mkdir(parents=True, exist_ok=True)
-    log_file = log_dir / "train.log"
-
-    logger = logging.getLogger("train_param_estimator")
-    logger.setLevel(logging.INFO)
-    logger.handlers.clear()
-
-    formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
-
-    file_handler = logging.FileHandler(log_file, mode="w", encoding="utf-8")
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
-
-    stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(formatter)
-    logger.addHandler(stream_handler)
-
-    logger.propagate = False
-    return logger
+    return setup_file_logger("train_param_estimator", log_dir / "train.log")
 
 
-def normalize_dataset_targets(dataset):
-    targets = torch.stack(dataset.targets).numpy()
-    normalizer = ParameterNormalizer(targets.min(axis=0), targets.max(axis=0))
+def normalize_dataset_targets(dataset, min_vals, max_vals):
+    normalizer = ParameterNormalizer(min_vals, max_vals)
     dataset.targets = [
         torch.from_numpy(normalizer.normalize(t.numpy())).float()
         for t in dataset.targets
@@ -59,205 +36,174 @@ def normalize_dataset_targets(dataset):
     return normalizer
 
 
-def train_parameter_estimator(
-    model,
-    train_loader,
-    val_loader,
-    optimizer,
-    logger,
-    criterion,
-    epochs=50,
-    device="cuda",
-    hparams=None,
-):
-    checkpoint_dir = LOGS_DIR / "train_param_estimator" / "checkpoints"
-    checkpoint_dir = Path(checkpoint_dir)
-    checkpoint_dir.mkdir(parents=True, exist_ok=True)
-    MODELS_DIR.mkdir(parents=True, exist_ok=True)
+# 1. TWORZENIE LIGHTNING MODULE
+class LitParamEstimator(pl.LightningModule):
+    def __init__(self, model: nn.Module, lr: float = 1e-3, hparams_dict: dict = None):
+        super().__init__()
+        self.model = model
+        self.lr = lr
+        self.criterion = nn.MSELoss()
+        
+        if hparams_dict:
+            self.save_hyperparameters(hparams_dict, ignore=['model'])
 
-    # Default TensorBoard directory: runs/
-    writer = SummaryWriter(comment="-ParamEstimator")
-    model.to(device)
-    train_losses, val_losses = [], []
-    best_val_loss, best_epoch = float("inf"), 0
+    def forward(self, x, lengths):
+        return self.model(x, lengths)
 
-    logger.info("Training started")
-    logger.info("Device: %s", device)
-    logger.info("Epochs: %d", epochs)
-    logger.info("Checkpoint directory: %s", checkpoint_dir)
-    logger.info("TensorBoard directory: runs/")
+    def training_step(self, batch, batch_idx):
+        x, y, lengths = batch 
+        y_hat = self(x, lengths)
+        loss = self.criterion(y_hat, y)
+        
+        self.log("train_loss", loss, on_step=False, on_epoch=True, prog_bar=True)
+        return loss
 
-    for epoch in range(1, epochs + 1):
-        model.train()
-        train_loss = 0.0
-        for x_batch, y_batch in train_loader:
-            x_batch, y_batch = x_batch.to(device), y_batch.to(device)
-            optimizer.zero_grad()
-            loss = criterion(model(x_batch), y_batch)
-            loss.backward()
-            optimizer.step()
-            train_loss += loss.item()
-        avg_train_loss = train_loss / max(1, len(train_loader))
+    def validation_step(self, batch, batch_idx):
+        x, y, lengths = batch
+        y_hat = self(x, lengths)
+        loss = self.criterion(y_hat, y)
+        
+        self.log("val_loss", loss, on_step=False, on_epoch=True, prog_bar=True)
+        return loss
 
-        model.eval()
-        val_loss = 0.0
-        with torch.no_grad():
-            for x_batch, y_batch in val_loader:
-                x_batch, y_batch = x_batch.to(device), y_batch.to(device)
-                val_loss += criterion(model(x_batch), y_batch).item()
-        avg_val_loss = val_loss / max(1, len(val_loader))
-
-        train_losses.append(avg_train_loss)
-        val_losses.append(avg_val_loss)
-        writer.add_scalar("loss/train", avg_train_loss, epoch)
-        writer.add_scalar("loss/val", avg_val_loss, epoch)
-        writer.add_scalar("lr", optimizer.param_groups[0]["lr"], epoch)
-
-        logger.info(
-            "Epoch %d/%d | train_loss=%.6f | val_loss=%.6f",
-            epoch,
-            epochs,
-            avg_train_loss,
-            avg_val_loss,
-        )
-
-        if avg_val_loss < best_val_loss:
-            best_val_loss, best_epoch = avg_val_loss, epoch
-            best_model_path = checkpoint_dir / "best_model.pt"
-            torch.save(
-                {
-                    "epoch": epoch,
-                    "model_state_dict": model.state_dict(),
-                    "optimizer_state_dict": optimizer.state_dict(),
-                    "best_val_loss": best_val_loss,
-                },
-                best_model_path,
-            )
-            logger.info(
-                "New best model at epoch %d | val_loss=%.6f | saved=%s",
-                epoch,
-                best_val_loss,
-                best_model_path,
-            )
-
-    writer.close()
-    best_checkpoint_path = checkpoint_dir / "best_model.pt"
-    if best_checkpoint_path.exists():
-        saved_model_path = MODELS_DIR / "best_model.pt"
-        checkpoint = torch.load(best_checkpoint_path, map_location="cpu")
-        torch.save(checkpoint, saved_model_path)
-        logger.info("Saved best model to: %s", saved_model_path)
-
-    logger.info(
-        "Training finished | best_epoch=%d | best_val_loss=%.6f",
-        best_epoch,
-        best_val_loss,
-    )
-    metrics = {
-        "hparam/val_loss": best_val_loss,
-    }
-    if hparams is not None:
-        writer.add_hparams(hparams, metrics)
-    return {
-        "train_losses": train_losses,
-        "val_losses": val_losses,
-        "best_epoch": best_epoch,
-        "best_val_loss": best_val_loss,
-    }
+    def configure_optimizers(self):
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.lr)
+        return optimizer
 
 
 def main():
     run_log_dir = LOGS_DIR / "train_param_estimator"
-    logger = setup_training_logger(run_log_dir)
-
+    run_log_dir.mkdir(parents=True, exist_ok=True)
+    MODELS_DIR.mkdir(parents=True, exist_ok=True)
+    
+    logger = setup_file_logger("train_param_estimator", LOGS_DIR / "train_param_estimator" / "train.log")
     logger.info("Initializing dataset and model")
 
     signals = [
         SquareSignal(amplitude_range=(0.2, 1.0)),
         TrapezoidSignal(amplitude_range=(0.2, 1.0)),
     ]
+    
     # HYPERPARAMETERS
-    seq_len = 128
-    n_epsiodes = 4000
-    lr = 1e-3
-    epochs = 50
-    hidden_dim = 32
-    fc_dim = 32
+    hparams = {
+        "model_arch": "LSTM",
+        "min_seq_len": 32,
+        "max_seq_len": 128,
+        "n_episodes": 2000,
+        "lr": 1e-3,
+        "epochs": 40,
+        "hidden_dim": 32,
+        "fc_dim": 64,
+        "batch_size": 32
+    }
+
+    K_sin_range = [-5, -4]
+    K_reac_wheel_range = [-0.02, -0.005]
+    K_pend_vel_range = [-0.2, -0.1]
+    noise_levels=[0.0, 0.0, 0.0, 0.0, 0.0]
+
+    env = ReactionWheelEnv()
+    env = ParamRandomizationWrapper(env, K_sin_range=K_sin_range, K_pend_vel_range=K_pend_vel_range, K_reac_wheel_range=K_reac_wheel_range)
+    env = ObservationNoiseWrapper(env, noise_levels=noise_levels)
 
     dataset = PendSimDataset(
-        n_episodes=n_epsiodes,
-        max_seq_len=seq_len,
-        range_pct=4.0,
-        noise_levels=[0.01, 0.01, 0.01, 0.01, 0.01],
+        n_episodes=hparams["n_episodes"],
+        min_seq_len=hparams["min_seq_len"],
+        max_seq_len=hparams["max_seq_len"],
+        env=env,
         signals=signals,
         seed=42,
+        cache_path=DATASETS_DIR / "pend_sim_dataset",
+        load_datast=False
     )
+    
     train_mode, eval_mode = True, True
-    normalize_dataset_targets(dataset)
+    target_normalizer = normalize_dataset_targets(
+        dataset,
+        min_vals=[K_sin_range[0], K_reac_wheel_range[0], K_pend_vel_range[0]],
+        max_vals=[K_sin_range[1], K_reac_wheel_range[1], K_pend_vel_range[1]],
+    )
 
     logger.info("Dataset size: %d", len(dataset))
-    logger.info("train_mode=%s, eval_mode=%s", train_mode, eval_mode)
 
-    train_size = int(0.7 * len(dataset))
+    train_size = int(0.8 * len(dataset))
     val_size = len(dataset) - train_size
     train_dataset, val_dataset = random_split(
         dataset, [train_size, val_size], generator=torch.Generator().manual_seed(42)
     )
-    train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
+    
+    train_loader = DataLoader(train_dataset, batch_size=hparams["batch_size"], shuffle=True, num_workers=4)
+    val_loader = DataLoader(val_dataset, batch_size=hparams["batch_size"], shuffle=False, num_workers=4)
 
-    model = ParamEstimatorGRU(
-        n_features=5, n_params=3, hidden_dim=hidden_dim, fc_dim=fc_dim
+    base_model = ParamEstimatorLSTM(
+        n_features=5, n_params=3, hidden_dim=hparams["hidden_dim"], fc_dim=hparams["fc_dim"]
     )
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    criterion = nn.MSELoss()
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    checkpoint_dir = run_log_dir / "checkpoints"
+    
+    lit_model = LitParamEstimator(model=base_model, lr=hparams["lr"], hparams_dict=hparams)
 
-    # log model
-    example_batch, _ = next(iter(train_loader))
-    input_shape = example_batch.shape
-    model_stats = summary(model, input_size=input_shape, verbose=0)
-    summary_str = str(model_stats)
-    logger.info(f"Model Summary:\n{summary_str}")
+    # 2. KONFIGURACJA CALLBACKÓW I LOGGERÓW
+    checkpoint_callback = ModelCheckpoint(
+        dirpath=run_log_dir / "checkpoints",
+        filename="best_model-{epoch:02d}-{val_loss:.4f}",
+        save_top_k=1,
+        monitor="val_loss",
+        mode="min",
+    )
+    
+    tb_logger = TensorBoardLogger(save_dir="runs/", name="ParamEstimator")
+
+    # 3. TWORZENIE TRAINERA
+    trainer = pl.Trainer(
+        max_epochs=hparams["epochs"],
+        logger=tb_logger,
+        callbacks=[checkpoint_callback, RichProgressBar()],
+        accelerator="auto", # Automatycznie wybiera cuda/mps/cpu
+        devices="auto",
+        log_every_n_steps=10,
+    )
 
     if train_mode:
-        hparams = {
-            "Model": "GRU",
-            "hidden_dim": hidden_dim,
-            "fc_dim": fc_dim,
-            "seq_length": seq_len,
-            "n_episodes_in_epoch": n_epsiodes,
-            "epochs": epochs,
-            "criterion": "MSELOSS",
-            "optimizer": "Adam",
-            "lr": lr,
-        }
-        logger.info(f"Hyperapras: {hparams}")
-        train_parameter_estimator(
-            model=model,
-            train_loader=train_loader,
-            val_loader=val_loader,
-            optimizer=optimizer,
-            logger=logger,
-            criterion=criterion,
-            epochs=epochs,
-            device=device,
-            hparams=hparams,
-        )
+        logger.info(f"Hyperparams: {hparams}")
+        logger.info("Starting PyTorch Lightning training...")
+        
+        # Ta jedna linijka odpala całą pętlę!
+        trainer.fit(model=lit_model, train_dataloaders=train_loader, val_dataloaders=val_loader)
+        
+        best_model_path = checkpoint_callback.best_model_path
+        logger.info(f"Training finished. Best model saved at: {best_model_path}")
+        
+        # Kopiujemy najlepszy model do głównego folderu
+        if best_model_path:
+            saved_model_path = MODELS_DIR / "best_model.pt"
+            shutil.copy(best_model_path, saved_model_path)
+            logger.info(f"Copied best model to: {saved_model_path}")
 
     if eval_mode:
-        model_checkpoint_path = checkpoint_dir / "best_model.pt"
-        if not model_checkpoint_path.exists():
-            logger.error("Checkpoint not found: %s", model_checkpoint_path)
+        logger.info("Evaluation started...")
+        
+        model_path = MODELS_DIR / "best_model.pt"
+        if not model_path.exists():
+            logger.error(f"Model not found at {model_path}")
             return
 
-        checkpoint = torch.load(model_checkpoint_path, map_location=device)
-        model.load_state_dict(checkpoint["model_state_dict"])
-        logger.info("Loaded checkpoint: %s", model_checkpoint_path)
-        evaluate_and_visualize_model(model, val_loader, save_dir= LOGS_DIR / "train_param_estimator", device=device)
+        # Wczytywanie z checkpointu (Lightning sam wczytuje wagi)
+        lit_model = LitParamEstimator.load_from_checkpoint(
+            checkpoint_path=str(model_path), 
+            model=base_model
+        )
+        
+        lit_model.eval()
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        lit_model.to(device)
+        
+        evaluate_and_visualize_model(
+            lit_model.model, # Wyciągamy czysty model PyTorch (bez Lit-otoczki) dla Twojej funkcji wizualizacji
+            val_loader,
+            normalizer=target_normalizer,
+            save_dir=run_log_dir,
+            device=str(device),
+        )
         logger.info("Evaluation finished")
-
 
 if __name__ == "__main__":
     main()
