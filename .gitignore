@@ -3,3 +3,9 @@ slprj
 work_in_progress
 *.asv
 *venv
+__pycache__
+.env
+logs
+models
+runs
+RL/datasets

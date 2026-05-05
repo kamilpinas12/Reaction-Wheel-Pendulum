@@ -1,0 +1,119 @@
+2026-04-27 09:07:10,478 [INFO] Initializing dataset and model
+2026-04-27 09:07:31,949 [INFO] Dataset size: 4000
+2026-04-27 09:07:31,949 [INFO] train_mode=True, eval_mode=True
+2026-04-27 09:07:33,126 [INFO] Model Summary:
+==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+ParamEstimatorGRU                        [32, 3]                   --
+├─GRU: 1-1                               [32, 128, 32]             10,080
+├─Sequential: 1-2                        [32, 3]                   --
+│    └─Linear: 2-1                       [32, 32]                  1,056
+│    └─ReLU: 2-2                         [32, 32]                  --
+│    └─Linear: 2-3                       [32, 3]                   99
+==========================================================================================
+Total params: 11,235
+Trainable params: 11,235
+Non-trainable params: 0
+Total mult-adds (Units.MEGABYTES): 41.32
+==========================================================================================
+Input size (MB): 0.08
+Forward/backward pass size (MB): 1.06
+Params size (MB): 0.04
+Estimated Total Size (MB): 1.18
+==========================================================================================
+2026-04-27 09:07:33,126 [INFO] Hyperapras: {'Model': 'GRU', 'hidden_dim': 32, 'fc_dim': 32, 'seq_length': 128, 'n_episodes_in_epoch': 4000, 'epochs': 50, 'criterion': 'MSELOSS', 'optimizer': 'Adam', 'lr': 0.001}
+2026-04-27 09:07:33,128 [INFO] Training started
+2026-04-27 09:07:33,128 [INFO] Device: cuda
+2026-04-27 09:07:33,128 [INFO] Epochs: 50
+2026-04-27 09:07:33,128 [INFO] Checkpoint directory: /home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints
+2026-04-27 09:07:33,128 [INFO] TensorBoard directory: runs/
+2026-04-27 09:07:33,581 [INFO] Epoch 1/50 | train_loss=0.102748 | val_loss=0.081775
+2026-04-27 09:07:33,585 [INFO] New best model at epoch 1 | val_loss=0.081775 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:33,908 [INFO] Epoch 2/50 | train_loss=0.080807 | val_loss=0.077114
+2026-04-27 09:07:33,911 [INFO] New best model at epoch 2 | val_loss=0.077114 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:34,237 [INFO] Epoch 3/50 | train_loss=0.074060 | val_loss=0.070009
+2026-04-27 09:07:34,241 [INFO] New best model at epoch 3 | val_loss=0.070009 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:34,564 [INFO] Epoch 4/50 | train_loss=0.067699 | val_loss=0.063885
+2026-04-27 09:07:34,567 [INFO] New best model at epoch 4 | val_loss=0.063885 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:34,888 [INFO] Epoch 5/50 | train_loss=0.063064 | val_loss=0.061115
+2026-04-27 09:07:34,891 [INFO] New best model at epoch 5 | val_loss=0.061115 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:35,211 [INFO] Epoch 6/50 | train_loss=0.059411 | val_loss=0.055749
+2026-04-27 09:07:35,215 [INFO] New best model at epoch 6 | val_loss=0.055749 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:35,540 [INFO] Epoch 7/50 | train_loss=0.055721 | val_loss=0.052667
+2026-04-27 09:07:35,543 [INFO] New best model at epoch 7 | val_loss=0.052667 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:35,860 [INFO] Epoch 8/50 | train_loss=0.051785 | val_loss=0.049672
+2026-04-27 09:07:35,864 [INFO] New best model at epoch 8 | val_loss=0.049672 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:36,187 [INFO] Epoch 9/50 | train_loss=0.048820 | val_loss=0.049096
+2026-04-27 09:07:36,190 [INFO] New best model at epoch 9 | val_loss=0.049096 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:36,510 [INFO] Epoch 10/50 | train_loss=0.046442 | val_loss=0.048053
+2026-04-27 09:07:36,513 [INFO] New best model at epoch 10 | val_loss=0.048053 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:36,837 [INFO] Epoch 11/50 | train_loss=0.044932 | val_loss=0.046672
+2026-04-27 09:07:36,841 [INFO] New best model at epoch 11 | val_loss=0.046672 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:37,158 [INFO] Epoch 12/50 | train_loss=0.043639 | val_loss=0.042850
+2026-04-27 09:07:37,161 [INFO] New best model at epoch 12 | val_loss=0.042850 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:37,487 [INFO] Epoch 13/50 | train_loss=0.042438 | val_loss=0.043679
+2026-04-27 09:07:37,806 [INFO] Epoch 14/50 | train_loss=0.041084 | val_loss=0.041130
+2026-04-27 09:07:37,810 [INFO] New best model at epoch 14 | val_loss=0.041130 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:38,134 [INFO] Epoch 15/50 | train_loss=0.040634 | val_loss=0.041260
+2026-04-27 09:07:38,455 [INFO] Epoch 16/50 | train_loss=0.039834 | val_loss=0.040075
+2026-04-27 09:07:38,458 [INFO] New best model at epoch 16 | val_loss=0.040075 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:38,785 [INFO] Epoch 17/50 | train_loss=0.039142 | val_loss=0.041670
+2026-04-27 09:07:39,108 [INFO] Epoch 18/50 | train_loss=0.038818 | val_loss=0.039487
+2026-04-27 09:07:39,111 [INFO] New best model at epoch 18 | val_loss=0.039487 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:39,440 [INFO] Epoch 19/50 | train_loss=0.038628 | val_loss=0.040818
+2026-04-27 09:07:39,761 [INFO] Epoch 20/50 | train_loss=0.039460 | val_loss=0.040519
+2026-04-27 09:07:40,087 [INFO] Epoch 21/50 | train_loss=0.037761 | val_loss=0.040851
+2026-04-27 09:07:40,406 [INFO] Epoch 22/50 | train_loss=0.037358 | val_loss=0.038159
+2026-04-27 09:07:40,410 [INFO] New best model at epoch 22 | val_loss=0.038159 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:40,730 [INFO] Epoch 23/50 | train_loss=0.036675 | val_loss=0.038037
+2026-04-27 09:07:40,733 [INFO] New best model at epoch 23 | val_loss=0.038037 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:41,053 [INFO] Epoch 24/50 | train_loss=0.036508 | val_loss=0.042047
+2026-04-27 09:07:41,372 [INFO] Epoch 25/50 | train_loss=0.036652 | val_loss=0.037554
+2026-04-27 09:07:41,375 [INFO] New best model at epoch 25 | val_loss=0.037554 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:41,695 [INFO] Epoch 26/50 | train_loss=0.036377 | val_loss=0.037635
+2026-04-27 09:07:42,021 [INFO] Epoch 27/50 | train_loss=0.035883 | val_loss=0.038375
+2026-04-27 09:07:42,343 [INFO] Epoch 28/50 | train_loss=0.035847 | val_loss=0.038203
+2026-04-27 09:07:42,671 [INFO] Epoch 29/50 | train_loss=0.035277 | val_loss=0.038226
+2026-04-27 09:07:42,992 [INFO] Epoch 30/50 | train_loss=0.035203 | val_loss=0.038541
+2026-04-27 09:07:43,324 [INFO] Epoch 31/50 | train_loss=0.034883 | val_loss=0.039166
+2026-04-27 09:07:43,648 [INFO] Epoch 32/50 | train_loss=0.035010 | val_loss=0.038159
+2026-04-27 09:07:43,972 [INFO] Epoch 33/50 | train_loss=0.034472 | val_loss=0.036678
+2026-04-27 09:07:43,986 [INFO] New best model at epoch 33 | val_loss=0.036678 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:44,306 [INFO] Epoch 34/50 | train_loss=0.033815 | val_loss=0.036972
+2026-04-27 09:07:44,628 [INFO] Epoch 35/50 | train_loss=0.034040 | val_loss=0.037498
+2026-04-27 09:07:44,951 [INFO] Epoch 36/50 | train_loss=0.033707 | val_loss=0.036885
+2026-04-27 09:07:45,272 [INFO] Epoch 37/50 | train_loss=0.033923 | val_loss=0.036741
+2026-04-27 09:07:45,592 [INFO] Epoch 38/50 | train_loss=0.033492 | val_loss=0.036917
+2026-04-27 09:07:45,918 [INFO] Epoch 39/50 | train_loss=0.033297 | val_loss=0.037782
+2026-04-27 09:07:46,237 [INFO] Epoch 40/50 | train_loss=0.032916 | val_loss=0.036972
+2026-04-27 09:07:46,557 [INFO] Epoch 41/50 | train_loss=0.032559 | val_loss=0.036233
+2026-04-27 09:07:46,560 [INFO] New best model at epoch 41 | val_loss=0.036233 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:46,879 [INFO] Epoch 42/50 | train_loss=0.032590 | val_loss=0.036705
+2026-04-27 09:07:47,206 [INFO] Epoch 43/50 | train_loss=0.032746 | val_loss=0.036736
+2026-04-27 09:07:47,526 [INFO] Epoch 44/50 | train_loss=0.032551 | val_loss=0.037078
+2026-04-27 09:07:47,848 [INFO] Epoch 45/50 | train_loss=0.031833 | val_loss=0.036184
+2026-04-27 09:07:47,851 [INFO] New best model at epoch 45 | val_loss=0.036184 | saved=/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:48,174 [INFO] Epoch 46/50 | train_loss=0.031717 | val_loss=0.037573
+2026-04-27 09:07:48,498 [INFO] Epoch 47/50 | train_loss=0.032118 | val_loss=0.037634
+2026-04-27 09:07:48,821 [INFO] Epoch 48/50 | train_loss=0.031718 | val_loss=0.036275
+2026-04-27 09:07:49,144 [INFO] Epoch 49/50 | train_loss=0.031230 | val_loss=0.037213
+2026-04-27 09:07:49,471 [INFO] Epoch 50/50 | train_loss=0.031839 | val_loss=0.036586
+2026-04-27 09:07:49,477 [INFO] Saved best model to: /home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/models/best_model.pt
+2026-04-27 09:07:49,477 [INFO] Training finished | best_epoch=45 | best_val_loss=0.036184
+2026-04-27 09:07:49,488 [INFO] Loaded checkpoint: /home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/checkpoints/best_model.pt
+2026-04-27 09:07:49,524 [INFO] Evaluation on 1200 test samples
+2026-04-27 09:07:49,524 [INFO] ============================================================
+2026-04-27 09:07:49,524 [INFO] Evaluation Metrics (Original Scale)
+2026-04-27 09:07:49,524 [INFO] ============================================================
+2026-04-27 09:07:49,524 [INFO]           K_sin | MAE:   0.1005 | RMSE:   0.1326 | R2:  0.7848
+2026-04-27 09:07:49,525 [INFO]    K_reac_wheel | MAE:   0.0635 | RMSE:   0.0829 | R2:  0.9161
+2026-04-27 09:07:49,525 [INFO]      K_pend_vel | MAE:   0.2461 | RMSE:   0.2900 | R2: -0.0246
+2026-04-27 09:07:49,525 [INFO] ============================================================
+2026-04-27 09:07:49,525 [INFO] Overall Metrics
+2026-04-27 09:07:49,525 [INFO] ============================================================
+2026-04-27 09:07:49,525 [INFO] Mean MAE:  0.136709
+2026-04-27 09:07:49,525 [INFO] Mean RMSE: 0.168496
+2026-04-27 09:07:49,525 [INFO] Mean R2:   0.558763
+2026-04-27 09:07:50,426 [INFO] Saved evaluation plot to: /home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/logs/train_param_estimator/model_evaluation.png
+2026-04-27 09:07:50,434 [INFO] Evaluation finished

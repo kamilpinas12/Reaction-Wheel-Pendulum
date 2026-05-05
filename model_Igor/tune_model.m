@@ -1,10 +1,12 @@
 clear all; clc;
-addpath ../Identyfikacja_dane/
+% addpath ./data/31_03/
+addpath ./data/14_04/
 
 % --- 1. ŁADOWANIE I PRZYGOTOWANIE OBU ZESTAWÓW DANYCH ---
-files = {'square_2.mat', 'square_3.mat'};
+% files = {'drgania_wlasne_bez_ciezarka.mat'};
+files = {'ident_ster_bez_ciezarka.mat', 'ident_ster_bez_ciezarka_sawtooth.mat'};
 startSample = 10;
-maxTime = 25; % OGRANICZENIE CZASU DO 25 SEKUND
+maxTime = 30; % OGRANICZENIE CZASU DO 25 SEKUND
 ds = struct(); % Struktura na dane pomocnicze
 
 for i = 1:length(files)
@@ -16,53 +18,74 @@ for i = 1:length(files)
     full_ctrl = data.StateData.signals(1).values(startSample:end);
     full_pos = data.StateData.signals(3).values(startSample:end);
     
+    % === DODANY FILTR DOLNOPRZEPUSTOWY ===
+    % 1. Obliczamy częstotliwość próbkowania na podstawie wektora czasu
+    Ts = mean(diff(full_t)); 
+    Fs = 1/Ts; 
+    
+    % 2. Parametry filtru (Filtr Butterwortha 2. rzędu)
+    fc = 10; % Częstotliwość odcięcia w Hz (możesz to zmienić, np. od 5 do 20)
+    [b, a] = butter(2, fc/(Fs/2), 'low'); 
+    
+    % 3. Filtrowanie zero-fazowe sygnału sterującego
+    full_ctrl_filtered = filtfilt(b, a, full_ctrl);
+    
     % FILTROWANIE DO 25 SEKUND
     idx = full_t <= maxTime;
-    ds(i).t = full_t(idx);
+    t_trimmed = full_t(idx);
+    ctrl_trimmed = full_ctrl_filtered(idx);
+    
+    input_matrix = zeros(length(t_trimmed), 6);
+    % Wstawiamy sygnał sterujący do pierwszej kolumny (tak jak w działającym kodzie)
+    input_matrix(:, 1) = ctrl_trimmed; 
+    
+    ds(i).t = t_trimmed;
     ds(i).vel_target = full_vel(idx);
+    ds(i).simin = timeseries(input_matrix, t_trimmed);
     
-    % Przygotowanie sygnału sterującego dla przyciętego czasu
-    ds(i).simin = timeseries(full_ctrl(idx), ds(i).t);
-    
-    % Warunki początkowe (z momentu startSample)
+    % Warunki początkowe
     ds(i).x0 = [full_vel(1), full_pos(1)];
 end
 
 % Stałe flagi
 withMotor = 1;
-useSignForFrict = 0;
+useSignForFrict = 1;
 
 % --- 2. PARAMETRY POCZĄTKOWE ---
 % [Gu, Gfi, G_t, G_tp, G_fii]
+
 Gu      = 457.443480;
 Gfi     = -1.045953;
-G_t     = 4.097306;
-G_tp    = -0.152144;
-G_fii   = -0.008456;
-p0 = [Gu, Gfi, G_t, G_tp, G_fii];
+G_t     = 27.311296;
+G_tp    = -0.059984;
+G_fii   = -0.010594;
+p0 = [G_t, G_tp, G_fii];
 
 % --- 3. OPTYMALIZACJA ---
-options = optimset('Display', 'iter', 'TolX', 1e-4, 'MaxFunEvals', 1000);
-
-fprintf('Rozpoczynam optymalizację na zestawach: %s i %s...\n', files{1}, files{2});
+options = optimset('Display', 'iter', ...
+                   'TolX', 1e-4, ...    % Znacznie mniejsza tolerancja na zmianę parametrów
+                   'TolFun', 1e-4, ... % Znacznie mniejsza tolerancja na zmianę błędu
+                   'MaxFunEvals', 1000);
 
 % Przekazujemy strukturę 'ds' do funkcji kosztu
+
 [p_opt, fval] = fminsearch(@(p) cost_function_multi(p, ds, withMotor, useSignForFrict), p0, options);
 
 % --- 4. WYŚWIETLENIE I PRINTOWANIE PARAMETRÓW ---
 fprintf('\n\n');
 fprintf(' OPTYMALIZACJA ZAKOŃCZONA \n');
 fprintf('\n');
-fprintf('Gu      = %.6f\n', p_opt(1));
-fprintf('Gfi     = %.6f\n', p_opt(2));
-fprintf('G_t     = %.6f\n', p_opt(3));
-fprintf('G_tp    = %.6f\n', p_opt(4));
-fprintf('G_fii   = %.6f\n', p_opt(5));
+% fprintf('Gu      = %.6f\n', p_opt(1));
+% fprintf('Gfi     = %.6f\n', p_opt(2));
+fprintf('G_t     = %.6f\n', p_opt(1));
+fprintf('G_tp    = %.6f\n', p_opt(2));
+fprintf('G_fii   = %.6f\n', p_opt(3));
 fprintf('\n');
-
+K = [0,0,0];
+SP = [0,0,0];
 % Opcjonalnie: Symulacja sprawdzająca dla obu zestawów po optymalizacji
 figure('Name', 'Weryfikacja po optymalizacji');
-for i = 1:2
+for i = 1:length(files)
     cost_function_multi(p_opt, ds, withMotor, useSignForFrict); % Ustaw parametry w Base
     assignin('base', 'simin', ds(i).simin);
     assignin('base', 'x0_state', ds(i).x0);
@@ -78,11 +101,12 @@ end
 %% --- FUNKCJA KOSZTU DLA WIELU ZESTAWÓW ---
 function J_total = cost_function_multi(p, ds, withMotor, useSignForFrict)
     % 1. Wrzucamy parametry fizyczne do Base Workspace (wspólne dla obu symulacji)
-    assignin('base', 'Gu', p(1));
-    assignin('base', 'Gfi', p(2));
-    assignin('base', 'G_t', p(3));
-    assignin('base', 'G_tp', p(4));
-    assignin('base', 'G_fii', p(5));
+
+    % assignin('base', 'Gu', p(1));
+    % assignin('base', 'Gfi', p(2));
+    assignin('base', 'G_t', p(1));
+    assignin('base', 'G_tp', p(2));
+    assignin('base', 'G_fii', p(3));
     assignin('base', 'withMotor', withMotor);
     assignin('base', 'useSignForFrict', useSignForFrict);
     
@@ -107,7 +131,8 @@ function J_total = cost_function_multi(p, ds, withMotor, useSignForFrict)
             % Sumowanie błędu MSE dla tego zestawu
             J_total = J_total + sum((ds(i).vel_target - sim_v_interp).^2);
             
-        catch
+        catch ME
+            disp(['Błąd symulacji: ', ME.message]);
             J_total = J_total + 1e15; % Kara za błąd w którejkolwiek symulacji
         end
     end
