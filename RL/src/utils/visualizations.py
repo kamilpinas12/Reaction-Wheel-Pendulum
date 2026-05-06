@@ -212,20 +212,19 @@ def visualize_dataset_samples(
         t = np.arange(valid_len)
 
         # 1. Kolumna: Trig
-        axes[row, 0].plot(t, seq_np[:, 0], label="sin(theta)")
-        axes[row, 0].plot(t, seq_np[:, 1], label="cos(theta)")
-        axes[row, 0].set_ylabel("Trig")
+        axes[row, 0].plot(t, seq_np[:, 0], label="theta")
+        axes[row, 0].set_ylabel("Pend pos")
         
         # 2. Kolumna: theta_dot
-        axes[row, 1].plot(t, seq_np[:, 2], label="theta_dot")
+        axes[row, 1].plot(t, seq_np[:, 1], label="theta_dot")
         axes[row, 1].set_ylabel("theta_dot")
         
         # 3. Kolumna: phi
-        axes[row, 2].plot(t, seq_np[:, 3], label="phi")
+        axes[row, 2].plot(t, seq_np[:, 2], label="phi")
         axes[row, 2].set_ylabel("phi")
         
         # 4. Kolumna: Control (prev_u)
-        axes[row, 3].plot(t, seq_np[:, 4], label="prev_u", color="tab:orange")
+        axes[row, 3].plot(t, seq_np[:, 3], label="prev_u", color="tab:orange")
         axes[row, 3].set_ylabel("Control")
 
         # Ustawienia estetyczne

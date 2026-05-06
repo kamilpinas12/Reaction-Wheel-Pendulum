@@ -38,7 +38,7 @@ class ObservationNoiseWrapper(gym.ObservationWrapper):
         super().__init__(env)
         if noise_levels is None:
             # [sin(theta), cos(theta), theta_dot, phi, prev_u]
-            noise_levels = [0.0, 0.0, 0.0, 0.0, 0.0]
+            noise_levels = [0.0, 0.0, 0.0, 0.0]
         self.noise_levels = np.array(noise_levels, dtype=np.float32)
         if self.noise_levels.shape != (self.observation_space.shape[0],):
             raise ValueError(
@@ -49,3 +49,25 @@ class ObservationNoiseWrapper(gym.ObservationWrapper):
     def observation(self, obs):
         noise = np.random.normal(0, self.noise_levels)
         return (obs + noise).astype(np.float32)
+
+
+class RandomInitialStateWrapper(gym.Wrapper):
+    def __init__(self, env, initial_states=None):
+        super().__init__(env)
+        if initial_states is None:
+            # [pend_pos, pend_vel, wheel_vel]
+            initial_states = [0.0, 0.0, 0.0]
+        self.initial_states = initial_states
+
+    def reset(self, seed=None, options=None):
+        obs, info = self.env.reset(seed=seed, options=options)
+
+        pend_pos = self.np_random.uniform(-self.initial_states[0], self.initial_states[0])
+        pend_vel = self.np_random.uniform(-self.initial_states[1], self.initial_states[1])
+        wheel_vel = self.np_random.uniform(-self.initial_states[2], self.initial_states[2])
+
+        new_state = np.array([pend_pos, pend_vel, wheel_vel], dtype=np.float32)
+        self.env.unwrapped.state = new_state
+        observation = self.env.unwrapped._get_observation()
+
+        return observation, info

@@ -24,7 +24,7 @@ def test_dataset_generation_and_visualization():
         K_reac_wheel_range=[-0.02, -0.005],
         K_pend_vel_range=[-0.2, -0.01]
     )
-    env = ObservationNoiseWrapper(env, noise_levels=[0.0, 0.0, 0.0, 0.0, 0.0])
+    env = ObservationNoiseWrapper(env, noise_levels=[0.0, 0.0, 0.0, 0.0])
 
     try:
         dataset = PendSimDataset(

@@ -43,6 +43,8 @@ def load_matlab_data(file_path, start_sample=0):
     
     return data_dict
 
+def _angle_normalize(angle):
+    return (angle + np.pi) % (2.0 * np.pi) - np.pi
 
 def compare_real_vs_sim(mat_file_path, start_sample=0, save_path=None, show=False):
     real_data = load_matlab_data(mat_file_path, start_sample=start_sample)
@@ -62,11 +64,6 @@ def compare_real_vs_sim(mat_file_path, start_sample=0, save_path=None, show=Fals
     env.step_count = 0
     env.max_episode_steps = max(env.max_episode_steps, len(u_real) + 1)
 
-    # Model parameters
-    env.K_sin = -27.311296
-    env.K_pend_vel = -0.059984
-    env.K_reac_wheel = -0.010594
-
     sim_theta = []
     sim_theta_dot = []
     sim_disk_vel = []
@@ -75,11 +72,11 @@ def compare_real_vs_sim(mat_file_path, start_sample=0, save_path=None, show=Fals
     for u in u_real:
         obs, _, terminated, truncated, _ = env.step(np.array([u], dtype=np.float32))
 
-        theta = np.arctan2(obs[0], obs[1])
-        ctrl_vec.append(obs[4])
+        theta = _angle_normalize(obs[0])
+        ctrl_vec.append(obs[3])
         sim_theta.append(theta)
-        sim_theta_dot.append(obs[2])
-        sim_disk_vel.append(obs[3])
+        sim_theta_dot.append(obs[1])
+        sim_disk_vel.append(obs[2])
 
         if terminated or truncated:
             logging.info("Symulacja zakończona wcześniej przez środowisko gym.")
@@ -128,7 +125,7 @@ def compare_real_vs_sim(mat_file_path, start_sample=0, save_path=None, show=Fals
     # Wykres prędkości koła
     axs[3].plot(t_real, real_data["u"], "k--", alpha=0.8)
     axs[3].plot(t_real, ctrl_vec, "b-", alpha=0.5)
-    axs[3].set_ylabel("Prędkość koła [rad/s]")
+    axs[3].set_ylabel("Sygnał sterujący [rad/s]")
     axs[3].set_xlabel("Czas [s]")
     axs[3].grid(True)
 
@@ -148,9 +145,9 @@ def compare_real_vs_sim(mat_file_path, start_sample=0, save_path=None, show=Fals
 
 def test_env_sim():
     rmse_theta = compare_real_vs_sim(
-        "/home/igorsiata/studia/Reaction-Wheel-Pendulum/data/14_04/ident_ster_bez_ciezarka.mat",
+        "/home/igorsiata/studia/Reaction-Wheel-Pendulum/data/square_1.mat",
         start_sample=10,
-        save_path=LOGS_DIR / "pytest" / "test_env_sim_real_data.png",
+        save_path=LOGS_DIR / "pytest" / "test_env_sim_real_data_1.png",
         show=False
     )
     logging.info(rmse_theta)
