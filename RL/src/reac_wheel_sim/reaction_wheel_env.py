@@ -41,7 +41,7 @@ class ReactionWheelEnv(gym.Env):
         return (angle + np.pi) % (2.0 * np.pi) - np.pi
 
     def reset(self, seed=None, options=None):
-        super().reset(seed=seed)
+        super().reset(seed=seed, options=options)
         self.step_count = 0
         self.prev_u = 0.0
 

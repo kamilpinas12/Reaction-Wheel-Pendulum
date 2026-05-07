@@ -1,33 +1,93 @@
 import gymnasium as gym
 import numpy as np
+from itertools import product
 from reac_wheel_sim.reaction_wheel_env import ReactionWheelEnv
 
+
+''''
+Zamiast ustawiania zakresów zrobiłem maksymalne zakresy zhardkodowane, a do konfiguracji jest 
+procent ( od 0 do 1 ) tego jak daleko mozemy oddalać się od nominalnych wartości. Po przejściu do 
+parametrów fizycznych tarcie jest w miare stałe a te dwa pozostałe parametry są dość dobrze skorelowane
+więc jest parametr do tego w jakim procencie pozwalamy na oddalanie się ciężarka od nominalnej pozycji. 
+Klasa zadba o to żeby te parametry zawsze były skorelowane. Wyobrażam sobie że będzie to wyglądać tak że 
+w trakcie treningu będziemy sobie zwiększać tylko te liczby procentowe zamiast przejmować się 
+sensownym zmienianiem zakresów poza tym wrapperem. 
+'''
 class ParamRandomizationWrapper(gym.Wrapper):
+    NOMINAL = {"Ip": 0.028093, "f": 0.002439, "ml": 0.019931}
+    BOUNDARY = {"Ip": 0.0199, "f": 0.00214, "ml": 0.0553}
+    IW = 0.00023
+    KM = 484.73
+    D = 0.00229
+
     def __init__(
         self,
         env: ReactionWheelEnv,
-        K_sin_range=[-5, -1],
-        K_reac_wheel_range=[0.1, 0.2],
-        K_pend_vel_range=[0.1, 0.2],
+        param_noise_pct=0.1,
+        mass_pos_pct=0.1,
     ):
         super().__init__(env)
-        self.K_sin_range = K_sin_range
-        self.K_reac_wheel_range = K_reac_wheel_range
-        self.K_pend_vel_range = K_pend_vel_range
+        self.param_noise_pct = float(param_noise_pct)
+        self.mass_pos_pct = float(mass_pos_pct)
 
-    def reset(self, **kwargs):
-        self.env.K_sin = np.random.uniform(self.K_sin_range[0], self.K_sin_range[1])
-        self.env.K_reac_wheel = np.random.uniform(
-            self.K_reac_wheel_range[0], self.K_reac_wheel_range[1]
-        )
-        self.env.K_pend_vel = np.random.uniform(
-            self.K_pend_vel_range[0], self.K_pend_vel_range[1]
-        )
+    def get_ground_truth_bounds(self):
+        """Return fixed global min/max bounds for [K_sin, K_reac_wheel, K_pend_vel]."""
+        values = []
+        for shift, n_ip, n_f, n_ml in product((0.0, 1.0), repeat=4):
+            Ip_base = (1.0 - shift) * self.NOMINAL["Ip"] + shift * self.BOUNDARY["Ip"]
+            f_base = (1.0 - shift) * self.NOMINAL["f"] + shift * self.BOUNDARY["f"]
+            ml_base = -4.52 * Ip_base + 0.14
 
-        obs, info = self.env.reset(**kwargs)
+            Ip = Ip_base * (1.0 + n_ip)
+            f = f_base * (1.0 + n_f)
+            ml = 0.5 * (ml_base * (1.0 + n_ml)) + 0.5 * (-4.52 * Ip + 0.14)
+
+            values.append([
+                -(ml * 9.81) / Ip,
+                -self.IW / Ip,
+                f / Ip,
+            ])
+
+        arr = np.asarray(values, dtype=np.float64)
+        min_vals = arr.min(axis=0).astype(np.float32)
+        max_vals = arr.max(axis=0).astype(np.float32)
+        return min_vals, max_vals
+
+    def reset(self, seed=None, options=None):
+        self.env.reset(seed=seed, options=options)
+        rng = self.env.unwrapped.np_random
+        max_shift = float(np.clip(self.mass_pos_pct, 0.0, 1.0))
+        mass_shift_pct = rng.uniform(0.0, max_shift)
+
+        Ip_base = (1.0 - mass_shift_pct) * self.NOMINAL["Ip"] + mass_shift_pct * self.BOUNDARY["Ip"]
+        f_base = (1.0 - mass_shift_pct) * self.NOMINAL["f"] + mass_shift_pct * self.BOUNDARY["f"]
+        ml_base = -4.52 * Ip_base + 0.14
+
+        Ip = Ip_base * (1.0 + rng.uniform(-self.param_noise_pct, self.param_noise_pct))
+        f = f_base * (1.0 + rng.uniform(-self.param_noise_pct, self.param_noise_pct))
+        ml = ml_base * (1.0 + rng.uniform(-self.param_noise_pct, self.param_noise_pct))
+        ml = 0.5 * ml + 0.5 * (-4.52 * Ip + 0.14)
+
+        self.env.unwrapped.K_pend_vel = f / Ip
+        self.env.unwrapped.K_sin = -(ml * 9.81) / Ip
+        self.env.unwrapped.K_reac_wheel = -self.IW / Ip
+        self.env.unwrapped.K_motor = self.KM
+        self.env.unwrapped.K_wheel_vel = self.D
+
+        self.env.nominal_params = {
+            "K_sin": self.env.K_sin,
+            "K_reac_wheel": self.env.K_reac_wheel,
+            "K_pend_vel": self.env.K_pend_vel,
+            "K_motor": self.env.K_motor,
+            "K_wheel_vel": self.env.K_wheel_vel,
+        }
+
+        obs, info = self.env.reset(seed=seed, options=options)
         info["ground_truth_params"] = np.array(
             [self.env.K_sin, self.env.K_reac_wheel, self.env.K_pend_vel], dtype=np.float32
         )
+        info["physical_params"] = np.array([Ip, f, ml], dtype=np.float32)
+        info["mass_shift_pct"] = float(mass_shift_pct)
 
         return obs, info
 
