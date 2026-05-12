@@ -22,7 +22,7 @@ class ParameterNormalizer:
         return params_norm * self.ranges + self.min_vals
 
 
-def setup_file_logger(logger_name, log_path):
+def setup_file_logger(logger_name, log_path) -> logging.Logger:
     log_path.parent.mkdir(parents=True, exist_ok=True)
 
     logger = logging.getLogger(logger_name)
@@ -41,3 +41,6 @@ def setup_file_logger(logger_name, log_path):
 
     logger.propagate = False
     return logger
+
+def angle_normalize(angle):
+    return (angle + np.pi) % (2.0 * np.pi) - np.pi

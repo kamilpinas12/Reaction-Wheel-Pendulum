@@ -1,26 +1,38 @@
 import gymnasium as gym
 from gymnasium import spaces
 import numpy as np
+from utils.config_manager import cfg_get
 
 
 class ReactionWheelEnv(gym.Env):
-    def __init__(self):
+    def __init__(self, config_name):
         super(ReactionWheelEnv, self).__init__()
 
-        self.dt = 0.01
-        self.u_max = 1.0
-        self.max_episode_steps = 1000  # 10s
+        self.dt = cfg_get("env.dt", config_name, default=0.01)
+        self.max_episode_steps = cfg_get(
+            "env.max_episode_steps", config_name, default=1000
+        )
         self.step_count = 0
         self.prev_u = 0.0
 
-        self.action_space = spaces.Box(low=-1.0, high=1.0, shape=(1,), dtype=np.float32)
-        self.observation_space = spaces.Box(
-            low=-np.inf, high=np.inf, shape=(4,), dtype=np.float32
+        self.action_space = spaces.Box(
+            low=np.array([-1.0], dtype=np.float32), 
+            high=np.array([1.0], dtype=np.float32), 
+            shape=(1,), 
+            dtype=np.float32
         )
-
-        self.K_pend_vel = 0.1165  # A
-        self.K_sin = -3.915  # B
-        self.K_reac_wheel = -0.008  # C
+        self.observation_space = spaces.Box(
+            low=np.array([-np.inf] * 4, dtype=np.float32), 
+            high=np.array([np.inf] * 4, dtype=np.float32), 
+            shape=(4,), 
+            dtype=np.float32
+        )
+        # A
+        self.K_pend_vel = cfg_get("env.K_pend_vel", config_name, default=0.085634)
+        # B
+        self.K_sin = cfg_get("env.K_sin", config_name, default=-9.101332)
+        # C
+        self.K_reac_wheel = cfg_get("env.K_reac_wheel", config_name, default=-0.009168)
 
         self.K_motor = 484.73  # K
         self.K_wheel_vel = 0.00229  # D
@@ -50,7 +62,29 @@ class ReactionWheelEnv(gym.Env):
         wheel_vel = 0.0
 
         self.state = np.array([pend_pos, pend_vel, wheel_vel], dtype=np.float32)
-        return self._get_observation(), self.nominal_params
+        return self._get_observation(), self.nominal_params.copy()
+
+    def step(self, action):
+        self.step_count += 1
+        u = float(np.clip(action[0], -1.0, 1.0))
+
+        self.state = self._rk4_step(u).astype(np.float32)
+        self.state[0] = self._angle_normalize(self.state[0])
+
+        reward = 0.0
+
+        # Safety termination only for clearly divergent trajectories.
+        # terminated = bool(abs(new_phi) > 150 or abs(new_theta_dot) > 30)
+        truncated = self.step_count >= self.max_episode_steps
+
+        self.prev_u = u
+        info = {
+            "u_cmd": u,
+            "theta": self.state[0],
+            "theta_dot": self.state[1],
+            "phi": self.state[2],
+        }
+        return self._get_observation(), reward, False, truncated, info
 
     def _get_observation(self):
         pend_pos, pend_vel, wheel_vel = self.state
@@ -68,63 +102,29 @@ class ReactionWheelEnv(gym.Env):
             + self.K_sin * np.sin(pend_pos)
             + self.K_reac_wheel * wheel_acc
         )
-        return np.array([pend_vel, pend_acc, wheel_acc], dtype=np.float32)
+        return pend_vel, pend_acc, wheel_acc
 
     def _rk4_step(self, u):
-        k1 = self._dynamics(self.state, u)
-        k2 = self._dynamics(self.state + 0.5 * self.dt * k1, u)
-        k3 = self._dynamics(self.state + 0.5 * self.dt * k2, u)
-        k4 = self._dynamics(self.state + self.dt * k3, u)
+        s = self.state
+        # K1
+        k1_0, k1_1, k1_2 = self._dynamics(s, u)
+        
+        # K2
+        s2 = (s[0] + 0.5*self.dt*k1_0, s[1] + 0.5*self.dt*k1_1, s[2] + 0.5*self.dt*k1_2)
+        k2_0, k2_1, k2_2 = self._dynamics(s2, u)
+        
+        # K3
+        s3 = (s[0] + 0.5*self.dt*k2_0, s[1] + 0.5*self.dt*k2_1, s[2] + 0.5*self.dt*k2_2)
+        k3_0, k3_1, k3_2 = self._dynamics(s3, u)
+        
+        # K4
+        s4 = (s[0] + self.dt*k3_0, s[1] + self.dt*k3_1, s[2] + self.dt*k3_2)
+        k4_0, k4_1, k4_2 = self._dynamics(s4, u)
 
-        return self.state + (self.dt / 6.0) * (k1 + 2.0 * k2 + 2.0 * k3 + k4)
-
-    def step(self, action):
-        self.step_count += 1
-
-        # Preporcess action
-        u = float(np.clip(action[0], -1.0, 1.0)) * self.u_max
-
-        # Env step
-        self.state = self._rk4_step(u).astype(np.float32)
-        self.state[0] = self._angle_normalize(self.state[0])
-
-        reward = self._get_reward(u)
-
-        # Safety termination only for clearly divergent trajectories.
-        # terminated = bool(abs(new_phi) > 150 or abs(new_theta_dot) > 30)
-        truncated = self.step_count >= self.max_episode_steps
-
-        self.prev_u = u
-        info = {"u_cmd": u,}
-        return self._get_observation(), reward, False, truncated, info
-
-    def _get_reward(self, u):
-        theta, theta_dot, phi = self.state
-        err = abs(self._angle_normalize(theta - np.pi))
-
-        # 1. Primary Goal: Stay upright
-        # Increased weight to make it more attractive than spinning
-        upright_reward = 5.0 * np.exp(-3.0 * err)
-
-        # 2. Phi Penalty: ONLY penalty near the physical limit
-        phi_limit = 130.0
-        phi_penalty = 0.0
-        if abs(phi) > phi_limit:
-            phi_penalty = 0.1 * (abs(phi) - phi_limit) ** 2
-
-        # 3. Efficiency: Penalize spinning (The "Anti-Loop" penalty)
-        # This is the secret to stopping the multiple circles.
-        spinning_penalty = 0.1 * (theta_dot**2)
-
-        # 4. Stay-Still Bonus: High reward for being at the top AND stopped
-        stability_bonus = 0.0
-        if err < 0.1:
-            stability_bonus = 5.0 / (abs(theta_dot) + 0.1)
-
-        return (
-            upright_reward
-            + stability_bonus
-            - phi_penalty
-            - spinning_penalty
-            - (0.001 * u**2)
-        )
+        new_state = np.array([
+            s[0] + (self.dt / 6.0) * (k1_0 + 2.0*k2_0 + 2.0*k3_0 + k4_0),
+            s[1] + (self.dt / 6.0) * (k1_1 + 2.0*k2_1 + 2.0*k3_1 + k4_1),
+            s[2] + (self.dt / 6.0) * (k1_2 + 2.0*k2_2 + 2.0*k3_2 + k4_2)
+        ], dtype=np.float32)
+        
+        return new_state

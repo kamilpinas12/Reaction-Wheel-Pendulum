@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Union
+from utils.common import angle_normalize
 
 import matplotlib
 import numpy as np
@@ -28,12 +29,23 @@ class RolloutData:
         self.phi.append(float(info.get('phi', 0.0)))
         self.u_cmd.append(float(info.get('u_cmd', action)))
 
+    def add_separator(self, timestep: int) -> None:
+        self.timesteps.append(int(timestep))
+        self.actions.append(float("nan"))
+        self.rewards.append(float("nan"))
+        self.theta.append(float("nan"))
+        self.theta_dot.append(float("nan"))
+        self.phi.append(float("nan"))
+        self.u_cmd.append(float("nan"))
+
 
 def plot_rollout(data: RolloutData, out_path: Union[str, Path]) -> Path:
     out_path = Path(out_path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    theta = np.unwrap(np.asarray(data.theta, dtype=float)) if data.theta else np.asarray([])
+    theta = np.asarray(data.theta, dtype=float) if data.theta else np.asarray([])
+    theta = theta + np.pi if theta.size else np.asarray([])
+    theta = angle_normalize(theta)
 
     fig, axes = plt.subplots(5, 1, figsize=(10, 14), sharex=True)
 

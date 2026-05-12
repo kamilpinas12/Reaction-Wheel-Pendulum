@@ -1,4 +1,5 @@
 import gymnasium as gym
+from gymnasium import spaces
 import numpy as np
 from reac_wheel_sim.reaction_wheel_env import ReactionWheelEnv
 
@@ -16,11 +17,11 @@ class ParamRandomizationWrapper(gym.Wrapper):
         self.K_pend_vel_range = K_pend_vel_range
 
     def reset(self, **kwargs):
-        self.env.K_sin = np.random.uniform(self.K_sin_range[0], self.K_sin_range[1])
-        self.env.K_reac_wheel = np.random.uniform(
+        self.env.unwrapped.K_sin = self.env.unwrapped.np_random.uniform(self.K_sin_range[0], self.K_sin_range[1])
+        self.env.unwrapped.K_reac_wheel = self.env.unwrapped.np_random.uniform(
             self.K_reac_wheel_range[0], self.K_reac_wheel_range[1]
         )
-        self.env.K_pend_vel = np.random.uniform(
+        self.env.unwrapped.K_pend_vel = self.env.unwrapped.np_random.uniform(
             self.K_pend_vel_range[0], self.K_pend_vel_range[1]
         )
 
@@ -62,12 +63,65 @@ class RandomInitialStateWrapper(gym.Wrapper):
     def reset(self, seed=None, options=None):
         obs, info = self.env.reset(seed=seed, options=options)
 
-        pend_pos = self.np_random.uniform(-self.initial_states[0], self.initial_states[0])
-        pend_vel = self.np_random.uniform(-self.initial_states[1], self.initial_states[1])
-        wheel_vel = self.np_random.uniform(-self.initial_states[2], self.initial_states[2])
+        pend_pos = self.env.unwrapped.np_random.uniform(-self.initial_states[0], self.initial_states[0])
+        pend_vel = self.env.unwrapped.np_random.uniform(-self.initial_states[1], self.initial_states[1])
+        wheel_vel = self.env.unwrapped.np_random.uniform(-self.initial_states[2], self.initial_states[2])
 
         new_state = np.array([pend_pos, pend_vel, wheel_vel], dtype=np.float32)
         self.env.unwrapped.state = new_state
         observation = self.env.unwrapped._get_observation()
 
         return observation, info
+    
+
+class DiscretizeActionWrapper(gym.ActionWrapper):
+    def __init__(self, env, n_bins=7):
+        super().__init__(env)
+        self.action_space = gym.spaces.Discrete(n_bins)
+
+        # self.torques = np.linspace(-0.9, 0.9, n_bins)
+        self.discrete_to_continuous = np.linspace(
+            env.action_space.low, 
+            env.action_space.high, 
+            n_bins
+        ).flatten()
+
+    def action(self, action):
+        return np.array([self.discrete_to_continuous[action]], dtype=np.float32)
+
+class TrigObservationWrapper(gym.ObservationWrapper):
+    def __init__(self, env):
+        super().__init__(env)
+        orig_space = self.env.observation_space
+        new_shape = (orig_space.shape[0] + 1,)
+        new_low = np.concatenate(([-1.0, -1.0], orig_space.low[1:])).astype(np.float32)
+        new_high = np.concatenate(([1.0, 1.0], orig_space.high[1:])).astype(np.float32)
+        
+        self.observation_space = spaces.Box(
+            low=new_low,
+            high=new_high,
+            shape=new_shape,
+            dtype=np.float32
+        )
+
+    def observation(self, observation):
+        pend_pos = observation[0]
+        rest_of_obs = observation[1:]
+        return np.concatenate((
+            [np.sin(pend_pos), np.cos(pend_pos)], 
+            rest_of_obs
+        )).astype(np.float32)
+    
+class ActionRepeatWrapper(gym.Wrapper):
+    def __init__(self, env, repeat=4):
+        super().__init__(env)
+        self.repeat = repeat
+
+    def step(self, action):
+        total_reward = 0.0
+        for _ in range(self.repeat):
+            obs, reward, terminated, truncated, info = self.env.step(action)
+            total_reward += reward
+            if terminated or truncated:
+                break
+        return obs, total_reward, terminated, truncated, info

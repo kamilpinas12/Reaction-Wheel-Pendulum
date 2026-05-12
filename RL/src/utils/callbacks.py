@@ -3,7 +3,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 from stable_baselines3.common.callbacks import BaseCallback
 
-from envs.pendulum_env import ReactionWheelEnv
+from reac_wheel_sim.reaction_wheel_env import ReactionWheelEnv
+from reac_wheel_sim.reaction_wheel_wrappers import DiscretizeActionWrapper
 from utils.rollout import RolloutData, plot_rollout
 
 class EpisodeResetCallback(BaseCallback):
@@ -82,12 +83,12 @@ class SaveCallback(BaseCallback):
 
 
 class RolloutCallback(BaseCallback):
-    def __init__(self, freq: int, out: Path, seed: int = 123):
+    def __init__(self, env, freq: int, out: Path, seed: int = 123):
         super().__init__(verbose=0)
         self.freq = max(0, int(freq))
         self.out = Path(out)
         self.seed = int(seed)
-        self.env = ReactionWheelEnv()
+        self.env = env
 
     def _on_step(self) -> bool:
         if not (self.freq and self.num_timesteps and self.num_timesteps % self.freq == 0):
