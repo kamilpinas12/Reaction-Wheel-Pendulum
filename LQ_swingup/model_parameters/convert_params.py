@@ -26,39 +26,40 @@ def convert_to_non_physical(Ip, f, ml):
     return a, b, c
 
 
-
 if __name__ == "__main__":
-    a = 0.113
-    b=-27.233
-    c = -0.011542
+    fmt = lambda x: f"{x:.5f}"
+
+    a = 0.054164
+    b = -1.931606
+    c = -0.008024
     Ip, f, ml = convert_to_physical(a, b, c)
-    print(f"a: {a}, b: {b}, c: {c}")
-    print(f"Ip: {Ip}, f: {f}, ml: {ml}")
+    print(f"a: {fmt(a)}, b: {fmt(b)}, c: {fmt(c)}")
+    print(f"Ip: {fmt(Ip)}, f: {fmt(f)}, ml: {fmt(ml)}")
     print("=============================")
 
 
-    a = 0.085449
-    b = -11.498262
-    c = -0.009128
+    a = 0.299692
+    b = -4.015983
+    c = -0.007858
     Ip, f, ml = convert_to_physical(a, b, c)
-    print(f"a: {a}, b: {b}, c: {c}")
-    print(f"Ip: {Ip}, f: {f}, ml: {ml}")
+    print(f"a: {fmt(a)}, b: {fmt(b)}, c: {fmt(c)}")
+    print(f"Ip: {fmt(Ip)}, f: {fmt(f)}, ml: {fmt(ml)}")
     print("=============================")
 
-    a = 0.085634 
-    b = -9.101332
-    c = -0.009168
+    a = 0.078027
+    b = -8.383954
+    c = -0.009725
     Ip, f, ml = convert_to_physical(a, b, c)
-    print(f"a: {a}, b: {b}, c: {c}")
-    print(f"Ip: {Ip}, f: {f}, ml: {ml}")
+    print(f"a: {fmt(a)}, b: {fmt(b)}, c: {fmt(c)}")
+    print(f"Ip: {fmt(Ip)}, f: {fmt(f)}, ml: {fmt(ml)}")
     print("=============================")
 
-    a = 0.086830
-    b = -6.959842
-    c = -0.008187
+    a = 0.104845
+    b = -5.738891
+    c = -0.008955
     Ip, f, ml = convert_to_physical(a, b, c)
-    print(f"a: {a}, b: {b}, c: {c}")
-    print(f"Ip: {Ip}, f: {f}, ml: {ml}")
+    print(f"a: {fmt(a)}, b: {fmt(b)}, c: {fmt(c)}")
+    print(f"Ip: {fmt(Ip)}, f: {fmt(f)}, ml: {fmt(ml)}")
     print("=============================")
 
     # check correctness of conversion
