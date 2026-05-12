@@ -1,20 +1,8 @@
-"""
-Reward shaping wrappers for reaction wheel pendulum environment.
-
-Different reward formulations to compare performance:
-- Simple: Minimal reward design
-- Balanced: Normalized components
-- Conservative: Emphasizes stability
-- Aggressive: Emphasizes swingup
-"""
-
 import gymnasium as gym
 import numpy as np
 
 
 class RewardWrapper(gym.RewardWrapper):
-    """Base class for reward wrappers."""
-    
     def __init__(self, env):
         super().__init__(env)
         
@@ -28,11 +16,6 @@ class RewardWrapper(gym.RewardWrapper):
 
 
 class SimpleRewardWrapper(RewardWrapper):
-    """
-    Minimal reward design - focus on staying upright with low power consumption.
-    Good baseline for debugging.
-    """
-    
     def __init__(self, env):
         super().__init__(env)
     
@@ -43,17 +26,7 @@ class SimpleRewardWrapper(RewardWrapper):
         return float(normalized_height)
 
 
-class BalancedRewardWrapper(RewardWrapper):
-    """
-    Balanced reward design with normalized components.
-    Good all-around choice for learning.
-    
-    Components:
-    - Upright stability (primary)
-    - Angular velocity penalty (prevents spinning)
-    - Action efficiency (minimizes torque)
-    """
-    
+class BalancedRewardWrapper(RewardWrapper): 
     def __init__(self, env, 
                  upright_weight=1.0,
                  stability_weight=0.5, 

@@ -51,7 +51,7 @@ def compare_real_vs_sim(mat_file_path, start_sample=0, save_path=None, show=Fals
     u_real = real_data["u"]
     t_real = real_data["t"]
 
-    env = ReactionWheelEnv()
+    env = ReactionWheelEnv(config_name='config_ppo.yaml')
 
     initial_state = np.array(
         [real_data["pendPosZD"][0], real_data["pendVel"][0], real_data["diskVel"][0]],

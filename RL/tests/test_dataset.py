@@ -17,7 +17,7 @@ def test_dataset_generation_and_visualization():
         TrapezoidSignal(amplitude_range=(0.9, 1.0)),
     ]
 
-    base_env = ReactionWheelEnv()
+    base_env = ReactionWheelEnv(config_name='config_ppo.yaml')
     env = ParamRandomizationWrapper(
         base_env,
         K_sin_range=[-5, -4],
