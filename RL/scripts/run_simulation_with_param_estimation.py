@@ -298,13 +298,18 @@ def main():
         "batch_size": 32
     }
 
-    K_sin_range = [-5, -4]
-    K_reac_wheel_range = [-0.02, -0.005]
-    K_pend_vel_range = [-0.2, -0.1]
+    param_noise_pct = 0.1
+    mass_pos_pct = 0.1
     noise_levels=[0.0, 0.0, 0.0, 0.0, 0.0]
 
     env = ReactionWheelEnv()
-    env = ParamRandomizationWrapper(env, K_sin_range=K_sin_range, K_pend_vel_range=K_pend_vel_range, K_reac_wheel_range=K_reac_wheel_range)
+    randomizer = ParamRandomizationWrapper(
+        env,
+        param_noise_pct=param_noise_pct,
+        mass_pos_pct=mass_pos_pct,
+    )
+    target_min_vals, target_max_vals = randomizer.get_ground_truth_bounds()
+    env = randomizer
     env = ObservationNoiseWrapper(env, noise_levels=noise_levels)
 
     checkpoint_path =  MODELS_DIR / "best_model.pt"
@@ -348,8 +353,8 @@ def main():
 
     # Initialize normalizer
     normalizer = ParameterNormalizer(
-        min_vals=[K_sin_range[0], K_reac_wheel_range[0], K_pend_vel_range[0]],
-        max_vals=[K_sin_range[1], K_reac_wheel_range[1], K_pend_vel_range[1]],
+        min_vals=target_min_vals,
+        max_vals=target_max_vals,
     )
     logger.info("Normalizer initialized")
 
