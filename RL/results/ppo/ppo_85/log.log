@@ -1,0 +1,147 @@
+2026-05-13 18:36:56,853 [INFO] Creating 16 vectorized environments...
+2026-05-13 18:36:56,853 [INFO] Reward: balanced, params: {'upright_weight': 2.0, 'stability_weight': 1.0, 'spin_weight': 0.1, 'energy_weight': 0.02}
+2026-05-13 18:36:58,556 [INFO] Rozpoczynam trening PPO...
+2026-05-13 18:37:02,412 [INFO] iter: 16384, critic_loss: 0.8071, actor_loss: -0.0008
+2026-05-13 18:37:05,610 [INFO] iter: 32768, critic_loss: 0.2904, actor_loss: -0.0009
+2026-05-13 18:37:08,840 [INFO] iter: 49152, critic_loss: 0.2842, actor_loss: -0.0022
+2026-05-13 18:37:11,772 [INFO] iter: 65536, critic_loss: 0.2519, actor_loss: -0.0052
+2026-05-13 18:37:14,511 [INFO] iter: 81920, critic_loss: 0.2443, actor_loss: -0.0057
+2026-05-13 18:37:17,262 [INFO] iter: 98304, critic_loss: 0.2705, actor_loss: -0.0049
+2026-05-13 18:37:20,051 [INFO] iter: 114688, critic_loss: 0.2917, actor_loss: -0.0026
+2026-05-13 18:37:22,871 [INFO] iter: 131072, critic_loss: 0.2856, actor_loss: -0.0025
+2026-05-13 18:37:25,626 [INFO] iter: 147456, critic_loss: 0.2540, actor_loss: -0.0019
+2026-05-13 18:37:28,477 [INFO] iter: 163840, critic_loss: 0.2718, actor_loss: -0.0023
+2026-05-13 18:37:31,292 [INFO] iter: 180224, critic_loss: 0.2703, actor_loss: -0.0017
+2026-05-13 18:37:34,094 [INFO] iter: 196608, critic_loss: 0.2503, actor_loss: -0.0018
+2026-05-13 18:37:37,039 [INFO] iter: 212992, critic_loss: 0.2754, actor_loss: -0.0021
+2026-05-13 18:37:39,772 [INFO] iter: 229376, critic_loss: 0.2580, actor_loss: -0.0028
+2026-05-13 18:37:42,482 [INFO] iter: 245760, critic_loss: 0.2450, actor_loss: -0.0022
+2026-05-13 18:37:45,202 [INFO] iter: 262144, critic_loss: 0.2646, actor_loss: -0.0021
+2026-05-13 18:37:47,950 [INFO] iter: 278528, critic_loss: 0.2700, actor_loss: -0.0034
+2026-05-13 18:37:50,648 [INFO] iter: 294912, critic_loss: 0.2275, actor_loss: -0.0055
+2026-05-13 18:37:53,314 [INFO] iter: 311296, critic_loss: 0.2599, actor_loss: -0.0066
+2026-05-13 18:37:56,003 [INFO] iter: 327680, critic_loss: 0.3058, actor_loss: -0.0059
+2026-05-13 18:37:58,743 [INFO] iter: 344064, critic_loss: 0.3886, actor_loss: -0.0026
+2026-05-13 18:38:01,452 [INFO] iter: 360448, critic_loss: 0.4576, actor_loss: -0.0042
+2026-05-13 18:38:04,207 [INFO] iter: 376832, critic_loss: 0.5561, actor_loss: -0.0005
+2026-05-13 18:38:06,964 [INFO] iter: 393216, critic_loss: 0.7349, actor_loss: 0.0002
+2026-05-13 18:38:09,792 [INFO] iter: 409600, critic_loss: 0.8150, actor_loss: -0.0006
+2026-05-13 18:38:12,544 [INFO] iter: 425984, critic_loss: 0.8688, actor_loss: 0.0001
+2026-05-13 18:38:15,385 [INFO] iter: 442368, critic_loss: 0.7932, actor_loss: -0.0000
+2026-05-13 18:38:18,578 [INFO] iter: 458752, critic_loss: 0.8809, actor_loss: -0.0005
+2026-05-13 18:38:21,728 [INFO] iter: 475136, critic_loss: 1.0824, actor_loss: 0.0015
+2026-05-13 18:38:25,010 [INFO] iter: 491520, critic_loss: 0.9731, actor_loss: 0.0026
+2026-05-13 18:38:28,700 [INFO] iter: 507904, critic_loss: 1.0643, actor_loss: 0.0017
+2026-05-13 18:38:28,700 [INFO] Evaluation begin on 4 episodes...
+2026-05-13 18:38:29,155 [INFO] Evaluation results: Reward: 604.52 ± 231.55 | Length: 250.0
+2026-05-13 18:38:29,550 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_507904.png
+2026-05-13 18:38:29,565 [INFO] Model saved to: RL/logs/rl_ppo/best_model.pth
+2026-05-13 18:38:29,565 [INFO] New best model saved! mean reward: 604.52
+2026-05-13 18:38:32,855 [INFO] iter: 524288, critic_loss: 1.0318, actor_loss: 0.0034
+2026-05-13 18:38:36,251 [INFO] iter: 540672, critic_loss: 0.9815, actor_loss: 0.0017
+2026-05-13 18:38:39,718 [INFO] iter: 557056, critic_loss: 0.9420, actor_loss: 0.0038
+2026-05-13 18:38:43,168 [INFO] iter: 573440, critic_loss: 0.7844, actor_loss: 0.0030
+2026-05-13 18:38:46,550 [INFO] iter: 589824, critic_loss: 1.0650, actor_loss: 0.0041
+2026-05-13 18:38:50,135 [INFO] iter: 606208, critic_loss: 1.0268, actor_loss: 0.0031
+2026-05-13 18:38:53,176 [INFO] iter: 622592, critic_loss: 1.3238, actor_loss: 0.0023
+2026-05-13 18:38:55,913 [INFO] iter: 638976, critic_loss: 0.9731, actor_loss: 0.0029
+2026-05-13 18:38:58,730 [INFO] iter: 655360, critic_loss: 1.1032, actor_loss: 0.0051
+2026-05-13 18:39:01,807 [INFO] iter: 671744, critic_loss: 0.9867, actor_loss: 0.0064
+2026-05-13 18:39:04,757 [INFO] iter: 688128, critic_loss: 1.0625, actor_loss: 0.0032
+2026-05-13 18:39:07,636 [INFO] iter: 704512, critic_loss: 1.1845, actor_loss: 0.0031
+2026-05-13 18:39:10,675 [INFO] iter: 720896, critic_loss: 1.1171, actor_loss: 0.0044
+2026-05-13 18:39:13,549 [INFO] iter: 737280, critic_loss: 1.0943, actor_loss: 0.0040
+2026-05-13 18:39:16,466 [INFO] iter: 753664, critic_loss: 1.0547, actor_loss: 0.0034
+2026-05-13 18:39:19,234 [INFO] iter: 770048, critic_loss: 1.0825, actor_loss: 0.0053
+2026-05-13 18:39:22,048 [INFO] iter: 786432, critic_loss: 1.1332, actor_loss: 0.0043
+2026-05-13 18:39:24,801 [INFO] iter: 802816, critic_loss: 1.1290, actor_loss: 0.0046
+2026-05-13 18:39:27,682 [INFO] iter: 819200, critic_loss: 1.1112, actor_loss: 0.0021
+2026-05-13 18:39:30,494 [INFO] iter: 835584, critic_loss: 1.2972, actor_loss: 0.0052
+2026-05-13 18:39:33,325 [INFO] iter: 851968, critic_loss: 1.1617, actor_loss: 0.0032
+2026-05-13 18:39:36,126 [INFO] iter: 868352, critic_loss: 1.0728, actor_loss: 0.0031
+2026-05-13 18:39:38,900 [INFO] iter: 884736, critic_loss: 1.0527, actor_loss: 0.0028
+2026-05-13 18:39:41,673 [INFO] iter: 901120, critic_loss: 0.9703, actor_loss: 0.0046
+2026-05-13 18:39:44,452 [INFO] iter: 917504, critic_loss: 0.8939, actor_loss: 0.0022
+2026-05-13 18:39:47,215 [INFO] iter: 933888, critic_loss: 0.7321, actor_loss: 0.0021
+2026-05-13 18:39:50,005 [INFO] iter: 950272, critic_loss: 1.0828, actor_loss: 0.0040
+2026-05-13 18:39:52,829 [INFO] iter: 966656, critic_loss: 0.6001, actor_loss: 0.0011
+2026-05-13 18:39:56,190 [INFO] iter: 983040, critic_loss: 0.6829, actor_loss: 0.0007
+2026-05-13 18:39:59,400 [INFO] iter: 999424, critic_loss: 0.6176, actor_loss: 0.0002
+2026-05-13 18:40:02,610 [INFO] iter: 1015808, critic_loss: 0.8379, actor_loss: 0.0021
+2026-05-13 18:40:02,611 [INFO] Evaluation begin on 4 episodes...
+2026-05-13 18:40:03,049 [INFO] Evaluation results: Reward: 760.65 ± 129.26 | Length: 250.0
+2026-05-13 18:40:03,383 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_1015808.png
+2026-05-13 18:40:03,385 [INFO] Model saved to: RL/logs/rl_ppo/best_model.pth
+2026-05-13 18:40:03,385 [INFO] New best model saved! mean reward: 760.65
+2026-05-13 18:40:06,611 [INFO] iter: 1032192, critic_loss: 1.2612, actor_loss: 0.0048
+2026-05-13 18:40:10,043 [INFO] iter: 1048576, critic_loss: 0.9821, actor_loss: 0.0031
+2026-05-13 18:40:13,426 [INFO] iter: 1064960, critic_loss: 1.1788, actor_loss: 0.0064
+2026-05-13 18:40:16,691 [INFO] iter: 1081344, critic_loss: 0.9999, actor_loss: 0.0054
+2026-05-13 18:40:19,934 [INFO] iter: 1097728, critic_loss: 0.8241, actor_loss: 0.0040
+2026-05-13 18:40:22,937 [INFO] iter: 1114112, critic_loss: 0.7155, actor_loss: 0.0017
+2026-05-13 18:40:25,929 [INFO] iter: 1130496, critic_loss: 1.0245, actor_loss: 0.0030
+2026-05-13 18:40:28,846 [INFO] iter: 1146880, critic_loss: 1.0213, actor_loss: 0.0076
+2026-05-13 18:40:31,768 [INFO] iter: 1163264, critic_loss: 0.8441, actor_loss: 0.0041
+2026-05-13 18:40:34,687 [INFO] iter: 1179648, critic_loss: 1.0418, actor_loss: 0.0029
+2026-05-13 18:40:37,462 [INFO] iter: 1196032, critic_loss: 0.9200, actor_loss: 0.0034
+2026-05-13 18:40:40,427 [INFO] iter: 1212416, critic_loss: 0.7571, actor_loss: 0.0016
+2026-05-13 18:40:43,269 [INFO] iter: 1228800, critic_loss: 0.6758, actor_loss: 0.0024
+2026-05-13 18:40:46,192 [INFO] iter: 1245184, critic_loss: 1.0894, actor_loss: 0.0044
+2026-05-13 18:40:49,059 [INFO] iter: 1261568, critic_loss: 1.2254, actor_loss: 0.0055
+2026-05-13 18:40:51,758 [INFO] iter: 1277952, critic_loss: 1.2329, actor_loss: 0.0065
+2026-05-13 18:40:54,540 [INFO] iter: 1294336, critic_loss: 1.1313, actor_loss: 0.0050
+2026-05-13 18:40:57,252 [INFO] iter: 1310720, critic_loss: 1.0508, actor_loss: 0.0052
+2026-05-13 18:41:00,150 [INFO] iter: 1327104, critic_loss: 0.9498, actor_loss: 0.0038
+2026-05-13 18:41:02,895 [INFO] iter: 1343488, critic_loss: 0.7923, actor_loss: 0.0012
+2026-05-13 18:41:05,596 [INFO] iter: 1359872, critic_loss: 0.9223, actor_loss: 0.0054
+2026-05-13 18:41:08,362 [INFO] iter: 1376256, critic_loss: 0.8292, actor_loss: 0.0030
+2026-05-13 18:41:11,139 [INFO] iter: 1392640, critic_loss: 0.8826, actor_loss: 0.0010
+2026-05-13 18:41:13,946 [INFO] iter: 1409024, critic_loss: 0.8818, actor_loss: 0.0019
+2026-05-13 18:41:16,800 [INFO] iter: 1425408, critic_loss: 0.7866, actor_loss: 0.0042
+2026-05-13 18:41:19,682 [INFO] iter: 1441792, critic_loss: 1.2363, actor_loss: 0.0042
+2026-05-13 18:41:22,415 [INFO] iter: 1458176, critic_loss: 1.0962, actor_loss: 0.0071
+2026-05-13 18:41:25,094 [INFO] iter: 1474560, critic_loss: 1.1743, actor_loss: 0.0051
+2026-05-13 18:41:27,906 [INFO] iter: 1490944, critic_loss: 1.2237, actor_loss: 0.0059
+2026-05-13 18:41:30,670 [INFO] iter: 1507328, critic_loss: 1.1957, actor_loss: 0.0077
+2026-05-13 18:41:33,410 [INFO] iter: 1523712, critic_loss: 1.1904, actor_loss: 0.0058
+2026-05-13 18:41:33,410 [INFO] Evaluation begin on 4 episodes...
+2026-05-13 18:41:33,824 [INFO] Evaluation results: Reward: 892.02 ± 110.17 | Length: 250.0
+2026-05-13 18:41:34,240 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_1523712.png
+2026-05-13 18:41:34,242 [INFO] Model saved to: RL/logs/rl_ppo/best_model.pth
+2026-05-13 18:41:34,242 [INFO] New best model saved! mean reward: 892.02
+2026-05-13 18:41:37,092 [INFO] iter: 1540096, critic_loss: 1.1823, actor_loss: 0.0061
+2026-05-13 18:41:39,874 [INFO] iter: 1556480, critic_loss: 1.1840, actor_loss: 0.0047
+2026-05-13 18:41:42,669 [INFO] iter: 1572864, critic_loss: 1.1764, actor_loss: 0.0075
+2026-05-13 18:41:45,389 [INFO] iter: 1589248, critic_loss: 1.1755, actor_loss: 0.0063
+2026-05-13 18:41:48,140 [INFO] iter: 1605632, critic_loss: 1.1559, actor_loss: 0.0047
+2026-05-13 18:41:50,878 [INFO] iter: 1622016, critic_loss: 1.1426, actor_loss: 0.0027
+2026-05-13 18:41:53,660 [INFO] iter: 1638400, critic_loss: 0.9031, actor_loss: 0.0030
+2026-05-13 18:41:56,410 [INFO] iter: 1654784, critic_loss: 1.1787, actor_loss: 0.0031
+2026-05-13 18:41:59,127 [INFO] iter: 1671168, critic_loss: 1.1534, actor_loss: 0.0025
+2026-05-13 18:42:01,858 [INFO] iter: 1687552, critic_loss: 1.2222, actor_loss: 0.0040
+2026-05-13 18:42:04,599 [INFO] iter: 1703936, critic_loss: 1.2140, actor_loss: 0.0055
+2026-05-13 18:42:07,305 [INFO] iter: 1720320, critic_loss: 1.1303, actor_loss: 0.0045
+2026-05-13 18:42:09,969 [INFO] iter: 1736704, critic_loss: 1.1832, actor_loss: 0.0028
+2026-05-13 18:42:12,743 [INFO] iter: 1753088, critic_loss: 1.2130, actor_loss: 0.0053
+2026-05-13 18:42:15,469 [INFO] iter: 1769472, critic_loss: 1.1778, actor_loss: 0.0044
+2026-05-13 18:42:18,272 [INFO] iter: 1785856, critic_loss: 1.1607, actor_loss: 0.0037
+2026-05-13 18:42:21,164 [INFO] iter: 1802240, critic_loss: 1.1300, actor_loss: 0.0037
+2026-05-13 18:42:23,946 [INFO] iter: 1818624, critic_loss: 0.8069, actor_loss: 0.0013
+2026-05-13 18:42:26,683 [INFO] iter: 1835008, critic_loss: 0.9526, actor_loss: 0.0056
+2026-05-13 18:42:29,552 [INFO] iter: 1851392, critic_loss: 1.3189, actor_loss: 0.0027
+2026-05-13 18:42:32,375 [INFO] iter: 1867776, critic_loss: 0.9873, actor_loss: 0.0039
+2026-05-13 18:42:35,137 [INFO] iter: 1884160, critic_loss: 0.9782, actor_loss: 0.0038
+2026-05-13 18:42:37,898 [INFO] iter: 1900544, critic_loss: 1.1358, actor_loss: 0.0065
+2026-05-13 18:42:40,750 [INFO] iter: 1916928, critic_loss: 1.1322, actor_loss: 0.0054
+2026-05-13 18:42:43,570 [INFO] iter: 1933312, critic_loss: 1.2563, actor_loss: 0.0049
+2026-05-13 18:42:46,273 [INFO] iter: 1949696, critic_loss: 1.2197, actor_loss: 0.0044
+2026-05-13 18:42:48,995 [INFO] iter: 1966080, critic_loss: 1.1831, actor_loss: 0.0037
+2026-05-13 18:42:51,713 [INFO] iter: 1982464, critic_loss: 1.1965, actor_loss: 0.0050
+2026-05-13 18:42:54,421 [INFO] iter: 1998848, critic_loss: 1.0598, actor_loss: 0.0060
+2026-05-13 18:42:57,091 [INFO] iter: 2015232, critic_loss: 1.1267, actor_loss: 0.0035
+2026-05-13 18:42:57,091 [INFO] Trening zakończony!
+2026-05-13 18:42:57,091 [INFO] Training finished
+2026-05-13 18:42:57,092 [INFO] Evaluation begin on 4 episodes...
+2026-05-13 18:42:57,510 [INFO] Evaluation results: Reward: 825.72 ± 139.55 | Length: 250.0
+2026-05-13 18:42:57,813 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_2015232.png
+2026-05-13 18:42:57,815 [INFO] Model saved to: /home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/models/ppo_pendulum_model.pth

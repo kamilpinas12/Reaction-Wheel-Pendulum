@@ -6,6 +6,7 @@ from torch.utils.tensorboard import SummaryWriter
 from gymnasium.wrappers import RecordVideo
 import os
 from pathlib import Path
+from PIL import Image
 
 from utils.config_manager import cfg_get
 from utils.rollout import RolloutData, plot_rollout
@@ -36,7 +37,10 @@ class BaseAgent(ABC):
 
         self.num_timesteps = 0
         self.model = None
-    
+
+    @staticmethod
+    def _angle_normalize(angle):
+        return (angle + np.pi) % (2.0 * np.pi) - np.pi
    
     @abstractmethod
     def train(self, total_timesteps: int, **kwargs) -> Dict[str, Any]:
@@ -69,6 +73,13 @@ class BaseAgent(ABC):
         deterministic_eval = cfg_get('base_agent.eval.deterministic', self.cfg_name, True)
         self.logger.info(f"Evaluation begin on {num_episodes} episodes...")
 
+        initial_states = [[0.0, 0.0, 0.0],
+                          [np.pi, 0.0, 0.0],
+                          [np.pi/2, 0.0, 0.0],
+                          [-np.pi/2, 0.0, 0.0],
+                          [np.pi, 1.0, 100.0],
+                          [np.pi, -1.0, -100.0]]
+
         should_record = cfg_get('base_agent.eval.record', self.cfg_name)
         if should_record:
             run_video_path = self.output_dir / "videos" / f"step_{self.num_timesteps}"
@@ -83,48 +94,62 @@ class BaseAgent(ABC):
         if should_plot:
             data = RolloutData()
 
-        episode_rewards = []
         episode_lengths = []
+        episode_pos_err_list = []
+        episode_energy_used_list = []
 
         if self.model is not None:
             self.model.eval()
         
         for episode_idx in range(num_episodes):
-            obs, _ = eval_env.reset()
-            episode_reward = 0.0
+            options = {"initial_state": initial_states[episode_idx]}
+            obs, _ = eval_env.reset(options=options)
             episode_length = 0
             done = False
+            episode_pos_err = 0.0
+            episode_energy_used = 0.0
             
             while not done:
                 action, _ = self.predict(obs, deterministic=deterministic_eval)
                 obs, reward, terminated, truncated, info = eval_env.step(action[0])
                 done = terminated or truncated
-                episode_reward += reward
                 episode_length += 1
+
+                err = ((info["theta"] % (2 * np.pi)) - np.pi)**2
+                episode_pos_err += err
+                episode_energy_used += np.abs(info["u_cmd"])
                 
                 if render:
                     eval_env.render()
                 if should_plot and not done:
                     data.add(timestep=episode_length, action=action.item(), reward=reward, info=info)
 
-            episode_rewards.append(episode_reward)
             episode_lengths.append(episode_length)
-
+            episode_pos_err_list.append(episode_pos_err)
+            episode_energy_used_list.append(episode_energy_used)
+            
             if should_plot and episode_idx < num_episodes - 1:
                 data.add_separator(episode_length)
             
-        mean_reward = np.mean(episode_rewards)
-        std_reward = np.std(episode_rewards)
+        mean_pos_err = np.mean(episode_pos_err_list)
+        std_pos_err = np.std(episode_pos_err_list)
+        sum_energy = np.sum(episode_energy_used_list)
         mean_length = np.mean(episode_lengths)
         
-        self.logger.info(f"Evaluation results: Reward: {mean_reward:.2f} ± {std_reward:.2f} | Length: {mean_length:.1f}")
+        self.logger.info(f"Evaluation results: Position error: {mean_pos_err:.2f} ± {std_pos_err:.2f} | Length: {mean_length:.1f}")
         
         if self.writer is not None:
-            self.writer.add_scalar('eval/mean_reward', mean_reward, self.num_timesteps)
-            self.writer.add_scalar('eval/mean_length', mean_length, self.num_timesteps)
+            self.writer.add_scalar('eval/mean_pos_err', mean_pos_err, self.num_timesteps)
+            self.writer.add_scalar('eval/sum_energy', sum_energy, self.num_timesteps)
+            self.writer.add_scalar('eval/mean_len   gth', mean_length, self.num_timesteps)
 
         if should_plot:
             path = plot_rollout(data, self.output_dir / f'agent_rollout_{self.num_timesteps}.png')
             self.logger.info(f'saved agent rollout plot to {path}')
+
+            if self.writer is not None:
+                img = Image.open(path)
+                img_array = np.array(img)
+                self.writer.add_image('eval/rollout_plot', img_array, self.num_timesteps, dataformats='HWC')
             
-        return mean_reward, std_reward
+        return mean_pos_err, std_pos_err

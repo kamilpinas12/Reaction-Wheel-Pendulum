@@ -13,17 +13,14 @@ from reac_wheel_sim.reaction_wheel_wrappers import *
 from reac_wheel_sim.reward_wrappers import create_reward_wrapper
 from utils.config_manager import cfg_get
 from utils.common import setup_file_logger
-from utils.custom_paths import MODELS_DIR, CONFIGS_DIR
+from utils.custom_paths import MODELS_DIR, CONFIGS_DIR, LOGS_DIR
 
 def make_env(repeat_num, reward_type, **reward_params):
     def _init():
         env = ReactionWheelEnv("config_ppo.yaml")
-        env = RandomInitialStateWrapper(env, [np.pi, 0.0, 0.0])
         env = TrigObservationWrapper(env)
         env = ActionRepeatWrapper(env, repeat=repeat_num)
         env = create_reward_wrapper(env, reward_type=reward_type, **reward_params)
-
-        # env = gym.make("Pendulum-v1")
         env = gym.wrappers.RecordEpisodeStatistics(env)
         
         return env
@@ -63,7 +60,7 @@ def main():
 
     agent.evaluate(eval_env, False)
 
-    save_path = MODELS_DIR / "ppo_pendulum_model.pth"
+    save_path = LOGS_DIR / "rl_ppo" / "ppo_final_model.pth"
     agent.save(save_path)
     envs.close()
 

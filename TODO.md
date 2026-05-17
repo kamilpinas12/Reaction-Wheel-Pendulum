@@ -7,5 +7,6 @@
 - Zamienić wzmocnienia A, B, C na fizyczne parametry
 - PINN model do estymacji parametrów
 - LSTM do estymacji stanu wahadła na podstawie bazowego modelu
+- Debug: Brak powtarzalności eksperymentów
 
 continual learning

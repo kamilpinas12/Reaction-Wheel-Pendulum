@@ -12,6 +12,7 @@ class ReactionWheelEnv(gym.Env):
         self.max_episode_steps = cfg_get(
             "env.max_episode_steps", config_name, default=1000
         )
+        self.seed = cfg_get("env.seed", config_name, default=None)
         self.step_count = 0
         self.prev_u = 0.0
 
@@ -27,6 +28,8 @@ class ReactionWheelEnv(gym.Env):
             shape=(4,), 
             dtype=np.float32
         )
+        self.initial_state_range = cfg_get("env.initial_state_range", config_name, None)
+
         # A
         self.K_pend_vel = cfg_get("env.K_pend_vel", config_name, default=0.085634)
         # B
@@ -53,17 +56,27 @@ class ReactionWheelEnv(gym.Env):
         return (angle + np.pi) % (2.0 * np.pi) - np.pi
 
     def reset(self, seed=None, options=None):
+        if seed is None and self.seed is not None:
+            seed = self.seed
         super().reset(seed=seed, options=options)
+
+        info = {}
         self.step_count = 0
         self.prev_u = 0.0
 
-        pend_pos = 0.0
-        pend_vel = 0.0
-        wheel_vel = 0.0
+        # Enables overrites of rest functinality by passing options
+        if options is not None and "initial_state" in options:
+            self.state = np.array(options["initial_state"], dtype=np.float32)
+        elif options is not None and "initial_range" in options:
+            self.state = self._random_initial_state(options["initial_range"])
+        elif self.initial_state_range is not None:
+            self.state = self._random_initial_state(self.initial_state_range)
+        else:
+            self.state = np.array([0.0, 0.0, 0.0], dtype=np.float32)
 
-        self.state = np.array([pend_pos, pend_vel, wheel_vel], dtype=np.float32)
-        return self._get_observation(), self.nominal_params.copy()
-
+        info["nominal_params"] = self.nominal_params.copy()
+        return self._get_observation(), info
+    
     def step(self, action):
         self.step_count += 1
         u = float(np.clip(action[0], -1.0, 1.0))
@@ -127,4 +140,12 @@ class ReactionWheelEnv(gym.Env):
             s[2] + (self.dt / 6.0) * (k1_2 + 2.0*k2_2 + 2.0*k3_2 + k4_2)
         ], dtype=np.float32)
         
+        return new_state
+    
+    def _random_initial_state(self, initial_range):
+        generator = self.unwrapped.np_random
+        pend_pos = generator.uniform(-initial_range[0], initial_range[0])
+        pend_vel = generator.uniform(-initial_range[1], initial_range[1])
+        wheel_vel = generator.uniform(-initial_range[2], initial_range[2])
+        new_state = np.array([pend_pos, pend_vel, wheel_vel], dtype=np.float32)
         return new_state
