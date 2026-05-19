@@ -2,10 +2,19 @@ import gymnasium as gym
 from gymnasium import spaces
 import numpy as np
 from utils.config_manager import cfg_get
+from os import path
+from types import SimpleNamespace
+from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    import pygame
+
+RenderStateType = tuple["pygame.Surface", "pygame.time.Clock", float | None]
 
 class ReactionWheelEnv(gym.Env):
-    def __init__(self, config_name):
+    metadata = {"render_modes": ["rgb_array"], "render_fps": 60}
+
+    def __init__(self, config_name, render_mode=None):
         super(ReactionWheelEnv, self).__init__()
 
         self.dt = cfg_get("env.dt", config_name, default=0.01)
@@ -50,6 +59,16 @@ class ReactionWheelEnv(gym.Env):
         }
 
         self.state = None
+        
+        self.render_mode = render_mode
+        self.render_state = None
+        self.render_params = SimpleNamespace(screen_dim=500)
+        if self.render_mode is not None and self.render_mode not in self.metadata["render_modes"]:
+            raise ValueError(
+                f"Unsupported render_mode '{self.render_mode}'. "
+                f"Choose one of {self.metadata['render_modes']}"
+            )
+        self.metadata["render_fps"] = max(1, int(round(1.0 / self.dt)))
 
     @staticmethod
     def _angle_normalize(angle):
@@ -149,3 +168,154 @@ class ReactionWheelEnv(gym.Env):
         wheel_vel = generator.uniform(-initial_range[2], initial_range[2])
         new_state = np.array([pend_pos, pend_vel, wheel_vel], dtype=np.float32)
         return new_state
+    
+    def render_image(
+        self,
+        state,
+        render_state: RenderStateType,
+        params,
+    ):
+        """Renders an RGB image."""
+        try:
+            import pygame
+            from pygame import gfxdraw
+        except ImportError as e:
+            raise AssertionError(
+                'pygame is not installed, run `pip install "gymnasium[classic_control]"`'
+            ) from e
+        screen, clock, last_u = render_state
+
+        surf = pygame.Surface((params.screen_dim, params.screen_dim))
+        surf.fill((255, 255, 255))
+
+        bound = 2.2
+        scale = params.screen_dim / (bound * 2)
+        offset = params.screen_dim // 2
+
+        rod_length = 1 * scale
+        rod_width = 0.12 * scale
+        rod_color = (240, 210, 60)
+        l, r, t, b = 0, rod_length, rod_width / 2, -rod_width / 2
+        coords = [(l, b), (l, t), (r, t), (r, b)]
+        transformed_coords = []
+        for c in coords:
+            c = pygame.math.Vector2(c).rotate_rad(state[0] - np.pi / 2)
+            c = (c[0] + offset, c[1] + offset)
+            transformed_coords.append(c)
+        gfxdraw.aapolygon(surf, transformed_coords, rod_color)
+        gfxdraw.filled_polygon(surf, transformed_coords, rod_color)
+
+        gfxdraw.aacircle(surf, offset, offset, int(rod_width / 2), rod_color)
+        gfxdraw.filled_circle(surf, offset, offset, int(rod_width / 2), rod_color)
+
+        rod_end = (rod_length, 0)
+        rod_end = pygame.math.Vector2(rod_end).rotate_rad(state[0] - np.pi / 2)
+        rod_end = (int(rod_end[0] + offset), int(rod_end[1] + offset))
+        gfxdraw.aacircle(
+            surf, rod_end[0], rod_end[1], int(rod_width / 2), rod_color
+        )
+        gfxdraw.filled_circle(
+            surf, rod_end[0], rod_end[1], int(rod_width / 2), rod_color
+        )
+
+        wheel_radius = 0.15 * scale
+        gfxdraw.aacircle(surf, rod_end[0], rod_end[1], int(wheel_radius), (60, 60, 60))
+        gfxdraw.filled_circle(surf, rod_end[0], rod_end[1], int(wheel_radius), (120, 120, 120))
+        wheel_angle = state[2] * getattr(params, "time", 0.0)
+        spoke = pygame.math.Vector2(wheel_radius * 0.9, 0).rotate_rad(wheel_angle)
+        pygame.draw.line(
+            surf,
+            (30, 30, 30),
+            (rod_end[0], rod_end[1]),
+            (rod_end[0] + int(spoke.x), rod_end[1] + int(spoke.y)),
+            max(1, int(0.03 * scale)),
+        )
+
+        fname = path.join(path.dirname(__file__), "assets/clockwise.png")
+        if path.exists(fname) and last_u is not None:
+            img = pygame.image.load(fname)
+            scale_img = pygame.transform.smoothscale(
+                img,
+                (scale * np.abs(last_u) / 2, scale * np.abs(last_u) / 2),
+            )
+            is_flip = bool(last_u > 0)
+            scale_img = pygame.transform.flip(scale_img, is_flip, True)
+            scale_rect = scale_img.get_rect()
+            surf.blit(
+                scale_img,
+                (
+                    rod_end[0] - scale_rect.centerx,
+                    rod_end[1] - scale_rect.centery,
+                ),
+            )
+
+        gfxdraw.aacircle(surf, offset, offset, int(0.05 * scale), (0, 0, 0))
+        gfxdraw.filled_circle(surf, offset, offset, int(0.05 * scale), (0, 0, 0))
+
+        surf = pygame.transform.flip(surf, False, True)
+        screen.blit(surf, (0, 0))
+
+        return (screen, clock, last_u), np.transpose(
+            np.array(pygame.surfarray.pixels3d(screen)), axes=(1, 0, 2)
+        )
+
+    def render(self):
+        if self.render_mode is None:
+            return None
+        if self.state is None:
+            return None
+
+        if self.render_state is None:
+            self.render_state = self.render_init(
+                screen_width=self.render_params.screen_dim,
+                screen_height=self.render_params.screen_dim,
+            )
+
+        self.render_params.time = self.step_count * self.dt
+        screen, clock, _ = self.render_state
+        self.render_state, frame = self.render_image(
+            self.state,
+            (screen, clock, self.prev_u),
+            self.render_params,
+        )
+
+        return frame
+
+    def render_init(
+        self,
+        screen_width: int = 600,
+        screen_height: int = 400,
+    ):
+        """Initialises the render state."""
+        try:
+            import pygame
+        except ImportError as e:
+            raise AssertionError(
+                'pygame is not installed, run `pip install "gymnasium[classic_control]"`'
+            ) from e
+
+        pygame.init()
+        screen = pygame.Surface((screen_width, screen_height))
+        clock = pygame.time.Clock()
+
+        return screen, clock, None
+
+    def render_close(
+        self,
+        render_state: RenderStateType,
+        params,
+    ):
+        """Closes the render state."""
+        try:
+            import pygame
+        except ImportError as e:
+            raise AssertionError(
+                'pygame is not installed, run `pip install "gymnasium[classic_control]"`'
+            ) from e
+        pygame.display.quit()
+        pygame.quit()
+
+    def close(self):
+        if self.render_state is not None:
+            self.render_close(self.render_state, self.render_params)
+            self.render_state = None

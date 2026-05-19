@@ -209,7 +209,7 @@ def visualize_dataset_samples(
         # Konwertujemy do numpy i odcinamy zera z paddingu
         seq_np = seq.numpy()[:valid_len] 
         target_np = target.numpy()
-        t = np.arange(valid_len)
+        t = np.arange(int(valid_len))
 
         # 1. Kolumna: Trig
         axes[row, 0].plot(t, seq_np[:, 0], label="theta")
