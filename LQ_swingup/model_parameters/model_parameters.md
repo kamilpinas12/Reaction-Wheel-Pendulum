@@ -19,6 +19,10 @@ Iw = 0.00023
 Km = 484.73;
 d = 0.00229;
 
+## parametry z ciężarkiem w pozycji domyślnej ( tej z pierwszych zajęć (na kresce) )
+a: 0.11655, b: -3.91501, c: -0.00810
+Ip: 0.02838, f: 0.00331, ml: 0.01133
+
 ## Position 0 ( without any mass attached )
 a: 0.113, b: -27.233, c: -0.011542 \
 Ip: 0.0199, f: 0.0022, ml: 0.0553
@@ -56,3 +60,7 @@ Ip: 0.02568, f: 0.00269, ml: 0.01503
 ## ident_square_135.mat
 a: 0.07803, b: -8.38395, c: -0.00972
 Ip: 0.02365, f: 0.00185, ml: 0.02021
+
+
+
+
