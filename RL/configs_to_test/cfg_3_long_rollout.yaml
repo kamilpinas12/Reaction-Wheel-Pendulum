@@ -1,5 +1,5 @@
 base_agent:
-  learning_rate: 3e-4
+  learning_rate: 2e-4
   gamma: 0.99
   seed: 42
   device: "cuda"
@@ -10,21 +10,21 @@ base_agent:
     record: false
     plot: true
     num_episodes: 4
-    interval: 500000
+    interval: 1000000
     render: false
     deterministic: true
-  
+
 ppo_agent:
   value_coef: 0.5
-  entropy_coef: 0.01
+  entropy_coef: 0.005
   gae_lambda: 0.95
   max_grad_norm: 0.5
-  n_rollout_steps: 1024
-  n_epochs: 6
+  n_rollout_steps: 2048
+  n_epochs: 4
   batch_size: 1024
   clip_range: 0.2
   hid_size: 128
-  repeat_num: 2
+  repeat_num: 4
 
 env:
   seed: 42
@@ -34,13 +34,12 @@ env:
   K_pend_vel: 0.1165
   K_sin: -3.915
   K_reac_wheel: -0.00786
-  initial_state_range: [3.14, 1.0, 10.0]
+  initial_state_range: [3.14, 0.1, 0.1]
 
 reward:
   type: balanced
   params:
-     upright_weight: 2.0
-     stability_weight: 4.0
+     upright_weight: 4.0
+     stability_weight: 8.0
      spin_weight: 0.2
      energy_weight: 0.1
-     wheel_vel_weight: 0.6

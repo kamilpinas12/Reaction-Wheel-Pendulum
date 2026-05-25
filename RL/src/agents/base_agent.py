@@ -1,11 +1,13 @@
 from abc import ABC, abstractmethod
-from typing import Dict, Any, Optional, Tuple
+from typing import Dict, Any, Optional, Tuple, List, Union
+import logging
+import os
+from pathlib import Path
+
 import numpy as np
 import torch
 from torch.utils.tensorboard import SummaryWriter
 from gymnasium.wrappers import RecordVideo
-import os
-from pathlib import Path
 from PIL import Image
 
 from utils.config_manager import cfg_get
@@ -16,7 +18,7 @@ class BaseAgent(ABC):
     def __init__(self, env=None, logger=None, config_name="config.yaml"):
         self.env = env
         self.cfg_name = config_name
-        self.logger = logger
+        self.logger = logger or logging.getLogger(self.__class__.__name__)
 
         self.learning_rate = float(cfg_get('base_agent.learning_rate', self.cfg_name))
         self.gamma = cfg_get('base_agent.gamma', self.cfg_name, default=0.99)
@@ -41,9 +43,31 @@ class BaseAgent(ABC):
     @staticmethod
     def _angle_normalize(angle):
         return (angle + np.pi) % (2.0 * np.pi) - np.pi
+
+    def _log_scalar(self, tag: str, value: float) -> None:
+        if self.writer is not None:
+            self.writer.add_scalar(tag, value, self.num_timesteps)
+
+    def _extract_env_action(self, action: Union[np.ndarray, float, int]):
+        action_arr = np.asarray(action)
+        if action_arr.shape == ():
+            return action_arr.item()
+        if action_arr.shape[0] == 1:
+            return action_arr[0]
+        return action_arr
+
+    def _get_initial_states(self) -> List[List[float]]:
+        return [
+            [0.0, 0.0, 0.0],
+            [np.pi, 0.0, 0.0],
+            [np.pi / 2, 0.0, 0.0],
+            [-np.pi / 2, 0.0, 0.0],
+            [np.pi, 1.0, 100.0],
+            [np.pi, -1.0, -100.0],
+        ]
    
     @abstractmethod
-    def train(self, total_timesteps: int, **kwargs) -> Dict[str, Any]:
+    def train(self, total_timesteps: Optional[int] = None, **kwargs) -> Dict[str, Any]:
         raise NotImplementedError
     
     @abstractmethod
@@ -73,12 +97,7 @@ class BaseAgent(ABC):
         deterministic_eval = cfg_get('base_agent.eval.deterministic', self.cfg_name, True)
         self.logger.info(f"Evaluation begin on {num_episodes} episodes...")
 
-        initial_states = [[0.0, 0.0, 0.0],
-                          [np.pi, 0.0, 0.0],
-                          [np.pi/2, 0.0, 0.0],
-                          [-np.pi/2, 0.0, 0.0],
-                          [np.pi, 1.0, 100.0],
-                          [np.pi, -1.0, -100.0]]
+        initial_states = self._get_initial_states()
 
         should_record = cfg_get('base_agent.eval.record', self.cfg_name)
         if should_record:
@@ -102,7 +121,8 @@ class BaseAgent(ABC):
             self.model.eval()
         
         for episode_idx in range(num_episodes):
-            options = {"initial_state": initial_states[episode_idx]}
+            state = initial_states[episode_idx % len(initial_states)]
+            options = {"initial_state": state}
             obs, _ = eval_env.reset(options=options)
             episode_length = 0
             done = False
@@ -111,7 +131,8 @@ class BaseAgent(ABC):
             
             while not done:
                 action, _ = self.predict(obs, deterministic=deterministic_eval)
-                obs, reward, terminated, truncated, info = eval_env.step(action[0])
+                env_action = self._extract_env_action(action)
+                obs, reward, terminated, truncated, info = eval_env.step(env_action)
                 done = terminated or truncated
                 episode_length += 1
 
@@ -139,9 +160,9 @@ class BaseAgent(ABC):
         self.logger.info(f"Evaluation results: Position error: {mean_pos_err:.2f} ± {std_pos_err:.2f} | Length: {mean_length:.1f}")
         
         if self.writer is not None:
-            self.writer.add_scalar('eval/mean_pos_err', mean_pos_err, self.num_timesteps)
-            self.writer.add_scalar('eval/sum_energy', sum_energy, self.num_timesteps)
-            self.writer.add_scalar('eval/mean_len   gth', mean_length, self.num_timesteps)
+            self._log_scalar('eval/mean_pos_err', mean_pos_err)
+            self._log_scalar('eval/sum_energy', sum_energy)
+            self._log_scalar('eval/mean_length', mean_length)
 
         if should_plot:
             path = plot_rollout(data, self.output_dir / f'agent_rollout_{self.num_timesteps}.png')

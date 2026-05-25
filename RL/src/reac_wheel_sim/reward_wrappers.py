@@ -31,17 +31,19 @@ class BalancedRewardWrapper(RewardWrapper):
                  upright_weight=1.0,
                  stability_weight=0.5, 
                  spin_weight=0.2,
-                 energy_weight=0.05):
+                 energy_weight=0.05,
+                 wheel_vel_weight=0.5):
         super().__init__(env)
         self.upright_weight = upright_weight
         self.stability_weight = stability_weight
         self.spin_weight = spin_weight
         self.energy_weight = energy_weight
+        self.wheel_vel_weight = wheel_vel_weight
     
     def reward(self, r):
-        theta, theta_dot, phi = self.env.unwrapped.state
+        pend_pos, pend_vel, wheel_vel = self.env.unwrapped.state
         u = self.env.unwrapped.prev_u
-        err = abs(self._angle_normalize(theta - np.pi))
+        err = abs(self._angle_normalize(pend_pos - np.pi))
 
         potential_reward = self.upright_weight * np.cos(err)
 
@@ -49,14 +51,15 @@ class BalancedRewardWrapper(RewardWrapper):
 
         stability_bonus = 0.0
         if err < 0.15:
-            stability_bonus = self.stability_weight * np.exp(-abs(theta_dot))
+            stability_bonus = self.stability_weight * np.exp(-abs(pend_vel))
 
-        penalty_mask = 1.0 if err < 1.0 else 0.1
-        spin_penalty = self.spin_weight * (theta_dot ** 2) * penalty_mask
-        energy_penalty = self.energy_weight * (u ** 2) * penalty_mask
         
-        total = potential_reward + precision_reward + stability_bonus - spin_penalty - energy_penalty
-        return float(total)
+        spin_penalty = self.spin_weight * (pend_vel ** 2) 
+        energy_penalty = self.energy_weight * (u ** 2)
+        wheel_penalty = self.wheel_vel_weight * ((wheel_vel/ 400.0) ** 2)
+        
+        total = potential_reward + precision_reward + stability_bonus - spin_penalty - energy_penalty - wheel_penalty
+        return float(total / 10.0)
 
     
 class FilipRewardWrapper(RewardWrapper):

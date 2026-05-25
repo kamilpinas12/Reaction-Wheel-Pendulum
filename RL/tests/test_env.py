@@ -144,8 +144,8 @@ def compare_real_vs_sim(env, mat_file_path, start_sample=0, save_path=None, show
 
 def test_env_sim_85():
     env = ReactionWheelEnv(config_name='config_ppo.yaml')
-    env.unwrapped.K_pend_vel = 0.0865
-    env.unwrapped.K_sin = -3.815
+    env.unwrapped.K_pend_vel = 0.1165
+    env.unwrapped.K_sin = -3.915
     env.unwrapped.K_reac_wheel = -0.00786
     rmse_theta = compare_real_vs_sim(
         env,
@@ -172,16 +172,61 @@ def test_env_sim_106():
     logging.info(rmse_theta)
     assert rmse_theta < 0.1
 
+def test_env_sim_135():
+    env = ReactionWheelEnv(config_name='config_ppo.yaml')
+    env.unwrapped.K_pend_vel = 0.07803
+    env.unwrapped.K_sin = -8.38395
+    env.unwrapped.K_reac_wheel = -0.00972
+    rmse_theta = compare_real_vs_sim(
+        env,
+        "/home/igorsiata/studia/Reaction-Wheel-Pendulum/data/12_05/ident_square_135.mat",
+        start_sample=10,
+        save_path=LOGS_DIR / "pytest" / "test_env_sim_real_data_pos135.png",
+        show=False
+    )
+    logging.info(rmse_theta)
+    assert rmse_theta < 0.1
+
 def test_env_sim_pos1():
     env = ReactionWheelEnv(config_name='config_ppo.yaml')
     env.unwrapped.K_pend_vel = 0.08544
-    env.unwrapped.K_sin = -11.49
-    env.unwrapped.K_reac_wheel = -0.009
+    env.unwrapped.K_sin = -11.69
+    env.unwrapped.K_reac_wheel = -0.009128 
     rmse_theta = compare_real_vs_sim(
         env,
         "/home/igorsiata/studia/Reaction-Wheel-Pendulum/data/14_04/square1_pos1.mat",
         start_sample=10,
         save_path=LOGS_DIR / "pytest" / "test_env_sim_real_data_pos1.png",
+        show=False
+    )
+    logging.info(rmse_theta)
+    assert rmse_theta < 0.1
+
+def test_env_sim_pos2():
+    env = ReactionWheelEnv(config_name='config_ppo.yaml')
+    env.unwrapped.K_pend_vel = 0.085634
+    env.unwrapped.K_sin = -9.101332
+    env.unwrapped.K_reac_wheel = -0.009168
+    rmse_theta = compare_real_vs_sim(
+        env,
+        "/home/igorsiata/studia/Reaction-Wheel-Pendulum/data/14_04/square1_pos2.mat",
+        start_sample=10,
+        save_path=LOGS_DIR / "pytest" / "test_env_sim_real_data_pos2.png",
+        show=False
+    )
+    logging.info(rmse_theta)
+    assert rmse_theta < 0.1
+
+def test_env_sim_pos3():
+    env = ReactionWheelEnv(config_name='config_ppo.yaml')
+    env.unwrapped.K_pend_vel = 0.08683
+    env.unwrapped.K_sin = -6.959842
+    env.unwrapped.K_reac_wheel = -0.008187
+    rmse_theta = compare_real_vs_sim(
+        env,
+        "/home/igorsiata/studia/Reaction-Wheel-Pendulum/data/14_04/square3_pos3.mat",
+        start_sample=10,
+        save_path=LOGS_DIR / "pytest" / "test_env_sim_real_data_pos3.png",
         show=False
     )
     logging.info(rmse_theta)

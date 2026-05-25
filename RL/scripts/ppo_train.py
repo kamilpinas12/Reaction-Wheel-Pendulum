@@ -4,7 +4,10 @@ from pathlib import Path
 import shutil
 import os
 
+from gymnasium.wrappers import RecordVideo
+
 from agents.ppo_agent import PPOAgent
+from agents.base_agent import BaseAgent
 from nets.a2c import ModelA2C
 
 from utils.callbacks import *
@@ -18,13 +21,39 @@ from utils.custom_paths import MODELS_DIR, CONFIGS_DIR, LOGS_DIR
 def make_env(repeat_num, reward_type, **reward_params):
     def _init():
         env = ReactionWheelEnv("config_ppo.yaml")
-        env = TrigObservationWrapper(env)
+        # env = ParamRandomizationWrapper(env, param_noise_pct=0.1, mass_pos_pct=0.5)
+        env = TrigAndNormalizationObservationWrapper(env)
         env = ActionRepeatWrapper(env, repeat=repeat_num)
         env = create_reward_wrapper(env, reward_type=reward_type, **reward_params)
         env = gym.wrappers.RecordEpisodeStatistics(env)
-        
+
         return env
     return _init
+
+
+def record_video(agent: BaseAgent, video_dir, repeat_num, reward_type, **reward_params):
+
+    env = ReactionWheelEnv("config_ppo.yaml", render_mode="rgb_array")
+    # env = ParamRandomizationWrapper(env, param_noise_pct=0.2, mass_pos_pct=0.5)
+    env = TrigAndNormalizationObservationWrapper(env)
+    # env = ActionRepeatWrapper(env, repeat=repeat_num)
+    # env = create_reward_wrapper(env, reward_type=reward_type, **reward_params)
+    env = RecordVideo(
+        env,
+        video_folder=str(video_dir),
+        episode_trigger=lambda episode: True,
+        name_prefix="ppo_eval",
+    )
+
+    try:
+        obs, _ = env.reset(seed=0)
+        done = False
+        while not done:
+            action, _  = agent.predict(obs, deterministic=True)
+            obs, _, terminated, truncated, _ = env.step(action[0])
+            done = terminated or truncated
+    finally:
+        env.close()
 
 
 def main():
@@ -55,12 +84,15 @@ def main():
     model = ModelA2C(obs_size=obs_size, act_size=act_size, hid_size=model_hid_size)
     agent = PPOAgent(env=envs, model=model, logger=logger)
 
-    agent.train(eval_env)
+    agent.train(eval_env=eval_env)
     logger.info('Training finished')
 
     agent.evaluate(eval_env, False)
 
-    save_path = LOGS_DIR / "rl_ppo" / "ppo_final_model.pth"
+    video_dir = output_dir / "videos"
+    record_video(agent, video_dir, repeat_num, reward_type, **reward_params)
+
+    save_path = output_dir / "model.pth"
     agent.save(save_path)
     envs.close()
 

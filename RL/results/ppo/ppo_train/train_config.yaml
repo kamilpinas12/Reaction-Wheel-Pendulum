@@ -3,7 +3,7 @@ base_agent:
   gamma: 0.99
   seed: 42
   device: "cuda"
-  total_timesteps: 3000000
+  total_timesteps: 2000000
   output_dir: "./RL/logs/ppo_train/"
   writer_enable: true
   eval:
@@ -22,7 +22,7 @@ ppo_agent:
   n_rollout_steps: 1024
   n_epochs: 6
   batch_size: 1024
-  clip_range: 0.2
+  clip_range: 0.1
   hid_size: 128
   repeat_num: 2
 
@@ -34,7 +34,7 @@ env:
   K_pend_vel: 0.1165
   K_sin: -3.915
   K_reac_wheel: -0.00786
-  initial_state_range: [3.14, 1.0, 10.0]
+  initial_state_range: [3.14, 0.2, 1.0]
 
 reward:
   type: balanced

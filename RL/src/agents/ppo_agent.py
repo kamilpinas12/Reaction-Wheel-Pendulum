@@ -1,8 +1,10 @@
+from collections import deque
+from typing import Optional
+
 import numpy as np
 import torch
 import torch.nn.functional as F
 from torch.distributions import Normal
-from collections import deque
 
 from agents.base_agent import BaseAgent
 from utils.rollout_buffer import RolloutBuffer
@@ -57,7 +59,7 @@ class PPOAgent(BaseAgent):
             
         return action.cpu().numpy(), None
 
-    def train(self, eval_env) -> None:
+    def train(self, total_timesteps: Optional[int] = None, eval_env=None) -> dict:
         self.logger.info("Rozpoczynam trening PPO...")
         last_eval_step = 0
         best_mean_reward = -float('inf')
@@ -80,13 +82,22 @@ class PPOAgent(BaseAgent):
 
                 action_np = action.cpu().numpy()
                 next_obs, rewards, terminated, truncated, infos = self.env.step(action_np)
-                dones = np.logical_or(terminated, truncated)
-                
-                # skalowanie nagrody można kiedyś usunąć, na razie pomaga
-                rewards = rewards / 10.0
+
+                # Epizod ucięty przez czas. next_obs to stan zresetowany.
+                # Musimy pobrać PRAWDZIWY stan końcowy, zanim nastąpił reset.
+                if "_final_observation" in infos:
+                    for i, is_final in enumerate(infos["_final_observation"]):
+                        if is_final and truncated[i]:
+                            true_next_obs = infos["final_observation"][i]
+                            true_next_obs_tensor = torch.FloatTensor(true_next_obs).to(self.device).unsqueeze(0)
+                            
+                            with torch.no_grad():
+                                _, _, true_value = self.model(true_next_obs_tensor)
+                            rewards[i] += self.gamma * true_value.item()
+                            terminated[i] = True
  
                 self.rollout_buffer.add(
-                    obs, action_np, rewards, dones, value.flatten(), log_prob
+                    obs, action_np, rewards, terminated, value.flatten(), log_prob
                 )
 
                 obs = next_obs
@@ -101,18 +112,17 @@ class PPOAgent(BaseAgent):
 
             if len(self.ep_info_buffer) > 0:
                 mean_reward = np.mean(self.ep_info_buffer)
-                if self.writer is not None:
-                    self.writer.add_scalar('rollout/ep_rew_mean', mean_reward, self.num_timesteps)
+                self._log_scalar('rollout/ep_rew_mean', mean_reward)
 
             with torch.no_grad():
                 obs_tensor = torch.FloatTensor(obs).to(self.device)
                 _, _, next_value = self.model(obs_tensor)
                 
-            self.rollout_buffer.compute_returns_and_advantages(last_values=next_value, dones=dones)
+            self.rollout_buffer.compute_returns_and_advantages(last_values=next_value, terminated=terminated)
 
             # 2. FAZA AKTUALIZACJI SIECI
             self.model.train()
-            epoch_actor_losses, epoch_critic_losses = [], []
+            epoch_actor_losses, epoch_critic_losses, epoch_grad_norms = [], [], []
 
             for epoch in range(self.n_epochs):
                 for batch in self.rollout_buffer.get(batch_size=self.batch_size):
@@ -137,35 +147,38 @@ class PPOAgent(BaseAgent):
 
                     self.optimizer.zero_grad()
                     loss.backward()
-                    torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.max_grad_norm)
+                    grad_norm = torch.nn.utils.clip_grad_norm_(self.model.parameters(), self.max_grad_norm)
                     self.optimizer.step()
                     
                     epoch_actor_losses.append(actor_loss.item())
                     epoch_critic_losses.append(critic_loss.item())
+                    epoch_grad_norms.append(float(grad_norm))
 
             avg_actor_loss = np.mean(epoch_actor_losses)
             avg_critic_loss = np.mean(epoch_critic_losses)
+            avg_grad_norm = np.mean(epoch_grad_norms)
             
             if self.writer is not None:
-                self.writer.add_scalar('train/actor_loss', avg_actor_loss, self.num_timesteps)
-                self.writer.add_scalar('train/value_loss', avg_critic_loss, self.num_timesteps)
+                self._log_scalar('train/actor_loss', avg_actor_loss)
+                self._log_scalar('train/value_loss', avg_critic_loss)
+                self._log_scalar('train/grad_norm', avg_grad_norm)
                 
             self.logger.info(f"iter: {self.num_timesteps}, critic_loss: {avg_critic_loss:.4f}, actor_loss: {avg_actor_loss:.4f}")
             
             # 3. FAZA EWALUACJI I ZAPISU 
             if eval_env is not None and (self.num_timesteps - last_eval_step) >= self.eval_interval:
                 mean_reward, std_reward = self.evaluate(eval_env)
+                last_eval_step = self.num_timesteps
                 
-                if mean_reward > best_mean_reward:
-                    best_mean_reward = mean_reward
-                    best_model_path = str(self.output_dir / "best_model.pth")
-                    self.save(best_model_path)
-                    self.logger.info(f"New best model saved! mean reward: {mean_reward:.2f}")
+                # if mean_reward > best_mean_reward:
+                #     best_mean_reward = mean_reward
+                #     best_model_path = str(self.output_dir / "best_model.pth")
+                #     self.save(best_model_path)
+                #     self.logger.info(f"New best model saved! mean reward: {mean_reward:.2f}")
                 
                 # for now not needed to save checkpoints
                 # checkpoint_path = str(self.output_dir / f"checkpoint_{self.num_timesteps}.pth")
                 # self.save(checkpoint_path)
-                
-                last_eval_step = self.num_timesteps
 
         self.logger.info("Trening zakończony!")
+        return {"total_timesteps": self.num_timesteps, "status": "completed"}

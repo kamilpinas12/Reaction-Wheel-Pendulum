@@ -104,14 +104,14 @@ class RolloutBuffer:
             self.full = True
 
     def compute_returns_and_advantages(
-        self, last_values: torch.Tensor, dones: np.ndarray
+        self, last_values: torch.Tensor, terminated: np.ndarray
     ) -> None:
         """
         Oblicza przewagi przy pomocy Generalized Advantage Estimation (GAE).
         To najważniejszy trik matematyczny z PPO/A2C.
         """
         last_values = last_values.clone().detach().flatten()
-        last_dones = torch.as_tensor(dones).to(self.device).flatten()
+        last_dones = torch.as_tensor(terminated).to(self.device).flatten()
 
         last_gae_lam = 0
 
