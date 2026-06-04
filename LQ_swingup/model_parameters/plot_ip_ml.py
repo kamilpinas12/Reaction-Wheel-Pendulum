@@ -2,6 +2,7 @@
 import re
 from pathlib import Path
 
+import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -40,9 +41,23 @@ def main():
     ip_line = [ip_min, ip_max]
     ml_line = [-4.52 * ip + 0.14 for ip in ip_line]
 
+    # Best-fit linear regression (least squares)
+    ips_arr = np.array(ips, dtype=float)
+    mls_arr = np.array(mls, dtype=float)
+    slope, intercept = np.polyfit(ips_arr, mls_arr, 1)
+    reg_line = [slope * ip + intercept for ip in ip_line]
+
+    # Compute R^2 for the fit
+    pred_mls = slope * ips_arr + intercept
+    ss_res = np.sum((mls_arr - pred_mls) ** 2)
+    ss_tot = np.sum((mls_arr - np.mean(mls_arr)) ** 2)
+    r2 = 1.0 - ss_res / ss_tot if ss_tot > 0 else 0.0
+
     plt.figure(figsize=(8, 6))
     plt.scatter(ips, mls, color="tab:blue", zorder=3)
     plt.plot(ip_line, ml_line, color="tab:orange", linewidth=2, label="ml = -4.52 * Ip + 0.14")
+    plt.plot(ip_line, reg_line, color="tab:green", linestyle="--", linewidth=2,
+             label=f"Best fit: ml = {slope:.4f} * Ip + {intercept:.4f} (R²={r2:.4f})")
 
     for label, ip, ml in points:
         plt.annotate(label, (ip, ml), textcoords="offset points", xytext=(6, 6), fontsize=9)

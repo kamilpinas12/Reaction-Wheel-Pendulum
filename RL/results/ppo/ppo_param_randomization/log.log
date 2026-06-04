@@ -1,0 +1,679 @@
+2026-06-02 16:43:56,130 [INFO] Creating 16 vectorized environments...
+2026-06-02 16:43:56,130 [INFO] Reward: balanced, params: {'upright_weight': 0.2, 'stability_weight': 0.5, 'spin_weight': 0.3, 'energy_weight': 0.2, 'wheel_vel_weight': 0.2}
+2026-06-02 16:43:57,356 [INFO] Model loaded from: /home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/results/ppo/ppo_train_5mil_vel/model.pth
+2026-06-02 16:43:57,356 [INFO] Rozpoczynam trening PPO...
+2026-06-02 16:43:59,821 [INFO] iter: 16384, lr: 1.00e-03, critic_loss: 95.4665, actor_loss: -0.0014
+2026-06-02 16:44:01,781 [INFO] iter: 32768, lr: 9.95e-04, critic_loss: 95.0669, actor_loss: -0.0007
+2026-06-02 16:44:03,694 [INFO] iter: 49152, lr: 9.90e-04, critic_loss: 75.5294, actor_loss: -0.0005
+2026-06-02 16:44:05,548 [INFO] iter: 65536, lr: 9.84e-04, critic_loss: 88.1580, actor_loss: -0.0003
+2026-06-02 16:44:07,495 [INFO] iter: 81920, lr: 9.79e-04, critic_loss: 85.4221, actor_loss: -0.0005
+2026-06-02 16:44:09,352 [INFO] iter: 98304, lr: 9.74e-04, critic_loss: 91.9290, actor_loss: -0.0004
+2026-06-02 16:44:11,220 [INFO] iter: 114688, lr: 9.69e-04, critic_loss: 104.8191, actor_loss: -0.0012
+2026-06-02 16:44:13,144 [INFO] iter: 131072, lr: 9.64e-04, critic_loss: 97.0474, actor_loss: 0.0001
+2026-06-02 16:44:15,077 [INFO] iter: 147456, lr: 9.58e-04, critic_loss: 102.5866, actor_loss: -0.0000
+2026-06-02 16:44:17,541 [INFO] iter: 163840, lr: 9.53e-04, critic_loss: 91.9083, actor_loss: -0.0010
+2026-06-02 16:44:19,769 [INFO] iter: 180224, lr: 9.48e-04, critic_loss: 159.6228, actor_loss: -0.0003
+2026-06-02 16:44:22,034 [INFO] iter: 196608, lr: 9.43e-04, critic_loss: 103.9062, actor_loss: 0.0001
+2026-06-02 16:44:24,240 [INFO] iter: 212992, lr: 9.38e-04, critic_loss: 156.6724, actor_loss: -0.0002
+2026-06-02 16:44:26,359 [INFO] iter: 229376, lr: 9.33e-04, critic_loss: 165.4516, actor_loss: 0.0005
+2026-06-02 16:44:28,422 [INFO] iter: 245760, lr: 9.27e-04, critic_loss: 162.1593, actor_loss: 0.0002
+2026-06-02 16:44:30,466 [INFO] iter: 262144, lr: 9.22e-04, critic_loss: 136.3143, actor_loss: -0.0001
+2026-06-02 16:44:32,525 [INFO] iter: 278528, lr: 9.17e-04, critic_loss: 139.0079, actor_loss: 0.0018
+2026-06-02 16:44:34,686 [INFO] iter: 294912, lr: 9.12e-04, critic_loss: 164.4682, actor_loss: 0.0005
+2026-06-02 16:44:36,721 [INFO] iter: 311296, lr: 9.07e-04, critic_loss: 150.1396, actor_loss: 0.0002
+2026-06-02 16:44:38,753 [INFO] iter: 327680, lr: 9.01e-04, critic_loss: 141.7617, actor_loss: -0.0004
+2026-06-02 16:44:40,798 [INFO] iter: 344064, lr: 8.96e-04, critic_loss: 171.7451, actor_loss: -0.0001
+2026-06-02 16:44:43,154 [INFO] iter: 360448, lr: 8.91e-04, critic_loss: 189.2777, actor_loss: 0.0007
+2026-06-02 16:44:45,350 [INFO] iter: 376832, lr: 8.86e-04, critic_loss: 207.4167, actor_loss: -0.0001
+2026-06-02 16:44:47,638 [INFO] iter: 393216, lr: 8.81e-04, critic_loss: 191.5497, actor_loss: -0.0001
+2026-06-02 16:44:49,843 [INFO] iter: 409600, lr: 8.75e-04, critic_loss: 190.8033, actor_loss: 0.0004
+2026-06-02 16:44:49,843 [INFO] Evaluation begin on 6 episodes...
+2026-06-02 16:44:50,338 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:50,338 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:44:54,546 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:54,546 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:44:54,947 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:54,947 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:44:55,363 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:55,363 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:44:55,763 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:55,763 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:44:56,163 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:56,163 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:44:56,576 [INFO] Evaluation results: Position error: 1150.43 ± 1232.93 | Length: 1000.0
+2026-06-02 16:44:56,936 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model0_409600.png
+2026-06-02 16:44:57,131 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1150.4256591796875_iter=409600.pth
+2026-06-02 16:44:57,132 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:57,132 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:44:57,534 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:57,534 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:44:57,579 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:57,580 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:44:57,978 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:57,979 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:44:58,394 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:58,394 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:44:58,408 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:58,408 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:44:58,426 [INFO] Evaluation results: Position error: 3693.73 ± 3824.39 | Length: 525.8
+2026-06-02 16:44:58,801 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model1_409600.png
+2026-06-02 16:44:59,036 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=3693.733154296875_iter=409600.pth
+2026-06-02 16:44:59,037 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:59,037 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:44:59,468 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:59,468 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:44:59,875 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:44:59,875 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:45:00,272 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:45:00,273 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:45:00,674 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:45:00,674 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:45:01,074 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:45:01,074 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:45:01,469 [INFO] Evaluation results: Position error: 2493.73 ± 1163.89 | Length: 1000.0
+2026-06-02 16:45:01,880 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model2_409600.png
+2026-06-02 16:45:02,126 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=2493.732177734375_iter=409600.pth
+2026-06-02 16:45:02,137 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:45:02,149 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:45:02,555 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:45:02,555 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:45:02,950 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:45:02,950 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:45:03,341 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:45:03,342 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:45:03,740 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:45:03,740 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:45:04,143 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:45:04,144 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:45:04,548 [INFO] Evaluation results: Position error: 1241.99 ± 1147.44 | Length: 1000.0
+2026-06-02 16:45:04,931 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model3_409600.png
+2026-06-02 16:45:05,137 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1241.9908447265625_iter=409600.pth
+2026-06-02 16:45:07,416 [INFO] iter: 425984, lr: 8.70e-04, critic_loss: 206.9918, actor_loss: 0.0001
+2026-06-02 16:45:09,648 [INFO] iter: 442368, lr: 8.65e-04, critic_loss: 215.7564, actor_loss: 0.0017
+2026-06-02 16:45:11,836 [INFO] iter: 458752, lr: 8.60e-04, critic_loss: 195.2937, actor_loss: 0.0001
+2026-06-02 16:45:14,049 [INFO] iter: 475136, lr: 8.55e-04, critic_loss: 210.5334, actor_loss: -0.0003
+2026-06-02 16:45:16,304 [INFO] iter: 491520, lr: 8.50e-04, critic_loss: 218.8089, actor_loss: -0.0000
+2026-06-02 16:45:18,483 [INFO] iter: 507904, lr: 8.44e-04, critic_loss: 204.7046, actor_loss: 0.0002
+2026-06-02 16:45:20,710 [INFO] iter: 524288, lr: 8.39e-04, critic_loss: 202.1676, actor_loss: 0.0004
+2026-06-02 16:45:22,964 [INFO] iter: 540672, lr: 8.34e-04, critic_loss: 207.2332, actor_loss: -0.0003
+2026-06-02 16:45:25,315 [INFO] iter: 557056, lr: 8.29e-04, critic_loss: 208.6674, actor_loss: 0.0006
+2026-06-02 16:45:27,578 [INFO] iter: 573440, lr: 8.24e-04, critic_loss: 198.6414, actor_loss: 0.0002
+2026-06-02 16:45:29,805 [INFO] iter: 589824, lr: 8.18e-04, critic_loss: 198.6338, actor_loss: 0.0000
+2026-06-02 16:45:32,122 [INFO] iter: 606208, lr: 8.13e-04, critic_loss: 210.9723, actor_loss: -0.0002
+2026-06-02 16:45:34,340 [INFO] iter: 622592, lr: 8.08e-04, critic_loss: 226.6950, actor_loss: 0.0007
+2026-06-02 16:45:36,557 [INFO] iter: 638976, lr: 8.03e-04, critic_loss: 235.4560, actor_loss: -0.0001
+2026-06-02 16:45:38,771 [INFO] iter: 655360, lr: 7.98e-04, critic_loss: 239.1853, actor_loss: 0.0002
+2026-06-02 16:45:40,948 [INFO] iter: 671744, lr: 7.92e-04, critic_loss: 245.8135, actor_loss: 0.0015
+2026-06-02 16:45:43,152 [INFO] iter: 688128, lr: 7.87e-04, critic_loss: 251.5358, actor_loss: 0.0014
+2026-06-02 16:45:45,377 [INFO] iter: 704512, lr: 7.82e-04, critic_loss: 255.0899, actor_loss: 0.0013
+2026-06-02 16:45:47,575 [INFO] iter: 720896, lr: 7.77e-04, critic_loss: 267.2416, actor_loss: 0.0000
+2026-06-02 16:45:49,784 [INFO] iter: 737280, lr: 7.72e-04, critic_loss: 261.0885, actor_loss: -0.0002
+2026-06-02 16:45:51,978 [INFO] iter: 753664, lr: 7.67e-04, critic_loss: 268.1145, actor_loss: 0.0068
+2026-06-02 16:45:54,138 [INFO] iter: 770048, lr: 7.61e-04, critic_loss: 226.9623, actor_loss: 0.0001
+2026-06-02 16:45:56,407 [INFO] iter: 786432, lr: 7.56e-04, critic_loss: 261.2649, actor_loss: 0.0003
+2026-06-02 16:45:58,645 [INFO] iter: 802816, lr: 7.51e-04, critic_loss: 241.6496, actor_loss: 0.0008
+2026-06-02 16:46:01,008 [INFO] iter: 819200, lr: 7.46e-04, critic_loss: 255.1409, actor_loss: 0.0005
+2026-06-02 16:46:01,008 [INFO] Evaluation begin on 6 episodes...
+2026-06-02 16:46:01,011 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:01,011 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:46:05,767 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:05,767 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:46:06,187 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:06,187 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:46:06,600 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:06,600 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:46:07,018 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:07,018 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:46:07,440 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:07,440 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:46:07,843 [INFO] Evaluation results: Position error: 1168.29 ± 1244.67 | Length: 1000.0
+2026-06-02 16:46:08,208 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model0_819200.png
+2026-06-02 16:46:08,387 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1168.2900390625_iter=819200.pth
+2026-06-02 16:46:08,396 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:08,396 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:46:08,821 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:08,821 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:46:08,859 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:08,859 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:46:09,263 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:09,263 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:46:09,665 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:09,665 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:46:09,676 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:09,677 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:46:09,688 [INFO] Evaluation results: Position error: 3744.17 ± 3844.41 | Length: 522.3
+2026-06-02 16:46:10,077 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model1_819200.png
+2026-06-02 16:46:10,299 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=3744.173828125_iter=819200.pth
+2026-06-02 16:46:10,300 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:10,300 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:46:10,713 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:10,714 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:46:11,132 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:11,132 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:46:11,553 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:11,553 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:46:11,954 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:11,954 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:46:12,359 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:12,360 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:46:12,782 [INFO] Evaluation results: Position error: 2471.66 ± 1145.16 | Length: 1000.0
+2026-06-02 16:46:13,200 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model2_819200.png
+2026-06-02 16:46:13,432 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=2471.664794921875_iter=819200.pth
+2026-06-02 16:46:13,443 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:13,454 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:46:13,894 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:13,894 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:46:14,306 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:14,306 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:46:14,717 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:14,718 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:46:15,127 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:15,127 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:46:15,547 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:46:15,547 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:46:15,965 [INFO] Evaluation results: Position error: 1230.13 ± 1331.13 | Length: 1000.0
+2026-06-02 16:46:16,349 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model3_819200.png
+2026-06-02 16:46:16,582 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1230.1314697265625_iter=819200.pth
+2026-06-02 16:46:18,905 [INFO] iter: 835584, lr: 7.41e-04, critic_loss: 259.6409, actor_loss: 0.0012
+2026-06-02 16:46:21,145 [INFO] iter: 851968, lr: 7.35e-04, critic_loss: 257.2643, actor_loss: -0.0005
+2026-06-02 16:46:23,443 [INFO] iter: 868352, lr: 7.30e-04, critic_loss: 251.9701, actor_loss: -0.0000
+2026-06-02 16:46:25,776 [INFO] iter: 884736, lr: 7.25e-04, critic_loss: 246.1817, actor_loss: -0.0003
+2026-06-02 16:46:28,114 [INFO] iter: 901120, lr: 7.20e-04, critic_loss: 251.7022, actor_loss: -0.0004
+2026-06-02 16:46:30,484 [INFO] iter: 917504, lr: 7.15e-04, critic_loss: 258.4956, actor_loss: 0.0009
+2026-06-02 16:46:32,724 [INFO] iter: 933888, lr: 7.09e-04, critic_loss: 259.2952, actor_loss: 0.0002
+2026-06-02 16:46:35,147 [INFO] iter: 950272, lr: 7.04e-04, critic_loss: 248.3304, actor_loss: 0.0004
+2026-06-02 16:46:37,088 [INFO] iter: 966656, lr: 6.99e-04, critic_loss: 235.3358, actor_loss: 0.0004
+2026-06-02 16:46:39,146 [INFO] iter: 983040, lr: 6.94e-04, critic_loss: 235.7213, actor_loss: 0.0004
+2026-06-02 16:46:41,100 [INFO] iter: 999424, lr: 6.89e-04, critic_loss: 223.5255, actor_loss: 0.0002
+2026-06-02 16:46:43,082 [INFO] iter: 1015808, lr: 6.84e-04, critic_loss: 239.7602, actor_loss: 0.0007
+2026-06-02 16:46:45,018 [INFO] iter: 1032192, lr: 6.78e-04, critic_loss: 257.9682, actor_loss: 0.0005
+2026-06-02 16:46:46,974 [INFO] iter: 1048576, lr: 6.73e-04, critic_loss: 250.4277, actor_loss: 0.0002
+2026-06-02 16:46:48,956 [INFO] iter: 1064960, lr: 6.68e-04, critic_loss: 253.5364, actor_loss: -0.0001
+2026-06-02 16:46:50,957 [INFO] iter: 1081344, lr: 6.63e-04, critic_loss: 253.5384, actor_loss: -0.0002
+2026-06-02 16:46:52,918 [INFO] iter: 1097728, lr: 6.58e-04, critic_loss: 253.0707, actor_loss: 0.0004
+2026-06-02 16:46:54,934 [INFO] iter: 1114112, lr: 6.52e-04, critic_loss: 260.4840, actor_loss: 0.0005
+2026-06-02 16:46:57,014 [INFO] iter: 1130496, lr: 6.47e-04, critic_loss: 252.1211, actor_loss: 0.0008
+2026-06-02 16:46:59,009 [INFO] iter: 1146880, lr: 6.42e-04, critic_loss: 244.1207, actor_loss: 0.0044
+2026-06-02 16:47:01,005 [INFO] iter: 1163264, lr: 6.37e-04, critic_loss: 252.2958, actor_loss: 0.0079
+2026-06-02 16:47:02,968 [INFO] iter: 1179648, lr: 6.32e-04, critic_loss: 266.7875, actor_loss: 0.0006
+2026-06-02 16:47:04,997 [INFO] iter: 1196032, lr: 6.26e-04, critic_loss: 237.2739, actor_loss: -0.0004
+2026-06-02 16:47:06,986 [INFO] iter: 1212416, lr: 6.21e-04, critic_loss: 251.2334, actor_loss: -0.0002
+2026-06-02 16:47:09,004 [INFO] iter: 1228800, lr: 6.16e-04, critic_loss: 251.9365, actor_loss: 0.0012
+2026-06-02 16:47:09,004 [INFO] Evaluation begin on 6 episodes...
+2026-06-02 16:47:09,007 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:09,007 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:47:12,739 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:12,739 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:47:13,148 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:13,148 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:47:13,556 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:13,556 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:47:13,947 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:13,948 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:47:14,337 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:14,337 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:47:14,736 [INFO] Evaluation results: Position error: 1205.09 ± 1302.18 | Length: 1000.0
+2026-06-02 16:47:15,076 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model0_1228800.png
+2026-06-02 16:47:15,285 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1205.0947265625_iter=1228800.pth
+2026-06-02 16:47:15,286 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:15,286 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:47:15,688 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:15,688 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:47:15,721 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:15,721 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:47:16,113 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:16,113 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:47:16,506 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:16,506 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:47:16,517 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:16,518 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:47:16,535 [INFO] Evaluation results: Position error: 3735.25 ± 3822.83 | Length: 521.2
+2026-06-02 16:47:16,900 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model1_1228800.png
+2026-06-02 16:47:17,093 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=3735.2490234375_iter=1228800.pth
+2026-06-02 16:47:17,104 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:17,114 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:47:17,511 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:17,511 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:47:17,902 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:17,902 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:47:18,291 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:18,291 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:47:18,699 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:18,700 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:47:19,107 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:19,107 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:47:19,521 [INFO] Evaluation results: Position error: 2260.34 ± 1057.08 | Length: 1000.0
+2026-06-02 16:47:19,908 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model2_1228800.png
+2026-06-02 16:47:20,171 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=2260.338134765625_iter=1228800.pth
+2026-06-02 16:47:20,172 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:20,172 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:47:20,569 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:20,569 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:47:20,970 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:20,970 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:47:21,365 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:21,365 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:47:21,763 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:21,763 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:47:22,185 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:47:22,185 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:47:22,577 [INFO] Evaluation results: Position error: 889.37 ± 923.11 | Length: 1000.0
+2026-06-02 16:47:22,911 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model3_1228800.png
+2026-06-02 16:47:23,078 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=889.3677368164062_iter=1228800.pth
+2026-06-02 16:47:25,082 [INFO] iter: 1245184, lr: 6.11e-04, critic_loss: 257.6534, actor_loss: 0.0000
+2026-06-02 16:47:27,213 [INFO] iter: 1261568, lr: 6.06e-04, critic_loss: 240.0388, actor_loss: 0.0004
+2026-06-02 16:47:29,134 [INFO] iter: 1277952, lr: 6.01e-04, critic_loss: 255.4303, actor_loss: 0.0007
+2026-06-02 16:47:31,100 [INFO] iter: 1294336, lr: 5.95e-04, critic_loss: 258.1220, actor_loss: 0.0016
+2026-06-02 16:47:33,093 [INFO] iter: 1310720, lr: 5.90e-04, critic_loss: 257.5229, actor_loss: 0.0010
+2026-06-02 16:47:35,133 [INFO] iter: 1327104, lr: 5.85e-04, critic_loss: 261.3863, actor_loss: 0.0055
+2026-06-02 16:47:37,208 [INFO] iter: 1343488, lr: 5.80e-04, critic_loss: 257.4325, actor_loss: -0.0000
+2026-06-02 16:47:39,170 [INFO] iter: 1359872, lr: 5.75e-04, critic_loss: 260.3429, actor_loss: 0.0011
+2026-06-02 16:47:41,084 [INFO] iter: 1376256, lr: 5.69e-04, critic_loss: 265.6489, actor_loss: 0.0008
+2026-06-02 16:47:42,986 [INFO] iter: 1392640, lr: 5.64e-04, critic_loss: 262.7285, actor_loss: 0.0034
+2026-06-02 16:47:44,895 [INFO] iter: 1409024, lr: 5.59e-04, critic_loss: 288.3021, actor_loss: 0.0021
+2026-06-02 16:47:46,838 [INFO] iter: 1425408, lr: 5.54e-04, critic_loss: 276.4625, actor_loss: -0.0001
+2026-06-02 16:47:48,756 [INFO] iter: 1441792, lr: 5.49e-04, critic_loss: 261.9295, actor_loss: -0.0001
+2026-06-02 16:47:50,799 [INFO] iter: 1458176, lr: 5.43e-04, critic_loss: 271.6718, actor_loss: -0.0003
+2026-06-02 16:47:52,751 [INFO] iter: 1474560, lr: 5.38e-04, critic_loss: 271.2347, actor_loss: 0.0005
+2026-06-02 16:47:54,709 [INFO] iter: 1490944, lr: 5.33e-04, critic_loss: 257.6281, actor_loss: -0.0003
+2026-06-02 16:47:56,639 [INFO] iter: 1507328, lr: 5.28e-04, critic_loss: 259.9592, actor_loss: 0.0038
+2026-06-02 16:47:58,709 [INFO] iter: 1523712, lr: 5.23e-04, critic_loss: 274.4490, actor_loss: 0.0086
+2026-06-02 16:48:00,768 [INFO] iter: 1540096, lr: 5.17e-04, critic_loss: 220.4685, actor_loss: 0.0014
+2026-06-02 16:48:02,823 [INFO] iter: 1556480, lr: 5.12e-04, critic_loss: 250.6994, actor_loss: -0.0001
+2026-06-02 16:48:04,812 [INFO] iter: 1572864, lr: 5.07e-04, critic_loss: 254.5607, actor_loss: 0.0061
+2026-06-02 16:48:06,763 [INFO] iter: 1589248, lr: 5.02e-04, critic_loss: 243.8981, actor_loss: 0.0048
+2026-06-02 16:48:08,788 [INFO] iter: 1605632, lr: 4.97e-04, critic_loss: 216.0313, actor_loss: 0.0003
+2026-06-02 16:48:10,803 [INFO] iter: 1622016, lr: 4.92e-04, critic_loss: 219.8248, actor_loss: -0.0018
+2026-06-02 16:48:12,715 [INFO] iter: 1638400, lr: 4.86e-04, critic_loss: 234.8177, actor_loss: 0.0001
+2026-06-02 16:48:12,715 [INFO] Evaluation begin on 6 episodes...
+2026-06-02 16:48:12,718 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:12,718 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:48:16,291 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:16,291 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:48:16,688 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:16,688 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:48:17,099 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:17,099 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:48:17,497 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:17,497 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:48:17,895 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:17,895 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:48:18,285 [INFO] Evaluation results: Position error: 1232.95 ± 1189.46 | Length: 1000.0
+2026-06-02 16:48:18,646 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model0_1638400.png
+2026-06-02 16:48:18,806 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1232.9515380859375_iter=1638400.pth
+2026-06-02 16:48:18,817 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:18,827 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:48:19,232 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:19,232 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:48:19,263 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:19,263 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:48:19,650 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:19,650 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:48:20,040 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:20,040 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:48:20,053 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:20,053 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:48:20,068 [INFO] Evaluation results: Position error: 3706.50 ± 3813.31 | Length: 520.2
+2026-06-02 16:48:20,434 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model1_1638400.png
+2026-06-02 16:48:20,639 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=3706.496826171875_iter=1638400.pth
+2026-06-02 16:48:20,645 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:20,645 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:48:21,049 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:21,050 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:48:21,461 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:21,461 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:48:21,859 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:21,859 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:48:22,255 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:22,255 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:48:22,646 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:22,646 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:48:23,037 [INFO] Evaluation results: Position error: 1083.34 ± 997.20 | Length: 1000.0
+2026-06-02 16:48:23,389 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model2_1638400.png
+2026-06-02 16:48:23,560 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1083.337890625_iter=1638400.pth
+2026-06-02 16:48:23,571 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:23,582 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:48:23,989 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:23,989 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:48:24,385 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:24,385 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:48:24,782 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:24,782 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:48:25,176 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:25,176 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:48:25,568 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:48:25,568 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:48:25,959 [INFO] Evaluation results: Position error: 914.53 ± 984.65 | Length: 1000.0
+2026-06-02 16:48:26,311 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model3_1638400.png
+2026-06-02 16:48:26,462 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=914.5314331054688_iter=1638400.pth
+2026-06-02 16:48:28,455 [INFO] iter: 1654784, lr: 4.81e-04, critic_loss: 236.7284, actor_loss: 0.0007
+2026-06-02 16:48:30,378 [INFO] iter: 1671168, lr: 4.76e-04, critic_loss: 222.4038, actor_loss: -0.0002
+2026-06-02 16:48:32,302 [INFO] iter: 1687552, lr: 4.71e-04, critic_loss: 233.7788, actor_loss: 0.0023
+2026-06-02 16:48:34,288 [INFO] iter: 1703936, lr: 4.66e-04, critic_loss: 240.3917, actor_loss: -0.0001
+2026-06-02 16:48:36,297 [INFO] iter: 1720320, lr: 4.60e-04, critic_loss: 241.9261, actor_loss: 0.0004
+2026-06-02 16:48:38,265 [INFO] iter: 1736704, lr: 4.55e-04, critic_loss: 234.7051, actor_loss: 0.0011
+2026-06-02 16:48:40,339 [INFO] iter: 1753088, lr: 4.50e-04, critic_loss: 238.3281, actor_loss: 0.0006
+2026-06-02 16:48:42,509 [INFO] iter: 1769472, lr: 4.45e-04, critic_loss: 233.2564, actor_loss: 0.0018
+2026-06-02 16:48:44,685 [INFO] iter: 1785856, lr: 4.40e-04, critic_loss: 242.4165, actor_loss: -0.0001
+2026-06-02 16:48:46,640 [INFO] iter: 1802240, lr: 4.34e-04, critic_loss: 248.6092, actor_loss: 0.0012
+2026-06-02 16:48:48,678 [INFO] iter: 1818624, lr: 4.29e-04, critic_loss: 249.7441, actor_loss: 0.0001
+2026-06-02 16:48:50,739 [INFO] iter: 1835008, lr: 4.24e-04, critic_loss: 242.1815, actor_loss: 0.0001
+2026-06-02 16:48:52,727 [INFO] iter: 1851392, lr: 4.19e-04, critic_loss: 244.8649, actor_loss: 0.0072
+2026-06-02 16:48:54,670 [INFO] iter: 1867776, lr: 4.14e-04, critic_loss: 242.2033, actor_loss: 0.0014
+2026-06-02 16:48:56,653 [INFO] iter: 1884160, lr: 4.09e-04, critic_loss: 248.6826, actor_loss: 0.0005
+2026-06-02 16:48:58,625 [INFO] iter: 1900544, lr: 4.03e-04, critic_loss: 245.2353, actor_loss: 0.0029
+2026-06-02 16:49:00,581 [INFO] iter: 1916928, lr: 3.98e-04, critic_loss: 237.9050, actor_loss: 0.0004
+2026-06-02 16:49:02,502 [INFO] iter: 1933312, lr: 3.93e-04, critic_loss: 235.7491, actor_loss: 0.0004
+2026-06-02 16:49:04,449 [INFO] iter: 1949696, lr: 3.88e-04, critic_loss: 240.0124, actor_loss: 0.0006
+2026-06-02 16:49:06,448 [INFO] iter: 1966080, lr: 3.83e-04, critic_loss: 236.4399, actor_loss: 0.0005
+2026-06-02 16:49:08,450 [INFO] iter: 1982464, lr: 3.77e-04, critic_loss: 238.1644, actor_loss: 0.0005
+2026-06-02 16:49:10,381 [INFO] iter: 1998848, lr: 3.72e-04, critic_loss: 244.7067, actor_loss: 0.0001
+2026-06-02 16:49:12,391 [INFO] iter: 2015232, lr: 3.67e-04, critic_loss: 245.4152, actor_loss: 0.0001
+2026-06-02 16:49:14,347 [INFO] iter: 2031616, lr: 3.62e-04, critic_loss: 241.7535, actor_loss: 0.0005
+2026-06-02 16:49:16,293 [INFO] iter: 2048000, lr: 3.57e-04, critic_loss: 246.1170, actor_loss: -0.0003
+2026-06-02 16:49:16,293 [INFO] Evaluation begin on 6 episodes...
+2026-06-02 16:49:16,296 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:16,296 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:49:19,947 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:19,947 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:49:20,335 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:20,335 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:49:20,721 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:20,722 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:49:21,109 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:21,109 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:49:21,494 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:21,494 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:49:21,879 [INFO] Evaluation results: Position error: 1233.63 ± 1177.45 | Length: 1000.0
+2026-06-02 16:49:22,214 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model0_2048000.png
+2026-06-02 16:49:22,391 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1233.6260986328125_iter=2048000.pth
+2026-06-02 16:49:22,392 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:22,392 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:49:22,784 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:22,784 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:49:22,817 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:22,817 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:49:23,203 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:23,204 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:49:23,588 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:23,589 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:49:23,600 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:23,600 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:49:23,610 [INFO] Evaluation results: Position error: 3735.07 ± 3839.56 | Length: 522.8
+2026-06-02 16:49:23,962 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model1_2048000.png
+2026-06-02 16:49:24,181 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=3735.067138671875_iter=2048000.pth
+2026-06-02 16:49:24,181 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:24,181 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:49:24,585 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:24,585 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:49:24,990 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:24,990 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:49:25,375 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:25,375 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:49:25,759 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:25,760 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:49:26,145 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:26,145 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:49:26,532 [INFO] Evaluation results: Position error: 1091.66 ± 1000.91 | Length: 1000.0
+2026-06-02 16:49:26,883 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model2_2048000.png
+2026-06-02 16:49:27,058 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1091.6607666015625_iter=2048000.pth
+2026-06-02 16:49:27,066 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:27,066 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:49:27,469 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:27,469 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:49:27,856 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:27,856 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:49:28,243 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:28,243 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:49:28,624 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:28,625 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:49:29,007 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:49:29,007 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:49:29,395 [INFO] Evaluation results: Position error: 1264.76 ± 1369.39 | Length: 1000.0
+2026-06-02 16:49:29,745 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model3_2048000.png
+2026-06-02 16:49:29,933 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1264.7607421875_iter=2048000.pth
+2026-06-02 16:49:31,967 [INFO] iter: 2064384, lr: 3.51e-04, critic_loss: 242.2778, actor_loss: 0.0002
+2026-06-02 16:49:33,969 [INFO] iter: 2080768, lr: 3.46e-04, critic_loss: 240.7291, actor_loss: 0.0003
+2026-06-02 16:49:35,951 [INFO] iter: 2097152, lr: 3.41e-04, critic_loss: 251.5473, actor_loss: 0.0003
+2026-06-02 16:49:37,973 [INFO] iter: 2113536, lr: 3.36e-04, critic_loss: 251.5431, actor_loss: 0.0003
+2026-06-02 16:49:40,219 [INFO] iter: 2129920, lr: 3.31e-04, critic_loss: 267.6207, actor_loss: 0.0007
+2026-06-02 16:49:42,319 [INFO] iter: 2146304, lr: 3.26e-04, critic_loss: 260.9915, actor_loss: -0.0000
+2026-06-02 16:49:44,297 [INFO] iter: 2162688, lr: 3.20e-04, critic_loss: 253.5325, actor_loss: 0.0030
+2026-06-02 16:49:46,326 [INFO] iter: 2179072, lr: 3.15e-04, critic_loss: 258.5548, actor_loss: 0.0002
+2026-06-02 16:49:48,619 [INFO] iter: 2195456, lr: 3.10e-04, critic_loss: 263.0518, actor_loss: 0.0002
+2026-06-02 16:49:50,627 [INFO] iter: 2211840, lr: 3.05e-04, critic_loss: 257.3348, actor_loss: -0.0001
+2026-06-02 16:49:52,798 [INFO] iter: 2228224, lr: 3.00e-04, critic_loss: 252.2347, actor_loss: 0.0006
+2026-06-02 16:49:54,780 [INFO] iter: 2244608, lr: 2.94e-04, critic_loss: 255.5498, actor_loss: -0.0002
+2026-06-02 16:49:56,867 [INFO] iter: 2260992, lr: 2.89e-04, critic_loss: 248.6026, actor_loss: -0.0002
+2026-06-02 16:49:58,895 [INFO] iter: 2277376, lr: 2.84e-04, critic_loss: 242.4231, actor_loss: 0.0003
+2026-06-02 16:50:00,905 [INFO] iter: 2293760, lr: 2.79e-04, critic_loss: 239.2395, actor_loss: 0.0011
+2026-06-02 16:50:02,911 [INFO] iter: 2310144, lr: 2.74e-04, critic_loss: 241.5274, actor_loss: 0.0002
+2026-06-02 16:50:04,919 [INFO] iter: 2326528, lr: 2.68e-04, critic_loss: 241.4483, actor_loss: -0.0002
+2026-06-02 16:50:07,007 [INFO] iter: 2342912, lr: 2.63e-04, critic_loss: 242.4813, actor_loss: -0.0000
+2026-06-02 16:50:09,126 [INFO] iter: 2359296, lr: 2.58e-04, critic_loss: 242.6938, actor_loss: 0.0001
+2026-06-02 16:50:11,224 [INFO] iter: 2375680, lr: 2.53e-04, critic_loss: 245.4377, actor_loss: 0.0000
+2026-06-02 16:50:13,341 [INFO] iter: 2392064, lr: 2.48e-04, critic_loss: 249.9872, actor_loss: 0.0002
+2026-06-02 16:50:15,424 [INFO] iter: 2408448, lr: 2.43e-04, critic_loss: 244.1372, actor_loss: -0.0001
+2026-06-02 16:50:17,567 [INFO] iter: 2424832, lr: 2.37e-04, critic_loss: 243.5190, actor_loss: -0.0004
+2026-06-02 16:50:19,625 [INFO] iter: 2441216, lr: 2.32e-04, critic_loss: 241.0388, actor_loss: -0.0002
+2026-06-02 16:50:21,560 [INFO] iter: 2457600, lr: 2.27e-04, critic_loss: 242.1175, actor_loss: -0.0001
+2026-06-02 16:50:21,560 [INFO] Evaluation begin on 6 episodes...
+2026-06-02 16:50:21,563 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:21,563 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:50:25,100 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:25,100 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:50:25,495 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:25,495 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:50:25,888 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:25,888 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:50:26,284 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:26,284 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:50:26,678 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:26,678 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:50:27,069 [INFO] Evaluation results: Position error: 1254.41 ± 1199.18 | Length: 1000.0
+2026-06-02 16:50:27,412 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model0_2457600.png
+2026-06-02 16:50:27,598 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1254.4117431640625_iter=2457600.pth
+2026-06-02 16:50:27,599 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:27,599 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:50:27,994 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:27,994 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:50:28,070 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:28,070 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:50:28,466 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:28,466 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:50:28,858 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:28,858 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:50:28,869 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:28,869 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:50:28,881 [INFO] Evaluation results: Position error: 3750.03 ± 3853.13 | Length: 539.5
+2026-06-02 16:50:29,258 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model1_2457600.png
+2026-06-02 16:50:29,475 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=3750.0283203125_iter=2457600.pth
+2026-06-02 16:50:29,476 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:29,476 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:50:29,893 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:29,893 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:50:30,294 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:30,294 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:50:30,692 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:30,692 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:50:31,113 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:31,113 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:50:31,522 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:31,522 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:50:31,926 [INFO] Evaluation results: Position error: 1098.48 ± 1006.18 | Length: 1000.0
+2026-06-02 16:50:32,287 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model2_2457600.png
+2026-06-02 16:50:32,461 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1098.4798583984375_iter=2457600.pth
+2026-06-02 16:50:32,472 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:32,473 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:50:32,874 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:32,874 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:50:33,273 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:33,273 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:50:33,659 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:33,659 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:50:34,054 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:34,054 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:50:34,441 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:50:34,441 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:50:34,855 [INFO] Evaluation results: Position error: 929.13 ± 990.97 | Length: 1000.0
+2026-06-02 16:50:35,199 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model3_2457600.png
+2026-06-02 16:50:35,370 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=929.1253051757812_iter=2457600.pth
+2026-06-02 16:50:37,434 [INFO] iter: 2473984, lr: 2.22e-04, critic_loss: 240.7253, actor_loss: 0.0002
+2026-06-02 16:50:39,399 [INFO] iter: 2490368, lr: 2.17e-04, critic_loss: 245.2663, actor_loss: -0.0000
+2026-06-02 16:50:41,354 [INFO] iter: 2506752, lr: 2.11e-04, critic_loss: 241.3424, actor_loss: -0.0001
+2026-06-02 16:50:43,364 [INFO] iter: 2523136, lr: 2.06e-04, critic_loss: 237.6044, actor_loss: -0.0000
+2026-06-02 16:50:45,358 [INFO] iter: 2539520, lr: 2.01e-04, critic_loss: 232.7657, actor_loss: 0.0001
+2026-06-02 16:50:47,537 [INFO] iter: 2555904, lr: 1.96e-04, critic_loss: 234.9833, actor_loss: 0.0003
+2026-06-02 16:50:49,564 [INFO] iter: 2572288, lr: 1.91e-04, critic_loss: 239.5412, actor_loss: -0.0001
+2026-06-02 16:50:51,527 [INFO] iter: 2588672, lr: 1.85e-04, critic_loss: 238.6914, actor_loss: -0.0000
+2026-06-02 16:50:53,498 [INFO] iter: 2605056, lr: 1.80e-04, critic_loss: 235.5005, actor_loss: -0.0001
+2026-06-02 16:50:55,516 [INFO] iter: 2621440, lr: 1.75e-04, critic_loss: 233.8813, actor_loss: 0.0000
+2026-06-02 16:50:57,646 [INFO] iter: 2637824, lr: 1.70e-04, critic_loss: 237.1924, actor_loss: 0.0003
+2026-06-02 16:50:59,702 [INFO] iter: 2654208, lr: 1.65e-04, critic_loss: 236.2308, actor_loss: 0.0001
+2026-06-02 16:51:01,843 [INFO] iter: 2670592, lr: 1.60e-04, critic_loss: 234.7591, actor_loss: 0.0001
+2026-06-02 16:51:03,944 [INFO] iter: 2686976, lr: 1.54e-04, critic_loss: 230.4553, actor_loss: -0.0001
+2026-06-02 16:51:05,886 [INFO] iter: 2703360, lr: 1.49e-04, critic_loss: 238.7436, actor_loss: -0.0005
+2026-06-02 16:51:07,809 [INFO] iter: 2719744, lr: 1.44e-04, critic_loss: 231.3228, actor_loss: -0.0003
+2026-06-02 16:51:09,722 [INFO] iter: 2736128, lr: 1.39e-04, critic_loss: 230.0836, actor_loss: 0.0002
+2026-06-02 16:51:11,769 [INFO] iter: 2752512, lr: 1.34e-04, critic_loss: 233.9943, actor_loss: 0.0000
+2026-06-02 16:51:13,755 [INFO] iter: 2768896, lr: 1.28e-04, critic_loss: 233.9078, actor_loss: 0.0001
+2026-06-02 16:51:15,697 [INFO] iter: 2785280, lr: 1.23e-04, critic_loss: 234.8699, actor_loss: 0.0005
+2026-06-02 16:51:17,617 [INFO] iter: 2801664, lr: 1.18e-04, critic_loss: 235.8452, actor_loss: 0.0001
+2026-06-02 16:51:19,559 [INFO] iter: 2818048, lr: 1.13e-04, critic_loss: 242.4724, actor_loss: 0.0003
+2026-06-02 16:51:21,477 [INFO] iter: 2834432, lr: 1.08e-04, critic_loss: 248.3574, actor_loss: -0.0006
+2026-06-02 16:51:23,436 [INFO] iter: 2850816, lr: 1.02e-04, critic_loss: 243.7592, actor_loss: -0.0003
+2026-06-02 16:51:25,388 [INFO] iter: 2867200, lr: 9.72e-05, critic_loss: 246.0346, actor_loss: -0.0005
+2026-06-02 16:51:25,388 [INFO] Evaluation begin on 6 episodes...
+2026-06-02 16:51:25,390 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:25,390 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:51:29,226 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:29,226 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:51:29,616 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:29,616 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:51:30,016 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:30,016 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:51:30,404 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:30,404 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:51:30,798 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:30,798 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:51:31,191 [INFO] Evaluation results: Position error: 1240.09 ± 1185.52 | Length: 1000.0
+2026-06-02 16:51:31,544 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model0_2867200.png
+2026-06-02 16:51:31,728 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1240.09375_iter=2867200.pth
+2026-06-02 16:51:31,729 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:31,730 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:51:32,143 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:32,143 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:51:32,187 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:32,187 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:51:32,575 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:32,575 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:51:32,967 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:32,967 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:51:32,980 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:32,980 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:51:32,995 [INFO] Evaluation results: Position error: 3746.44 ± 3844.56 | Length: 525.3
+2026-06-02 16:51:33,354 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model1_2867200.png
+2026-06-02 16:51:33,564 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=3746.438232421875_iter=2867200.pth
+2026-06-02 16:51:33,565 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:33,565 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:51:33,975 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:33,975 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:51:34,377 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:34,377 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:51:34,784 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:34,784 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:51:35,200 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:35,200 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:51:35,610 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:35,611 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:51:36,003 [INFO] Evaluation results: Position error: 1797.67 ± 1159.20 | Length: 1000.0
+2026-06-02 16:51:36,379 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model2_2867200.png
+2026-06-02 16:51:36,605 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1797.6685791015625_iter=2867200.pth
+2026-06-02 16:51:36,607 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:36,607 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:51:37,003 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:37,003 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:51:37,412 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:37,413 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:51:37,822 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:37,822 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:51:38,223 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:38,223 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:51:38,617 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:38,617 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:51:39,014 [INFO] Evaluation results: Position error: 1271.46 ± 1374.08 | Length: 1000.0
+2026-06-02 16:51:39,366 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model3_2867200.png
+2026-06-02 16:51:39,550 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1271.4613037109375_iter=2867200.pth
+2026-06-02 16:51:41,677 [INFO] iter: 2883584, lr: 9.21e-05, critic_loss: 237.3187, actor_loss: -0.0004
+2026-06-02 16:51:43,907 [INFO] iter: 2899968, lr: 8.69e-05, critic_loss: 231.6849, actor_loss: -0.0002
+2026-06-02 16:51:46,006 [INFO] iter: 2916352, lr: 8.17e-05, critic_loss: 235.4162, actor_loss: -0.0006
+2026-06-02 16:51:48,163 [INFO] iter: 2932736, lr: 7.65e-05, critic_loss: 234.4936, actor_loss: -0.0006
+2026-06-02 16:51:50,156 [INFO] iter: 2949120, lr: 7.13e-05, critic_loss: 232.5886, actor_loss: -0.0004
+2026-06-02 16:51:52,293 [INFO] iter: 2965504, lr: 6.61e-05, critic_loss: 223.8090, actor_loss: -0.0007
+2026-06-02 16:51:54,429 [INFO] iter: 2981888, lr: 6.09e-05, critic_loss: 220.9607, actor_loss: -0.0000
+2026-06-02 16:51:56,437 [INFO] iter: 2998272, lr: 5.57e-05, critic_loss: 217.1716, actor_loss: 0.0001
+2026-06-02 16:51:58,523 [INFO] iter: 3014656, lr: 5.05e-05, critic_loss: 214.6819, actor_loss: -0.0001
+2026-06-02 16:51:58,523 [INFO] Trening zakończony!
+2026-06-02 16:51:58,523 [INFO] Training finished
+2026-06-02 16:51:58,523 [INFO] Evaluation begin on 6 episodes...
+2026-06-02 16:51:58,526 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:51:58,526 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:52:02,151 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:02,151 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:52:02,548 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:02,548 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:52:02,939 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:02,939 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:52:03,331 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:03,332 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:52:03,743 [INFO] Model params: {K_sin: -3.9150, K_reac_wheel: -0.0079, K_pend_vel: 0.1165, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:03,743 [INFO] Physical params: {Ip: 0.0293, f: -0.1146, ml: -0.0003}
+2026-06-02 16:52:04,137 [INFO] Evaluation results: Position error: 1190.62 ± 1275.08 | Length: 1000.0
+2026-06-02 16:52:04,474 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model0_3014656.png
+2026-06-02 16:52:04,633 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1190.6181640625_iter=3014656.pth
+2026-06-02 16:52:04,645 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:04,655 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:52:05,057 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:05,057 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:52:05,091 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:05,091 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:52:05,482 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:05,482 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:52:05,868 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:05,869 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:52:05,879 [INFO] Model params: {K_sin: -27.2330, K_reac_wheel: -0.0012, K_pend_vel: 0.1130, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:05,880 [INFO] Physical params: {Ip: 0.1993, f: -5.4277, ml: -0.0023}
+2026-06-02 16:52:05,891 [INFO] Evaluation results: Position error: 3744.68 ± 3844.40 | Length: 521.5
+2026-06-02 16:52:06,261 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model1_3014656.png
+2026-06-02 16:52:06,472 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=3744.6845703125_iter=3014656.pth
+2026-06-02 16:52:06,473 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:06,473 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:52:06,872 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:06,872 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:52:07,267 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:07,267 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:52:07,657 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:07,657 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:52:08,047 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:08,048 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:52:08,441 [INFO] Model params: {K_sin: -11.4982, K_reac_wheel: -0.0091, K_pend_vel: 0.0854, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:08,442 [INFO] Physical params: {Ip: 0.0252, f: -0.2897, ml: -0.0002}
+2026-06-02 16:52:08,833 [INFO] Evaluation results: Position error: 2042.59 ± 1311.81 | Length: 1000.0
+2026-06-02 16:52:09,206 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model2_3014656.png
+2026-06-02 16:52:09,407 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=2042.5865478515625_iter=3014656.pth
+2026-06-02 16:52:09,418 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:09,428 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:52:09,853 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:09,854 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:52:10,260 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:10,260 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:52:10,671 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:10,671 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:52:11,071 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:11,071 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:52:11,465 [INFO] Model params: {K_sin: -6.9598, K_reac_wheel: -0.0082, K_pend_vel: 0.0868, K_motor: 484.7300, K_wheel_vel: 0.0023}
+2026-06-02 16:52:11,465 [INFO] Physical params: {Ip: 0.0281, f: -0.1955, ml: -0.0002}
+2026-06-02 16:52:11,858 [INFO] Evaluation results: Position error: 1279.95 ± 1391.06 | Length: 1000.0
+2026-06-02 16:52:12,207 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_model3_3014656.png
+2026-06-02 16:52:12,398 [INFO] Model saved to: RL/logs/ppo_train/checkpoints/ckp_score=1279.9461669921875_iter=3014656.pth
+2026-06-02 16:52:20,077 [INFO] Model saved to: RL/logs/ppo_train/model.pth

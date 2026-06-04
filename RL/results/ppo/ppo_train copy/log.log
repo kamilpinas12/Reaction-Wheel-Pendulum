@@ -1,0 +1,214 @@
+2026-05-25 14:12:34,612 [INFO] Creating 16 vectorized environments...
+2026-05-25 14:12:34,612 [INFO] Reward: balanced, params: {'upright_weight': 2.0, 'stability_weight': 4.0, 'spin_weight': 0.6, 'energy_weight': 0.5, 'wheel_vel_weight': 2.0}
+2026-05-25 14:12:37,999 [INFO] Rozpoczynam trening PPO...
+2026-05-25 14:12:44,212 [INFO] iter: 16384, critic_loss: 16.0259, actor_loss: -0.0004
+2026-05-25 14:12:46,458 [INFO] iter: 32768, critic_loss: 8.1869, actor_loss: -0.0004
+2026-05-25 14:12:48,630 [INFO] iter: 49152, critic_loss: 7.5440, actor_loss: -0.0002
+2026-05-25 14:12:50,782 [INFO] iter: 65536, critic_loss: 5.7317, actor_loss: -0.0006
+2026-05-25 14:12:52,946 [INFO] iter: 81920, critic_loss: 3.9067, actor_loss: -0.0008
+2026-05-25 14:12:55,102 [INFO] iter: 98304, critic_loss: 2.5595, actor_loss: -0.0006
+2026-05-25 14:12:57,307 [INFO] iter: 114688, critic_loss: 1.4637, actor_loss: -0.0007
+2026-05-25 14:12:59,474 [INFO] iter: 131072, critic_loss: 1.0068, actor_loss: -0.0010
+2026-05-25 14:13:01,645 [INFO] iter: 147456, critic_loss: 0.7829, actor_loss: -0.0010
+2026-05-25 14:13:03,796 [INFO] iter: 163840, critic_loss: 0.6556, actor_loss: -0.0016
+2026-05-25 14:13:05,987 [INFO] iter: 180224, critic_loss: 0.5827, actor_loss: -0.0014
+2026-05-25 14:13:08,157 [INFO] iter: 196608, critic_loss: 0.4223, actor_loss: -0.0021
+2026-05-25 14:13:10,308 [INFO] iter: 212992, critic_loss: 0.2938, actor_loss: -0.0023
+2026-05-25 14:13:12,455 [INFO] iter: 229376, critic_loss: 0.2212, actor_loss: -0.0018
+2026-05-25 14:13:14,587 [INFO] iter: 245760, critic_loss: 0.1736, actor_loss: -0.0022
+2026-05-25 14:13:16,739 [INFO] iter: 262144, critic_loss: 0.1555, actor_loss: -0.0027
+2026-05-25 14:13:18,860 [INFO] iter: 278528, critic_loss: 0.1718, actor_loss: -0.0018
+2026-05-25 14:13:20,997 [INFO] iter: 294912, critic_loss: 0.3074, actor_loss: -0.0012
+2026-05-25 14:13:23,157 [INFO] iter: 311296, critic_loss: 0.3668, actor_loss: -0.0008
+2026-05-25 14:13:25,519 [INFO] iter: 327680, critic_loss: 0.4575, actor_loss: -0.0008
+2026-05-25 14:13:27,838 [INFO] iter: 344064, critic_loss: 0.4599, actor_loss: -0.0011
+2026-05-25 14:13:30,095 [INFO] iter: 360448, critic_loss: 0.3891, actor_loss: -0.0009
+2026-05-25 14:13:32,528 [INFO] iter: 376832, critic_loss: 0.5909, actor_loss: -0.0010
+2026-05-25 14:13:35,207 [INFO] iter: 393216, critic_loss: 0.5951, actor_loss: -0.0010
+2026-05-25 14:13:37,799 [INFO] iter: 409600, critic_loss: 0.5766, actor_loss: -0.0004
+2026-05-25 14:13:37,800 [INFO] Evaluation begin on 4 episodes...
+2026-05-25 14:13:38,626 [INFO] Evaluation results: Position error: 2171.34 ± 1525.83 | Length: 500.0
+2026-05-25 14:13:39,023 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_409600.png
+2026-05-25 14:13:41,633 [INFO] iter: 425984, critic_loss: 1.2117, actor_loss: -0.0006
+2026-05-25 14:13:44,027 [INFO] iter: 442368, critic_loss: 1.4265, actor_loss: -0.0009
+2026-05-25 14:13:46,389 [INFO] iter: 458752, critic_loss: 2.9335, actor_loss: -0.0004
+2026-05-25 14:13:48,618 [INFO] iter: 475136, critic_loss: 2.8625, actor_loss: -0.0001
+2026-05-25 14:13:50,821 [INFO] iter: 491520, critic_loss: 3.7163, actor_loss: -0.0008
+2026-05-25 14:13:53,033 [INFO] iter: 507904, critic_loss: 4.7870, actor_loss: -0.0003
+2026-05-25 14:13:55,608 [INFO] iter: 524288, critic_loss: 6.7368, actor_loss: -0.0006
+2026-05-25 14:13:58,083 [INFO] iter: 540672, critic_loss: 6.9284, actor_loss: -0.0005
+2026-05-25 14:14:00,573 [INFO] iter: 557056, critic_loss: 6.6118, actor_loss: -0.0006
+2026-05-25 14:14:03,039 [INFO] iter: 573440, critic_loss: 6.7322, actor_loss: -0.0007
+2026-05-25 14:14:05,721 [INFO] iter: 589824, critic_loss: 7.5571, actor_loss: -0.0001
+2026-05-25 14:14:08,051 [INFO] iter: 606208, critic_loss: 6.8835, actor_loss: -0.0002
+2026-05-25 14:14:10,283 [INFO] iter: 622592, critic_loss: 7.3269, actor_loss: -0.0001
+2026-05-25 14:14:12,528 [INFO] iter: 638976, critic_loss: 6.5071, actor_loss: -0.0000
+2026-05-25 14:14:14,763 [INFO] iter: 655360, critic_loss: 6.6743, actor_loss: 0.0002
+2026-05-25 14:14:16,957 [INFO] iter: 671744, critic_loss: 7.3694, actor_loss: -0.0003
+2026-05-25 14:14:19,171 [INFO] iter: 688128, critic_loss: 6.5057, actor_loss: 0.0001
+2026-05-25 14:14:21,453 [INFO] iter: 704512, critic_loss: 6.7548, actor_loss: 0.0001
+2026-05-25 14:14:23,721 [INFO] iter: 720896, critic_loss: 5.0402, actor_loss: 0.0003
+2026-05-25 14:14:25,868 [INFO] iter: 737280, critic_loss: 4.7957, actor_loss: 0.0001
+2026-05-25 14:14:28,057 [INFO] iter: 753664, critic_loss: 5.7985, actor_loss: -0.0000
+2026-05-25 14:14:30,222 [INFO] iter: 770048, critic_loss: 5.6648, actor_loss: -0.0007
+2026-05-25 14:14:32,432 [INFO] iter: 786432, critic_loss: 3.5556, actor_loss: -0.0003
+2026-05-25 14:14:34,606 [INFO] iter: 802816, critic_loss: 5.0507, actor_loss: -0.0001
+2026-05-25 14:14:36,839 [INFO] iter: 819200, critic_loss: 5.4916, actor_loss: -0.0010
+2026-05-25 14:14:36,840 [INFO] Evaluation begin on 4 episodes...
+2026-05-25 14:14:37,630 [INFO] Evaluation results: Position error: 1453.34 ± 557.94 | Length: 500.0
+2026-05-25 14:14:37,956 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_819200.png
+2026-05-25 14:14:40,410 [INFO] iter: 835584, critic_loss: 6.5979, actor_loss: -0.0005
+2026-05-25 14:14:42,582 [INFO] iter: 851968, critic_loss: 4.8869, actor_loss: -0.0002
+2026-05-25 14:14:44,797 [INFO] iter: 868352, critic_loss: 4.2058, actor_loss: -0.0008
+2026-05-25 14:14:46,965 [INFO] iter: 884736, critic_loss: 4.1333, actor_loss: -0.0010
+2026-05-25 14:14:49,097 [INFO] iter: 901120, critic_loss: 7.9781, actor_loss: -0.0009
+2026-05-25 14:14:51,511 [INFO] iter: 917504, critic_loss: 5.4791, actor_loss: -0.0008
+2026-05-25 14:14:53,741 [INFO] iter: 933888, critic_loss: 6.2420, actor_loss: -0.0017
+2026-05-25 14:14:55,918 [INFO] iter: 950272, critic_loss: 7.4197, actor_loss: -0.0020
+2026-05-25 14:14:58,107 [INFO] iter: 966656, critic_loss: 12.3365, actor_loss: -0.0008
+2026-05-25 14:15:00,295 [INFO] iter: 983040, critic_loss: 17.3092, actor_loss: -0.0012
+2026-05-25 14:15:02,484 [INFO] iter: 999424, critic_loss: 28.6334, actor_loss: -0.0005
+2026-05-25 14:15:04,661 [INFO] iter: 1015808, critic_loss: 25.3971, actor_loss: -0.0004
+2026-05-25 14:15:06,865 [INFO] iter: 1032192, critic_loss: 24.9723, actor_loss: -0.0001
+2026-05-25 14:15:09,071 [INFO] iter: 1048576, critic_loss: 18.0761, actor_loss: 0.0000
+2026-05-25 14:15:11,287 [INFO] iter: 1064960, critic_loss: 18.7374, actor_loss: 0.0002
+2026-05-25 14:15:13,470 [INFO] iter: 1081344, critic_loss: 15.7985, actor_loss: -0.0002
+2026-05-25 14:15:15,673 [INFO] iter: 1097728, critic_loss: 14.2150, actor_loss: -0.0002
+2026-05-25 14:15:17,857 [INFO] iter: 1114112, critic_loss: 10.7799, actor_loss: -0.0003
+2026-05-25 14:15:20,060 [INFO] iter: 1130496, critic_loss: 19.9124, actor_loss: 0.0003
+2026-05-25 14:15:22,259 [INFO] iter: 1146880, critic_loss: 13.2401, actor_loss: 0.0002
+2026-05-25 14:15:24,443 [INFO] iter: 1163264, critic_loss: 6.9072, actor_loss: -0.0004
+2026-05-25 14:15:26,647 [INFO] iter: 1179648, critic_loss: 9.6931, actor_loss: -0.0002
+2026-05-25 14:15:28,808 [INFO] iter: 1196032, critic_loss: 9.2402, actor_loss: 0.0008
+2026-05-25 14:15:30,991 [INFO] iter: 1212416, critic_loss: 6.4325, actor_loss: -0.0024
+2026-05-25 14:15:33,151 [INFO] iter: 1228800, critic_loss: 4.9026, actor_loss: -0.0019
+2026-05-25 14:15:33,151 [INFO] Evaluation begin on 4 episodes...
+2026-05-25 14:15:33,886 [INFO] Evaluation results: Position error: 1068.03 ± 676.93 | Length: 500.0
+2026-05-25 14:15:34,300 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_1228800.png
+2026-05-25 14:15:36,828 [INFO] iter: 1245184, critic_loss: 6.2625, actor_loss: 0.0007
+2026-05-25 14:15:39,085 [INFO] iter: 1261568, critic_loss: 7.5503, actor_loss: -0.0018
+2026-05-25 14:15:41,293 [INFO] iter: 1277952, critic_loss: 6.9180, actor_loss: -0.0018
+2026-05-25 14:15:43,509 [INFO] iter: 1294336, critic_loss: 11.9815, actor_loss: -0.0002
+2026-05-25 14:15:45,771 [INFO] iter: 1310720, critic_loss: 14.3870, actor_loss: -0.0003
+2026-05-25 14:15:48,157 [INFO] iter: 1327104, critic_loss: 18.2637, actor_loss: 0.0004
+2026-05-25 14:15:50,586 [INFO] iter: 1343488, critic_loss: 15.8624, actor_loss: 0.0003
+2026-05-25 14:15:52,989 [INFO] iter: 1359872, critic_loss: 23.7506, actor_loss: -0.0000
+2026-05-25 14:15:55,609 [INFO] iter: 1376256, critic_loss: 25.4953, actor_loss: 0.0013
+2026-05-25 14:15:58,037 [INFO] iter: 1392640, critic_loss: 32.1341, actor_loss: 0.0010
+2026-05-25 14:16:00,326 [INFO] iter: 1409024, critic_loss: 22.3127, actor_loss: 0.0009
+2026-05-25 14:16:02,564 [INFO] iter: 1425408, critic_loss: 32.2307, actor_loss: 0.0003
+2026-05-25 14:16:04,965 [INFO] iter: 1441792, critic_loss: 37.2934, actor_loss: 0.0005
+2026-05-25 14:16:07,317 [INFO] iter: 1458176, critic_loss: 39.0042, actor_loss: 0.0002
+2026-05-25 14:16:09,537 [INFO] iter: 1474560, critic_loss: 42.5372, actor_loss: 0.0004
+2026-05-25 14:16:11,809 [INFO] iter: 1490944, critic_loss: 33.2859, actor_loss: 0.0009
+2026-05-25 14:16:14,043 [INFO] iter: 1507328, critic_loss: 54.2236, actor_loss: 0.0005
+2026-05-25 14:16:16,290 [INFO] iter: 1523712, critic_loss: 37.7588, actor_loss: 0.0003
+2026-05-25 14:16:18,444 [INFO] iter: 1540096, critic_loss: 37.6807, actor_loss: 0.0004
+2026-05-25 14:16:20,572 [INFO] iter: 1556480, critic_loss: 34.5654, actor_loss: -0.0001
+2026-05-25 14:16:22,746 [INFO] iter: 1572864, critic_loss: 31.3866, actor_loss: 0.0006
+2026-05-25 14:16:24,857 [INFO] iter: 1589248, critic_loss: 38.9243, actor_loss: 0.0003
+2026-05-25 14:16:26,989 [INFO] iter: 1605632, critic_loss: 37.9833, actor_loss: 0.0001
+2026-05-25 14:16:29,137 [INFO] iter: 1622016, critic_loss: 42.1846, actor_loss: 0.0007
+2026-05-25 14:16:31,290 [INFO] iter: 1638400, critic_loss: 41.6359, actor_loss: 0.0008
+2026-05-25 14:16:31,290 [INFO] Evaluation begin on 4 episodes...
+2026-05-25 14:16:32,018 [INFO] Evaluation results: Position error: 1001.81 ± 755.47 | Length: 500.0
+2026-05-25 14:16:32,325 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_1638400.png
+2026-05-25 14:16:34,688 [INFO] iter: 1654784, critic_loss: 48.6036, actor_loss: 0.0000
+2026-05-25 14:16:36,836 [INFO] iter: 1671168, critic_loss: 44.2748, actor_loss: 0.0003
+2026-05-25 14:16:39,027 [INFO] iter: 1687552, critic_loss: 46.7124, actor_loss: 0.0007
+2026-05-25 14:16:41,203 [INFO] iter: 1703936, critic_loss: 44.7956, actor_loss: 0.0008
+2026-05-25 14:16:43,342 [INFO] iter: 1720320, critic_loss: 41.8141, actor_loss: 0.0004
+2026-05-25 14:16:45,506 [INFO] iter: 1736704, critic_loss: 44.6360, actor_loss: 0.0013
+2026-05-25 14:16:47,618 [INFO] iter: 1753088, critic_loss: 45.0638, actor_loss: 0.0005
+2026-05-25 14:16:49,724 [INFO] iter: 1769472, critic_loss: 45.5268, actor_loss: 0.0001
+2026-05-25 14:16:52,107 [INFO] iter: 1785856, critic_loss: 46.6044, actor_loss: 0.0003
+2026-05-25 14:16:54,543 [INFO] iter: 1802240, critic_loss: 42.4523, actor_loss: 0.0007
+2026-05-25 14:16:56,949 [INFO] iter: 1818624, critic_loss: 43.1779, actor_loss: 0.0006
+2026-05-25 14:16:59,078 [INFO] iter: 1835008, critic_loss: 44.2511, actor_loss: 0.0013
+2026-05-25 14:17:01,284 [INFO] iter: 1851392, critic_loss: 42.4558, actor_loss: 0.0002
+2026-05-25 14:17:03,385 [INFO] iter: 1867776, critic_loss: 59.0093, actor_loss: 0.0012
+2026-05-25 14:17:05,509 [INFO] iter: 1884160, critic_loss: 40.9105, actor_loss: 0.0004
+2026-05-25 14:17:07,594 [INFO] iter: 1900544, critic_loss: 39.4455, actor_loss: 0.0002
+2026-05-25 14:17:09,742 [INFO] iter: 1916928, critic_loss: 39.8833, actor_loss: 0.0008
+2026-05-25 14:17:11,940 [INFO] iter: 1933312, critic_loss: 40.2710, actor_loss: 0.0007
+2026-05-25 14:17:14,074 [INFO] iter: 1949696, critic_loss: 39.4648, actor_loss: 0.0003
+2026-05-25 14:17:16,256 [INFO] iter: 1966080, critic_loss: 37.0959, actor_loss: 0.0001
+2026-05-25 14:17:18,390 [INFO] iter: 1982464, critic_loss: 37.6211, actor_loss: 0.0005
+2026-05-25 14:17:20,593 [INFO] iter: 1998848, critic_loss: 36.6205, actor_loss: 0.0010
+2026-05-25 14:17:22,767 [INFO] iter: 2015232, critic_loss: 34.8621, actor_loss: 0.0002
+2026-05-25 14:17:24,959 [INFO] iter: 2031616, critic_loss: 35.9739, actor_loss: 0.0003
+2026-05-25 14:17:27,138 [INFO] iter: 2048000, critic_loss: 35.3116, actor_loss: 0.0004
+2026-05-25 14:17:27,138 [INFO] Evaluation begin on 4 episodes...
+2026-05-25 14:17:27,893 [INFO] Evaluation results: Position error: 1006.75 ± 747.81 | Length: 500.0
+2026-05-25 14:17:28,191 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_2048000.png
+2026-05-25 14:17:30,571 [INFO] iter: 2064384, critic_loss: 35.9093, actor_loss: 0.0005
+2026-05-25 14:17:32,735 [INFO] iter: 2080768, critic_loss: 32.9005, actor_loss: 0.0016
+2026-05-25 14:17:34,994 [INFO] iter: 2097152, critic_loss: 31.9816, actor_loss: 0.0006
+2026-05-25 14:17:37,191 [INFO] iter: 2113536, critic_loss: 34.3532, actor_loss: 0.0008
+2026-05-25 14:17:39,321 [INFO] iter: 2129920, critic_loss: 38.5442, actor_loss: 0.0008
+2026-05-25 14:17:41,452 [INFO] iter: 2146304, critic_loss: 37.6369, actor_loss: 0.0017
+2026-05-25 14:17:43,585 [INFO] iter: 2162688, critic_loss: 44.1083, actor_loss: 0.0001
+2026-05-25 14:17:45,738 [INFO] iter: 2179072, critic_loss: 46.9025, actor_loss: -0.0000
+2026-05-25 14:17:47,877 [INFO] iter: 2195456, critic_loss: 44.9678, actor_loss: 0.0002
+2026-05-25 14:17:50,016 [INFO] iter: 2211840, critic_loss: 41.7829, actor_loss: 0.0001
+2026-05-25 14:17:52,199 [INFO] iter: 2228224, critic_loss: 42.2793, actor_loss: 0.0003
+2026-05-25 14:17:54,359 [INFO] iter: 2244608, critic_loss: 55.6395, actor_loss: 0.0001
+2026-05-25 14:17:56,554 [INFO] iter: 2260992, critic_loss: 45.5060, actor_loss: 0.0002
+2026-05-25 14:17:58,714 [INFO] iter: 2277376, critic_loss: 43.6518, actor_loss: 0.0002
+2026-05-25 14:18:00,929 [INFO] iter: 2293760, critic_loss: 40.2793, actor_loss: 0.0017
+2026-05-25 14:18:03,089 [INFO] iter: 2310144, critic_loss: 39.8888, actor_loss: 0.0002
+2026-05-25 14:18:05,288 [INFO] iter: 2326528, critic_loss: 41.1618, actor_loss: 0.0004
+2026-05-25 14:18:07,410 [INFO] iter: 2342912, critic_loss: 41.3641, actor_loss: 0.0004
+2026-05-25 14:18:09,551 [INFO] iter: 2359296, critic_loss: 45.1760, actor_loss: 0.0002
+2026-05-25 14:18:11,671 [INFO] iter: 2375680, critic_loss: 48.2424, actor_loss: 0.0019
+2026-05-25 14:18:13,840 [INFO] iter: 2392064, critic_loss: 44.2416, actor_loss: 0.0005
+2026-05-25 14:18:16,030 [INFO] iter: 2408448, critic_loss: 44.8372, actor_loss: 0.0009
+2026-05-25 14:18:18,135 [INFO] iter: 2424832, critic_loss: 43.3890, actor_loss: 0.0005
+2026-05-25 14:18:20,335 [INFO] iter: 2441216, critic_loss: 43.8818, actor_loss: 0.0001
+2026-05-25 14:18:22,472 [INFO] iter: 2457600, critic_loss: 43.0409, actor_loss: 0.0007
+2026-05-25 14:18:22,472 [INFO] Evaluation begin on 4 episodes...
+2026-05-25 14:18:23,206 [INFO] Evaluation results: Position error: 919.89 ± 672.61 | Length: 500.0
+2026-05-25 14:18:23,505 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_2457600.png
+2026-05-25 14:18:25,803 [INFO] iter: 2473984, critic_loss: 41.9901, actor_loss: -0.0001
+2026-05-25 14:18:27,996 [INFO] iter: 2490368, critic_loss: 39.9914, actor_loss: -0.0000
+2026-05-25 14:18:30,195 [INFO] iter: 2506752, critic_loss: 41.6755, actor_loss: 0.0002
+2026-05-25 14:18:32,373 [INFO] iter: 2523136, critic_loss: 40.2394, actor_loss: 0.0004
+2026-05-25 14:18:34,561 [INFO] iter: 2539520, critic_loss: 41.6422, actor_loss: 0.0010
+2026-05-25 14:18:36,697 [INFO] iter: 2555904, critic_loss: 42.1132, actor_loss: 0.0008
+2026-05-25 14:18:38,847 [INFO] iter: 2572288, critic_loss: 41.8914, actor_loss: 0.0004
+2026-05-25 14:18:41,016 [INFO] iter: 2588672, critic_loss: 42.1259, actor_loss: 0.0004
+2026-05-25 14:18:43,183 [INFO] iter: 2605056, critic_loss: 42.1825, actor_loss: 0.0017
+2026-05-25 14:18:45,373 [INFO] iter: 2621440, critic_loss: 56.8035, actor_loss: 0.0000
+2026-05-25 14:18:47,560 [INFO] iter: 2637824, critic_loss: 44.3639, actor_loss: 0.0003
+2026-05-25 14:18:49,709 [INFO] iter: 2654208, critic_loss: 44.4957, actor_loss: -0.0000
+2026-05-25 14:18:51,932 [INFO] iter: 2670592, critic_loss: 42.3149, actor_loss: 0.0003
+2026-05-25 14:18:54,117 [INFO] iter: 2686976, critic_loss: 43.0241, actor_loss: 0.0006
+2026-05-25 14:18:56,317 [INFO] iter: 2703360, critic_loss: 43.7226, actor_loss: 0.0004
+2026-05-25 14:18:58,570 [INFO] iter: 2719744, critic_loss: 42.0339, actor_loss: 0.0002
+2026-05-25 14:19:00,863 [INFO] iter: 2736128, critic_loss: 42.9857, actor_loss: 0.0002
+2026-05-25 14:19:03,004 [INFO] iter: 2752512, critic_loss: 43.1935, actor_loss: 0.0005
+2026-05-25 14:19:05,190 [INFO] iter: 2768896, critic_loss: 42.1956, actor_loss: 0.0010
+2026-05-25 14:19:07,392 [INFO] iter: 2785280, critic_loss: 42.0556, actor_loss: 0.0002
+2026-05-25 14:19:09,535 [INFO] iter: 2801664, critic_loss: 43.2547, actor_loss: 0.0003
+2026-05-25 14:19:11,774 [INFO] iter: 2818048, critic_loss: 43.1275, actor_loss: 0.0002
+2026-05-25 14:19:13,917 [INFO] iter: 2834432, critic_loss: 42.5758, actor_loss: -0.0005
+2026-05-25 14:19:16,097 [INFO] iter: 2850816, critic_loss: 41.4700, actor_loss: 0.0003
+2026-05-25 14:19:18,279 [INFO] iter: 2867200, critic_loss: 42.4370, actor_loss: 0.0002
+2026-05-25 14:19:18,279 [INFO] Evaluation begin on 4 episodes...
+2026-05-25 14:19:19,016 [INFO] Evaluation results: Position error: 909.81 ± 668.32 | Length: 500.0
+2026-05-25 14:19:19,316 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_2867200.png
+2026-05-25 14:19:21,647 [INFO] iter: 2883584, critic_loss: 44.7661, actor_loss: 0.0003
+2026-05-25 14:19:23,788 [INFO] iter: 2899968, critic_loss: 44.1333, actor_loss: 0.0007
+2026-05-25 14:19:26,052 [INFO] iter: 2916352, critic_loss: 41.7205, actor_loss: 0.0003
+2026-05-25 14:19:28,242 [INFO] iter: 2932736, critic_loss: 43.5774, actor_loss: 0.0006
+2026-05-25 14:19:30,590 [INFO] iter: 2949120, critic_loss: 42.8133, actor_loss: 0.0009
+2026-05-25 14:19:32,832 [INFO] iter: 2965504, critic_loss: 43.5032, actor_loss: 0.0006
+2026-05-25 14:19:35,015 [INFO] iter: 2981888, critic_loss: 42.6350, actor_loss: 0.0003
+2026-05-25 14:19:37,211 [INFO] iter: 2998272, critic_loss: 53.2831, actor_loss: 0.0003
+2026-05-25 14:19:39,407 [INFO] iter: 3014656, critic_loss: 44.8207, actor_loss: 0.0002
+2026-05-25 14:19:39,407 [INFO] Trening zakończony!
+2026-05-25 14:19:39,408 [INFO] Training finished
+2026-05-25 14:19:39,408 [INFO] Evaluation begin on 4 episodes...
+2026-05-25 14:19:40,237 [INFO] Evaluation results: Position error: 968.70 ± 703.67 | Length: 500.0
+2026-05-25 14:19:40,577 [INFO] saved agent rollout plot to RL/logs/ppo_train/agent_rollout_3014656.png
+2026-05-25 14:19:46,270 [INFO] Model saved to: RL/logs/ppo_train/model.pth

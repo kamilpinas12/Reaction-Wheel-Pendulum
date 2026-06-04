@@ -62,7 +62,7 @@ class PendSimDataset(Dataset):
             env_seed = int(self.rng.integers(0, 1_000_000_000))
             obs, info = self.env.reset(seed=env_seed)
 
-            target_params = np.asarray(info["ground_truth_params"], dtype=np.float32)
+            target_params = np.asarray(list(info["model_params"].values())[:3], dtype=np.float32)
             # Random episode length
             episode_len = int(self.rng.integers(self.min_seq_len, self.max_seq_len + 1))
             action_sequence = self._generate_action_sequence(episode_len)

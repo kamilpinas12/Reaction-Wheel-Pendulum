@@ -9,7 +9,7 @@ from reac_wheel_sim.reaction_wheel_wrappers import (
     ActionRepeatWrapper,
     ObservationNoiseWrapper,
     ParamRandomizationWrapper,
-    TrigObservationWrapper,
+    TrigAndNormalizationObservationWrapper,
 )
 from reac_wheel_sim.signal_generator import SquareSignal, TrapezoidSignal
 
@@ -54,7 +54,7 @@ def test_reaction_wheel_env_reset_and_step():
 
     assert obs.shape == (4,)
     assert obs.dtype == np.float32
-    assert set(info["nominal_params"]) >= {
+    assert set(info["model_params"]) >= {
         "K_sin",
         "K_reac_wheel",
         "K_pend_vel",
@@ -88,12 +88,12 @@ def test_observation_wrappers_transform_and_validate():
     with pytest.raises(ValueError):
         ObservationNoiseWrapper(base_env, noise_levels=[0.0, 0.0])
 
-    trig_env = TrigObservationWrapper(ReactionWheelEnv(config_name="config_ppo.yaml"))
+    trig_env = TrigAndNormalizationObservationWrapper(ReactionWheelEnv(config_name="config_ppo.yaml"))
     trig_obs, _ = trig_env.reset(
         seed=11,
         options={"initial_state": [np.pi / 2, 0.0, 0.0]},
     )
-    assert trig_obs.shape == (5,)
+    assert trig_obs.shape == (4,)
     assert trig_obs[0] == pytest.approx(1.0, abs=1e-6)
     assert trig_obs[1] == pytest.approx(0.0, abs=1e-6)
 
@@ -115,16 +115,16 @@ def test_action_repeat_wrapper_accumulates_reward_and_stops_on_truncation():
 
 def test_param_randomization_wrapper_and_dataset_generation(tmp_path):
     base_env = ReactionWheelEnv(config_name="config_ppo.yaml")
-    env = ParamRandomizationWrapper(base_env, param_noise_pct=0.1, mass_pos_pct=0.1)
+    env = ParamRandomizationWrapper(base_env)
     env = ObservationNoiseWrapper(env, noise_levels=[0.0, 0.0, 0.0, 0.0])
 
     obs, info = env.reset(seed=42)
 
     assert obs.shape == (4,)
     assert np.isfinite(obs).all()
-    assert info["ground_truth_params"].shape == (3,)
-    assert info["physical_params"].shape == (3,)
-    assert 0.0 <= info["mass_shift_pct"] <= 0.1
+    
+    assert len(info["model_params"]) == 5
+    assert len(info["phys_params"]) == 3
 
     signals = [
         SquareSignal(amplitude_range=(0.9, 1.0)),

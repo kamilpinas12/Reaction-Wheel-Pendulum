@@ -62,6 +62,26 @@ if __name__ == "__main__":
     print(f"Ip: {fmt(Ip)}, f: {fmt(f)}, ml: {fmt(ml)}")
     print("=============================")
 
+    a = 0.1165
+    b = -3.915
+    c = -0.00786
+    Ip, f, ml = convert_to_physical(a, b, c)
+    print("pos 85")
+    print(f"a: {fmt(a)}, b: {fmt(b)}, c: {fmt(c)}")
+    print(f"Ip: {fmt(Ip)}, f: {fmt(f)}, ml: {fmt(ml)}")
+    print("=============================")
+
+
+    a = 0.85449
+    b = -11.6982
+    c = -0.009128
+    Ip, f, ml = convert_to_physical(a, b, c)
+    print("pos 1")
+    print(f"a: {fmt(a)}, b: {fmt(b)}, c: {fmt(c)}")
+    print(f"Ip: {fmt(Ip)}, f: {fmt(f)}, ml: {fmt(ml)}")
+    print("=============================")
+
+
     # check correctness of conversion
     # Ip = 0.028093318675949677 
     # f = 0.002439342860632710

@@ -45,21 +45,18 @@ class BalancedRewardWrapper(RewardWrapper):
         u = self.env.unwrapped.prev_u
         err = abs(self._angle_normalize(pend_pos - np.pi))
 
-        potential_reward = self.upright_weight * np.cos(err)
-
-        precision_reward = 1.0 * np.exp(-5.0 * err)
+        potential_reward = self.upright_weight * (np.cos(err) + 1.0) / 2.0
 
         stability_bonus = 0.0
-        if err < 0.15:
-            stability_bonus = self.stability_weight * np.exp(-abs(pend_vel))
-
+        if err < 0.5:
+            stability_bonus = self.stability_weight * (np.exp(-abs(pend_vel)))
         
-        spin_penalty = self.spin_weight * (pend_vel ** 2) 
+        spin_penalty = self.spin_weight * ((pend_vel / 2.0)**2) 
         energy_penalty = self.energy_weight * (u ** 2)
-        wheel_penalty = self.wheel_vel_weight * ((wheel_vel/ 400.0) ** 2)
+        wheel_penalty = self.wheel_vel_weight * ((wheel_vel/ 300.0) ** 2)
         
-        total = potential_reward + precision_reward + stability_bonus - spin_penalty - energy_penalty - wheel_penalty
-        return float(total / 10.0)
+        total = potential_reward + stability_bonus - spin_penalty - energy_penalty - wheel_penalty
+        return float(total)
 
     
 class FilipRewardWrapper(RewardWrapper):

@@ -11,8 +11,8 @@ from utils.rollout_buffer import RolloutBuffer
 from utils.config_manager import cfg_get
 
 class PPOAgent(BaseAgent):
-    def __init__(self, env, model, logger):
-        super().__init__(env, logger, config_name="config_ppo.yaml")
+    def __init__(self, env, model, logger, config_name="config_ppo.yaml"):
+        super().__init__(env, logger, config_name=config_name)
         
         self.model = model.to(self.device)
         
@@ -66,6 +66,14 @@ class PPOAgent(BaseAgent):
         obs, _ = self.env.reset()
         
         while self.num_timesteps < self.total_timesteps:
+            if self.lr_scheduling_final is not None:
+                progress = self.num_timesteps / self.total_timesteps
+                current_lr = self.learning_rate + progress * (self.lr_scheduling_final - self.learning_rate)
+                for param_group in self.optimizer.param_groups:
+                    param_group['lr'] = current_lr
+            else:
+                current_lr = self.optimizer.param_groups[0]["lr"]
+
             # 1. FAZA ZBIERANIA DANYCH (Teraz zbieramy tysiące kroków naraz)
             self.model.eval()
             self.rollout_buffer.reset()
@@ -123,6 +131,7 @@ class PPOAgent(BaseAgent):
             # 2. FAZA AKTUALIZACJI SIECI
             self.model.train()
             epoch_actor_losses, epoch_critic_losses, epoch_grad_norms = [], [], []
+            epoch_approx_kls, epoch_clip_fracs = [], []
 
             for epoch in range(self.n_epochs):
                 for batch in self.rollout_buffer.get(batch_size=self.batch_size):
@@ -141,7 +150,24 @@ class PPOAgent(BaseAgent):
                     surr2 = torch.clamp(ratio, 1.0 - self.clip_range, 1.0 + self.clip_range) * advantages
                     actor_loss = -torch.min(surr1, surr2).mean()
 
-                    critic_loss = F.mse_loss(values.flatten(), batch.returns.flatten())
+                    approx_kl = (batch.old_log_probs - log_probs).mean()
+                    clip_fraction = (torch.abs(ratio - 1.0) > self.clip_range).float().mean()
+
+                    # value clipping
+                    v_pred = values.flatten()
+                    v_targets = batch.returns.flatten()
+                    v_old = batch.old_values.flatten() # Wymaga, aby Twój buffer to zwracał
+
+                    # Standardowa strata MSE
+                    v_loss_unclipped = F.mse_loss(v_pred, v_targets, reduction='none')
+
+                    # Strata z obcięciem (wartość nie może odskoczyć dalej niż o clip_range od starej wartości)
+                    v_pred_clipped = v_old + torch.clamp(v_pred - v_old, -self.clip_range, self.clip_range)
+                    v_loss_clipped = F.mse_loss(v_pred_clipped, v_targets, reduction='none')
+
+                    # Wybieramy gorszy przypadek (max), aby pesymistycznie podejść do estymacji
+                    critic_loss = torch.max(v_loss_unclipped, v_loss_clipped).mean()
+
                     entropy_loss = entropies.mean()
                     loss = actor_loss + self.value_coef * critic_loss - self.entropy_coef * entropy_loss
 
@@ -153,17 +179,23 @@ class PPOAgent(BaseAgent):
                     epoch_actor_losses.append(actor_loss.item())
                     epoch_critic_losses.append(critic_loss.item())
                     epoch_grad_norms.append(float(grad_norm))
+                    epoch_approx_kls.append(float(approx_kl.detach()))
+                    epoch_clip_fracs.append(float(clip_fraction))
 
             avg_actor_loss = np.mean(epoch_actor_losses)
             avg_critic_loss = np.mean(epoch_critic_losses)
             avg_grad_norm = np.mean(epoch_grad_norms)
+            avg_approx_kl = np.mean(epoch_approx_kls)
+            avg_clip_frac = np.mean(epoch_clip_fracs)
             
-            if self.writer is not None:
-                self._log_scalar('train/actor_loss', avg_actor_loss)
-                self._log_scalar('train/value_loss', avg_critic_loss)
-                self._log_scalar('train/grad_norm', avg_grad_norm)
+            self._log_scalar('train/learning_rate', current_lr)
+            self._log_scalar('train/actor_loss', avg_actor_loss)
+            self._log_scalar('train/value_loss', avg_critic_loss)
+            self._log_scalar('train/grad_norm', avg_grad_norm)
+            self._log_scalar('train/approx_kl', avg_approx_kl)
+            self._log_scalar('train/clip_fraction', avg_clip_frac)
                 
-            self.logger.info(f"iter: {self.num_timesteps}, critic_loss: {avg_critic_loss:.4f}, actor_loss: {avg_actor_loss:.4f}")
+            self.logger.info(f"iter: {self.num_timesteps}, lr: {current_lr:.2e}, critic_loss: {avg_critic_loss:.4f}, actor_loss: {avg_actor_loss:.4f}")
             
             # 3. FAZA EWALUACJI I ZAPISU 
             if eval_env is not None and (self.num_timesteps - last_eval_step) >= self.eval_interval:

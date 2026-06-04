@@ -20,8 +20,8 @@ from utils.custom_paths import MODELS_DIR, CONFIGS_DIR, LOGS_DIR
 
 def make_env(repeat_num, reward_type, **reward_params):
     def _init():
-        env = ReactionWheelEnv("config_ppo.yaml")
-        # env = ParamRandomizationWrapper(env, param_noise_pct=0.1, mass_pos_pct=0.5)
+        env = ReactionWheelEnv("config_ppo.yaml", render_mode="rgb_array")
+        env = ParamRandomizationWrapper(env)
         env = TrigAndNormalizationObservationWrapper(env)
         env = ActionRepeatWrapper(env, repeat=repeat_num)
         env = create_reward_wrapper(env, reward_type=reward_type, **reward_params)
@@ -31,20 +31,15 @@ def make_env(repeat_num, reward_type, **reward_params):
     return _init
 
 
-def record_video(agent: BaseAgent, video_dir, repeat_num, reward_type, **reward_params):
-
+def record_video(agent: BaseAgent, video_dir):
     env = ReactionWheelEnv("config_ppo.yaml", render_mode="rgb_array")
-    # env = ParamRandomizationWrapper(env, param_noise_pct=0.2, mass_pos_pct=0.5)
     env = TrigAndNormalizationObservationWrapper(env)
-    # env = ActionRepeatWrapper(env, repeat=repeat_num)
-    # env = create_reward_wrapper(env, reward_type=reward_type, **reward_params)
     env = RecordVideo(
         env,
         video_folder=str(video_dir),
         episode_trigger=lambda episode: True,
         name_prefix="ppo_eval",
     )
-
     try:
         obs, _ = env.reset(seed=0)
         done = False
@@ -62,6 +57,7 @@ def main():
     reward_type = cfg_get('reward.type', config_name, default="simple")
     reward_params = cfg_get('reward.params', config_name, default={}) or {}
     model_hid_size = cfg_get('ppo_agent.hid_size', config_name, default=32)
+    model_activation = cfg_get('ppo_agent.activation', config_name, default="tanh")
     repeat_num = cfg_get('ppo_agent.repeat_num', config_name, default=5)
     output_dir = Path(cfg_get('base_agent.output_dir', config_name))
 
@@ -81,8 +77,9 @@ def main():
     obs_size = envs.single_observation_space.shape[0]
     act_size = envs.single_action_space.shape[0]
 
-    model = ModelA2C(obs_size=obs_size, act_size=act_size, hid_size=model_hid_size)
+    model = ModelA2C(obs_size=obs_size, act_size=act_size, hid_size=model_hid_size, activation=model_activation)
     agent = PPOAgent(env=envs, model=model, logger=logger)
+    agent.load("/home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/results/ppo/ppo_best_small/model.pth")
 
     agent.train(eval_env=eval_env)
     logger.info('Training finished')
@@ -90,7 +87,7 @@ def main():
     agent.evaluate(eval_env, False)
 
     video_dir = output_dir / "videos"
-    record_video(agent, video_dir, repeat_num, reward_type, **reward_params)
+    record_video(agent, video_dir)
 
     save_path = output_dir / "model.pth"
     agent.save(save_path)

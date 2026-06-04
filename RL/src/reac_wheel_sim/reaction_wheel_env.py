@@ -38,6 +38,8 @@ class ReactionWheelEnv(gym.Env):
             dtype=np.float32
         )
         self.initial_state_range = cfg_get("env.initial_state_range", config_name, None)
+        self.terminate_pend_vel = cfg_get("env.terminate_pend_vel", config_name, default=30.0)
+        self.terminate_wheel_vel = cfg_get("env.terminate_wheel_vel", config_name, default=800.0)
 
         # A
         self.K_pend_vel = cfg_get("env.K_pend_vel", config_name, default=0.085634)
@@ -48,15 +50,6 @@ class ReactionWheelEnv(gym.Env):
 
         self.K_motor = 484.73  # K
         self.K_wheel_vel = 0.00229  # D
-
-        # Store nominal parameters so wrappers can randomize without cumulative drift.
-        self.nominal_params = {
-            "K_sin": self.K_sin,
-            "K_reac_wheel": self.K_reac_wheel,
-            "K_pend_vel": self.K_pend_vel,
-            "K_motor": self.K_motor,
-            "K_wheel_vel": self.K_wheel_vel,
-        }
 
         self.state = None
         
@@ -69,6 +62,19 @@ class ReactionWheelEnv(gym.Env):
                 f"Choose one of {self.metadata['render_modes']}"
             )
         self.metadata["render_fps"] = max(1, int(round(1.0 / self.dt)))
+
+    def get_model_params(self):
+        return {
+            "K_sin": self.K_sin,
+            "K_reac_wheel": self.K_reac_wheel,
+            "K_pend_vel": self.K_pend_vel,
+            "K_motor": self.K_motor,
+            "K_wheel_vel": self.K_wheel_vel,
+        }
+    
+    def get_physical_params(self):
+        Ip, f, ml = self._convert_model_params_to_phys()
+        return {"Ip": Ip, "f":f, "ml":ml}
 
     @staticmethod
     def _angle_normalize(angle):
@@ -93,7 +99,16 @@ class ReactionWheelEnv(gym.Env):
         else:
             self.state = np.array([0.0, 0.0, 0.0], dtype=np.float32)
 
-        info["nominal_params"] = self.nominal_params.copy()
+        if options is not None and "model_params" in options:
+            self.K_sin = options["model_params"].get("K_sin", self.K_sin)
+            self.K_pend_vel = options["model_params"].get("K_pend_vel", self.K_pend_vel)
+            self.K_reac_wheel = options["model_params"].get("K_reac_wheel", self.K_reac_wheel)
+            # motor params
+            self.K_motor = options["model_params"].get("K_motor", self.K_motor)
+            self.K_wheel_vel = options["model_params"].get("K_wheel_vel", self.K_wheel_vel)
+
+        info["model_params"] = self.get_model_params()
+        info["phys_params"] = self.get_physical_params()
         return self._get_observation(), info
     
     def step(self, action):
@@ -106,7 +121,10 @@ class ReactionWheelEnv(gym.Env):
         reward = 0.0
 
         # Safety termination only for clearly divergent trajectories.
-        # terminated = bool(abs(new_phi) > 150 or abs(new_theta_dot) > 30)
+        terminated = bool(
+            abs(self.state[1]) > self.terminate_pend_vel
+            or abs(self.state[2]) > self.terminate_wheel_vel
+        )
         truncated = self.step_count >= self.max_episode_steps
 
         self.prev_u = u
@@ -116,7 +134,7 @@ class ReactionWheelEnv(gym.Env):
             "theta_dot": self.state[1],
             "phi": self.state[2],
         }
-        return self._get_observation(), reward, False, truncated, info
+        return self._get_observation(), reward, terminated, truncated, info
 
     def _get_observation(self):
         pend_pos, pend_vel, wheel_vel = self.state
@@ -168,6 +186,16 @@ class ReactionWheelEnv(gym.Env):
         wheel_vel = generator.uniform(-initial_range[2], initial_range[2])
         new_state = np.array([pend_pos, pend_vel, wheel_vel], dtype=np.float32)
         return new_state
+    
+    def _convert_model_params_to_phys(self):
+        Iw = 0.00023
+        Km = 484.73
+        d = 0.00229
+        g = 9.81
+        Ip = -Iw/self.K_reac_wheel
+        f = self.K_sin*Ip
+        ml = -self.K_pend_vel*Ip/g
+        return Ip, f, ml
     
     def render_image(
         self,

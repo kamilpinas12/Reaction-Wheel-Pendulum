@@ -19,9 +19,7 @@ def test_dataset_generation_and_visualization():
 
     base_env = ReactionWheelEnv(config_name='config_ppo.yaml')
     env = ParamRandomizationWrapper(
-        base_env,
-        param_noise_pct=0.1,
-        mass_pos_pct=0.1,
+        base_env
     )
     env = ObservationNoiseWrapper(env, noise_levels=[0.0, 0.0, 0.0, 0.0])
 

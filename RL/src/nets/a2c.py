@@ -6,14 +6,22 @@ import torch.nn.functional as F
 
 
 class ModelA2C(nn.Module):
-    def __init__(self, obs_size: int, act_size: int, hid_size=128, init_log_std=-0.5):
+    def __init__(self, obs_size: int, act_size: int, hid_size=128, init_log_std=-0.5, activation="tanh"):
         super(ModelA2C, self).__init__()
 
+        act_mapping = {
+            "tanh": nn.Tanh,
+            "relu": nn.ReLU,
+            "leaky_relu": nn.LeakyReLU
+        }
+        act_class = act_mapping.get(activation.lower(), nn.Tanh)
+        gain = np.sqrt(2) if activation.lower() == "relu" else 1.0
+
         self.actor_net = nn.Sequential(
-            self._layer_init(nn.Linear(obs_size, hid_size)),
-            nn.Tanh(),
-            self._layer_init(nn.Linear(hid_size, hid_size)),
-            nn.Tanh(),
+            self._layer_init(nn.Linear(obs_size, hid_size), std=gain),
+            act_class(),
+            self._layer_init(nn.Linear(hid_size, hid_size), std=gain),
+            act_class(),
             self._layer_init(nn.Linear(hid_size, act_size), std=0.01),
             nn.Tanh()
         )
@@ -21,10 +29,10 @@ class ModelA2C(nn.Module):
         self.log_std = nn.Parameter(torch.full((act_size,), init_log_std))
 
         self.critic_net = nn.Sequential(
-            self._layer_init(nn.Linear(obs_size, hid_size)),
-            nn.Tanh(),
-            self._layer_init(nn.Linear(hid_size, hid_size)),
-            nn.Tanh(),
+            self._layer_init(nn.Linear(obs_size, hid_size), std=gain),
+            act_class(),
+            self._layer_init(nn.Linear(hid_size, hid_size), std=gain),
+            act_class(),
             self._layer_init(nn.Linear(hid_size, 1), std=1.0)
         )
 

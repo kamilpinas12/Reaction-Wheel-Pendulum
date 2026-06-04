@@ -7,13 +7,13 @@ from utils.custom_paths import MODELS_DIR
 from nets.a2c import ModelA2C
 
 if __name__ == "__main__":
-    obs_size = 5
+    obs_size = 4
     act_size = 1
     model_hid_size = 64
 
     model = ModelA2C(obs_size=obs_size, act_size=act_size, hid_size=model_hid_size)
 
-    save_path = MODELS_DIR / "rl_ppo_3" / "ppo_pendulum_model.pth"
+    save_path = MODELS_DIR / "best_ppo_small.pth"
     checkpoint = torch.load(save_path, map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint)
 
@@ -31,5 +31,5 @@ if __name__ == "__main__":
             clean_name = name.replace('.', '_')
             weights_dict[clean_name] = arr
 
-    scipy.io.savemat( MODELS_DIR / "rl_ppo_3" / 'ppo_actor_weights.mat', weights_dict)
-    print("\nWagi wyeksportowane pomyślnie do ppo_actor_weights.mat!")
+    scipy.io.savemat( MODELS_DIR /  'best_ppo_small.mat', weights_dict)
+    print("\nWagi wyeksportowane pomyślnie do best_ppo_small.mat!")
