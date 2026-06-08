@@ -1,0 +1,62 @@
+base_agent:
+  learning_rate: 0.0003         
+  gamma: 0.999                  # Keep this high so it can chain momentum rocks together
+  seed: 42
+  device: "cuda"
+  total_timesteps: 400000      # 2M is plenty if the reward isn't actively fighting the agent
+  output_dir: "./RL/logs/td3_train/"
+  writer_enable: true
+  eval:
+    record: false
+    plot: true
+    num_episodes: 5             
+    num_models: 4
+    interval: 50000            # Evaluate more often to see exactly when it breaks out
+    render: false
+    deterministic: true
+
+td3_agent:
+  policy: "MlpPolicy"
+  net_arch: [256, 256]
+  activation: "relu"
+  repeat_num: 4                 
+  action_noise_std: 0.3         
+  action_noise_initial_std: 0.4        # FIX: Lowered from 0.7
+  action_noise_final_std: 0.02  
+  action_noise_decay_timesteps: 300000 # FIX: Lowered from 900000
+  actor_lr: 0.0003              
+  critic_lr: 0.001              
+  buffer_size: 500000
+  learning_starts: 10000               # FIX: Lowered from 32000
+  batch_size: 256               
+  train_freq: 1                 
+  gradient_steps: 16                   # FIX: Increased from 1 to match num_envs: 16
+  tau: 0.005
+  policy_delay: 2
+  target_policy_noise: 0.2
+  target_noise_clip: 0.5
+
+env:
+  seed: 42
+  num_envs: 16
+  dt: 0.01
+  max_episode_steps: 2000        # 6 seconds per episode. Long enough to swing up, short enough to keep buffer clean
+  terminate_pend_vel: 40        # Loosened so fast momentum rocks don't trigger accidental termination
+  terminate_wheel_vel: 400       # Raised significantly so it can use maximum wheel speed to build momentum
+  K_pend_vel: 0.1165
+  K_sin: -3.915
+  K_reac_wheel: -0.00786
+  initial_state_range: [3.14, 3.0, 0.0]
+
+reward:
+  type: "filip"
+  params:
+    upright_gain: 6.0
+    upright_exp: 0.5                   # FIX: Widened from 1.0. This creates a much stronger "magnetic pull" from the bottom.
+    phi_limit: 50.0                    
+    phi_penalty_weight: 0.00005        
+    spin_penalty_weight: 0.0           # FIX: Completely removed! Let it swing as fast as it wants to get up.
+    energy_penalty_weight: 0.05        # FIX: Lowered slightly. Give it a bit more budget to use the motor for swinging.
+    stability_err_threshold: 0.05      
+    stability_bonus_gain: 5.0
+    stability_bonus_offset: 0.1

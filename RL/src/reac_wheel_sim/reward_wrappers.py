@@ -1,5 +1,6 @@
 import gymnasium as gym
 import numpy as np
+import inspect
 
 
 class RewardWrapper(gym.RewardWrapper):
@@ -61,35 +62,49 @@ class BalancedRewardWrapper(RewardWrapper):
     
 class FilipRewardWrapper(RewardWrapper):
 
-    def __init__(self, env):
+    def __init__(
+        self,
+        env,
+        upright_gain=5.0,
+        upright_exp=3.0,
+        phi_limit=130.0,
+        phi_penalty_weight=0.1,
+        spin_penalty_weight=0.1,
+        energy_penalty_weight=0.001,
+        stability_err_threshold=0.1,
+        stability_bonus_gain=5.0,
+        stability_bonus_offset=0.1,
+    ):
         super().__init__(env)
+        self.upright_gain = float(upright_gain)
+        self.upright_exp = float(upright_exp)
+        self.phi_limit = float(phi_limit)
+        self.phi_penalty_weight = float(phi_penalty_weight)
+        self.spin_penalty_weight = float(spin_penalty_weight)
+        self.energy_penalty_weight = float(energy_penalty_weight)
+        self.stability_err_threshold = float(stability_err_threshold)
+        self.stability_bonus_gain = float(stability_bonus_gain)
+        self.stability_bonus_offset = float(stability_bonus_offset)
 
     def reward(self, r):
         theta, theta_dot, phi = self.env.unwrapped.state
         u = self.env.unwrapped.prev_u
         err = abs(self._angle_normalize(theta - np.pi))
 
-        # 1. Primary Goal: Stay upright
-        # Increased weight to make it more attractive than spinning
-        upright_reward = 5.0 * np.exp(-3.0 * err)
+        upright_reward = self.upright_gain * np.exp(-self.upright_exp * err)
 
-        # 2. Phi Penalty: ONLY penalty near the physical limit
-        phi_limit = 130.0
         phi_penalty = 0.0
-        if abs(phi) > phi_limit:
-            phi_penalty = 0.1 * (abs(phi) - phi_limit) ** 2
+        if abs(phi) > self.phi_limit:
+            phi_penalty = self.phi_penalty_weight * (abs(phi) - self.phi_limit) ** 2
 
-        # 3. Efficiency: Penalize spinning (The "Anti-Loop" penalty)
-        # This is the secret to stopping the multiple circles.
-        spinning_penalty = 0.1 * (theta_dot**2)
-        energy_penalty = 0.001 * (u ** 2)
+        spinning_penalty = self.spin_penalty_weight * (theta_dot**2)
+        energy_penalty = self.energy_penalty_weight * (u ** 2)
 
-        # 4. Stay-Still Bonus: High reward for being at the top AND stopped
         stability_bonus = 0.0
-        if err < 0.1:
-            stability_bonus = 5.0 / (abs(theta_dot) + 0.1)
+        if err < self.stability_err_threshold:
+            stability_bonus = self.stability_bonus_gain / (abs(theta_dot) + self.stability_bonus_offset)
 
-        return (
+        return float(
             upright_reward
             + stability_bonus
             - phi_penalty
@@ -110,4 +125,8 @@ def create_reward_wrapper(env, reward_type='balanced', **kwargs):
         raise ValueError(f"Unknown reward type: {reward_type}. Choose from {list(reward_wrappers.keys())}")
     
     wrapper_class = reward_wrappers[reward_type]
-    return wrapper_class(env, **kwargs)
+    # Allow passing reward params from config without crashing when unknown keys are present.
+    signature = inspect.signature(wrapper_class.__init__)
+    valid_keys = {k for k in signature.parameters.keys() if k not in {"self", "env"}}
+    filtered_kwargs = {k: v for k, v in kwargs.items() if k in valid_keys}
+    return wrapper_class(env, **filtered_kwargs)

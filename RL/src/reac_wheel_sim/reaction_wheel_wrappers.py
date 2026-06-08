@@ -116,28 +116,22 @@ class DiscretizeActionWrapper(gym.ActionWrapper):
 class TrigAndNormalizationObservationWrapper(gym.ObservationWrapper):
     def __init__(self, env):
         super().__init__(env)
-        orig_space = self.env.observation_space
-        new_shape = (orig_space.shape[0],)
-        new_low = np.concatenate(([-1.0, -1.0], orig_space.low[1:3])).astype(np.float32)
-        new_high = np.concatenate(([1.0, 1.0], orig_space.high[1:3])).astype(np.float32)
-
         self.observation_space = spaces.Box(
-            low=new_low, high=new_high, shape=new_shape, dtype=np.float32
+            low=np.array([-1.0, -1.0, -np.inf, -np.inf], dtype=np.float32),
+            high=np.array([1.0, 1.0, np.inf, np.inf], dtype=np.float32),
+            shape=(4,),
+            dtype=np.float32
         )
 
     def observation(self, obs):
-        pend_pos = obs[0]
-        pend_vel = obs[1]
-        wheel_vel = obs[2]
-        prev_u = obs[3]
+        pend_pos, pend_vel, wheel_vel, prev_u = obs
 
         return np.array(
             [
                 np.sin(pend_pos),
                 np.cos(pend_pos),
-                pend_vel / 5.0,
-                wheel_vel / 400.0,
-                # prev_u,
+                pend_vel / 40.0,   # FIX: Matched to terminate_pend_vel: 40
+                wheel_vel / 400.0, # Matched to terminate_wheel_vel: 400
             ],
             dtype=np.float32,
         )
