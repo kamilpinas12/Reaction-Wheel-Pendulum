@@ -1,0 +1,43 @@
+base_agent:
+  learning_rate: 3e-4
+  gamma: 0.95
+  seed: 42
+  device: "cuda"
+  total_timesteps: 2000000
+  output_dir: "./RL/logs/rl_ppo/"
+  writer_enable: true
+  eval:
+    record: false
+    plot: true
+    num_episodes: 5
+    interval: 100000
+    render: false
+    deterministic: true
+  
+ppo_agent:
+  value_coef: 0.5
+  entropy_coef: 0.02
+  gae_lambda: 0.999
+  max_grad_norm: 0.5
+  n_rollout_steps: 2048
+  n_epochs: 10
+  batch_size: 512
+  clip_range: 0.2
+  hid_size: 64
+  repeat_num: 8
+
+env:
+  num_envs: 16
+  dt: 0.01
+  max_episode_steps: 1000 # 8s
+  K_pend_vel: 0.085634
+  K_sin: -9.101332
+  K_reac_wheel: -0.009168
+
+reward:
+  type: balanced
+  params:
+     upright_weight: 2.0
+     stability_weight: 1.0
+     spin_weight: 0.02
+     energy_weight: 0.01

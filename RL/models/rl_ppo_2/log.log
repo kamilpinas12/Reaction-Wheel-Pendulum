@@ -1,0 +1,147 @@
+2026-05-11 19:18:50,223 [INFO] Creating 16 vectorized environments...
+2026-05-11 19:18:50,223 [INFO] Reward: balanced, params: {'upright_weight': 2.0, 'stability_weight': 1.0, 'spin_weight': 0.02, 'energy_weight': 0.01}
+2026-05-11 19:18:51,426 [INFO] Rozpoczynam trening PPO...
+2026-05-11 19:18:58,027 [INFO] iter: 32768, critic_loss: 1.4077, actor_loss: -0.0022
+2026-05-11 19:19:04,619 [INFO] iter: 65536, critic_loss: 0.5985, actor_loss: -0.0061
+2026-05-11 19:19:10,704 [INFO] iter: 98304, critic_loss: 0.4914, actor_loss: -0.0084
+2026-05-11 19:19:16,717 [INFO] iter: 131072, critic_loss: 0.4924, actor_loss: -0.0078
+2026-05-11 19:19:16,717 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:19:17,012 [INFO] Wynik Ewaluacji: Nagroda: 79.04 ± 12.62 | Długość: 125.0
+2026-05-11 19:19:17,375 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_131072.png
+2026-05-11 19:19:17,378 [INFO] Model saved to: RL/logs/rl_ppo/best_model.pth
+2026-05-11 19:19:17,378 [INFO] New best model saved! Średnia nagroda: 79.04
+2026-05-11 19:19:17,379 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_131072.pth
+2026-05-11 19:19:23,911 [INFO] iter: 163840, critic_loss: 0.4727, actor_loss: -0.0050
+2026-05-11 19:19:31,286 [INFO] iter: 196608, critic_loss: 0.4533, actor_loss: -0.0036
+2026-05-11 19:19:38,654 [INFO] iter: 229376, critic_loss: 0.4263, actor_loss: -0.0026
+2026-05-11 19:19:44,810 [INFO] iter: 262144, critic_loss: 0.4538, actor_loss: -0.0022
+2026-05-11 19:19:44,810 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:19:45,105 [INFO] Wynik Ewaluacji: Nagroda: 54.54 ± 46.11 | Długość: 125.0
+2026-05-11 19:19:45,445 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_262144.png
+2026-05-11 19:19:45,447 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_262144.pth
+2026-05-11 19:19:51,889 [INFO] iter: 294912, critic_loss: 0.4037, actor_loss: -0.0029
+2026-05-11 19:19:58,176 [INFO] iter: 327680, critic_loss: 0.3858, actor_loss: -0.0011
+2026-05-11 19:20:04,563 [INFO] iter: 360448, critic_loss: 0.3843, actor_loss: -0.0018
+2026-05-11 19:20:10,932 [INFO] iter: 393216, critic_loss: 0.4242, actor_loss: -0.0017
+2026-05-11 19:20:10,933 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:20:11,230 [INFO] Wynik Ewaluacji: Nagroda: 68.46 ± 47.14 | Długość: 125.0
+2026-05-11 19:20:11,712 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_393216.png
+2026-05-11 19:20:11,714 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_393216.pth
+2026-05-11 19:20:17,982 [INFO] iter: 425984, critic_loss: 0.4016, actor_loss: -0.0025
+2026-05-11 19:20:24,454 [INFO] iter: 458752, critic_loss: 0.4538, actor_loss: -0.0010
+2026-05-11 19:20:31,062 [INFO] iter: 491520, critic_loss: 0.4094, actor_loss: -0.0016
+2026-05-11 19:20:37,978 [INFO] iter: 524288, critic_loss: 0.4686, actor_loss: -0.0009
+2026-05-11 19:20:37,979 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:20:38,277 [INFO] Wynik Ewaluacji: Nagroda: 82.32 ± 44.68 | Długość: 125.0
+2026-05-11 19:20:38,633 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_524288.png
+2026-05-11 19:20:38,634 [INFO] Model saved to: RL/logs/rl_ppo/best_model.pth
+2026-05-11 19:20:38,634 [INFO] New best model saved! Średnia nagroda: 82.32
+2026-05-11 19:20:38,636 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_524288.pth
+2026-05-11 19:20:45,286 [INFO] iter: 557056, critic_loss: 0.4840, actor_loss: -0.0017
+2026-05-11 19:20:51,596 [INFO] iter: 589824, critic_loss: 0.4882, actor_loss: -0.0007
+2026-05-11 19:20:58,401 [INFO] iter: 622592, critic_loss: 0.5021, actor_loss: -0.0014
+2026-05-11 19:21:05,062 [INFO] iter: 655360, critic_loss: 0.5562, actor_loss: -0.0007
+2026-05-11 19:21:05,062 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:21:05,372 [INFO] Wynik Ewaluacji: Nagroda: 141.92 ± 59.30 | Długość: 125.0
+2026-05-11 19:21:05,720 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_655360.png
+2026-05-11 19:21:05,722 [INFO] Model saved to: RL/logs/rl_ppo/best_model.pth
+2026-05-11 19:21:05,722 [INFO] New best model saved! Średnia nagroda: 141.92
+2026-05-11 19:21:05,724 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_655360.pth
+2026-05-11 19:21:12,841 [INFO] iter: 688128, critic_loss: 0.5621, actor_loss: -0.0008
+2026-05-11 19:21:19,930 [INFO] iter: 720896, critic_loss: 0.5552, actor_loss: -0.0008
+2026-05-11 19:21:27,260 [INFO] iter: 753664, critic_loss: 0.6296, actor_loss: -0.0014
+2026-05-11 19:21:33,606 [INFO] iter: 786432, critic_loss: 0.6398, actor_loss: 0.0001
+2026-05-11 19:21:33,607 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:21:33,908 [INFO] Wynik Ewaluacji: Nagroda: 150.80 ± 41.80 | Długość: 125.0
+2026-05-11 19:21:34,257 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_786432.png
+2026-05-11 19:21:34,259 [INFO] Model saved to: RL/logs/rl_ppo/best_model.pth
+2026-05-11 19:21:34,259 [INFO] New best model saved! Średnia nagroda: 150.80
+2026-05-11 19:21:34,260 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_786432.pth
+2026-05-11 19:21:40,596 [INFO] iter: 819200, critic_loss: 0.6426, actor_loss: -0.0010
+2026-05-11 19:21:46,898 [INFO] iter: 851968, critic_loss: 0.7210, actor_loss: -0.0005
+2026-05-11 19:21:53,010 [INFO] iter: 884736, critic_loss: 0.7810, actor_loss: -0.0009
+2026-05-11 19:21:59,764 [INFO] iter: 917504, critic_loss: 0.9366, actor_loss: -0.0005
+2026-05-11 19:21:59,764 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:22:00,065 [INFO] Wynik Ewaluacji: Nagroda: 193.02 ± 49.46 | Długość: 125.0
+2026-05-11 19:22:00,428 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_917504.png
+2026-05-11 19:22:00,430 [INFO] Model saved to: RL/logs/rl_ppo/best_model.pth
+2026-05-11 19:22:00,430 [INFO] New best model saved! Średnia nagroda: 193.02
+2026-05-11 19:22:00,431 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_917504.pth
+2026-05-11 19:22:06,674 [INFO] iter: 950272, critic_loss: 0.8968, actor_loss: -0.0017
+2026-05-11 19:22:12,944 [INFO] iter: 983040, critic_loss: 1.1450, actor_loss: -0.0014
+2026-05-11 19:22:19,105 [INFO] iter: 1015808, critic_loss: 1.3327, actor_loss: -0.0005
+2026-05-11 19:22:25,356 [INFO] iter: 1048576, critic_loss: 1.6334, actor_loss: -0.0019
+2026-05-11 19:22:25,357 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:22:25,660 [INFO] Wynik Ewaluacji: Nagroda: 262.58 ± 60.91 | Długość: 125.0
+2026-05-11 19:22:26,004 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_1048576.png
+2026-05-11 19:22:26,006 [INFO] Model saved to: RL/logs/rl_ppo/best_model.pth
+2026-05-11 19:22:26,006 [INFO] New best model saved! Średnia nagroda: 262.58
+2026-05-11 19:22:26,007 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_1048576.pth
+2026-05-11 19:22:32,429 [INFO] iter: 1081344, critic_loss: 1.5727, actor_loss: -0.0011
+2026-05-11 19:22:39,454 [INFO] iter: 1114112, critic_loss: 1.6886, actor_loss: -0.0005
+2026-05-11 19:22:46,814 [INFO] iter: 1146880, critic_loss: 2.0564, actor_loss: 0.0011
+2026-05-11 19:22:54,459 [INFO] iter: 1179648, critic_loss: 2.0939, actor_loss: 0.0023
+2026-05-11 19:22:54,459 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:22:54,760 [INFO] Wynik Ewaluacji: Nagroda: 359.99 ± 33.75 | Długość: 125.0
+2026-05-11 19:22:55,315 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_1179648.png
+2026-05-11 19:22:55,326 [INFO] Model saved to: RL/logs/rl_ppo/best_model.pth
+2026-05-11 19:22:55,327 [INFO] New best model saved! Średnia nagroda: 359.99
+2026-05-11 19:22:55,328 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_1179648.pth
+2026-05-11 19:23:02,516 [INFO] iter: 1212416, critic_loss: 2.2480, actor_loss: 0.0023
+2026-05-11 19:23:09,549 [INFO] iter: 1245184, critic_loss: 2.3755, actor_loss: 0.0034
+2026-05-11 19:23:15,911 [INFO] iter: 1277952, critic_loss: 2.5212, actor_loss: 0.0042
+2026-05-11 19:23:22,662 [INFO] iter: 1310720, critic_loss: 2.4187, actor_loss: 0.0021
+2026-05-11 19:23:22,662 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:23:22,978 [INFO] Wynik Ewaluacji: Nagroda: 292.28 ± 80.03 | Długość: 125.0
+2026-05-11 19:23:23,306 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_1310720.png
+2026-05-11 19:23:23,308 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_1310720.pth
+2026-05-11 19:23:29,983 [INFO] iter: 1343488, critic_loss: 2.4645, actor_loss: 0.0047
+2026-05-11 19:23:36,282 [INFO] iter: 1376256, critic_loss: 2.4842, actor_loss: 0.0039
+2026-05-11 19:23:42,573 [INFO] iter: 1409024, critic_loss: 2.5028, actor_loss: 0.0032
+2026-05-11 19:23:49,343 [INFO] iter: 1441792, critic_loss: 2.5269, actor_loss: 0.0038
+2026-05-11 19:23:49,343 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:23:49,645 [INFO] Wynik Ewaluacji: Nagroda: 317.56 ± 94.58 | Długość: 125.0
+2026-05-11 19:23:49,991 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_1441792.png
+2026-05-11 19:23:49,993 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_1441792.pth
+2026-05-11 19:23:56,585 [INFO] iter: 1474560, critic_loss: 2.4673, actor_loss: 0.0026
+2026-05-11 19:24:03,051 [INFO] iter: 1507328, critic_loss: 2.1548, actor_loss: 0.0016
+2026-05-11 19:24:10,263 [INFO] iter: 1540096, critic_loss: 2.5056, actor_loss: 0.0032
+2026-05-11 19:24:17,062 [INFO] iter: 1572864, critic_loss: 2.5803, actor_loss: 0.0024
+2026-05-11 19:24:17,063 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:24:17,374 [INFO] Wynik Ewaluacji: Nagroda: 248.26 ± 41.10 | Długość: 125.0
+2026-05-11 19:24:17,698 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_1572864.png
+2026-05-11 19:24:17,699 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_1572864.pth
+2026-05-11 19:24:24,121 [INFO] iter: 1605632, critic_loss: 1.9778, actor_loss: 0.0029
+2026-05-11 19:24:30,855 [INFO] iter: 1638400, critic_loss: 2.3318, actor_loss: 0.0023
+2026-05-11 19:24:36,976 [INFO] iter: 1671168, critic_loss: 2.6806, actor_loss: 0.0050
+2026-05-11 19:24:43,555 [INFO] iter: 1703936, critic_loss: 2.7470, actor_loss: 0.0039
+2026-05-11 19:24:43,555 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:24:43,854 [INFO] Wynik Ewaluacji: Nagroda: 327.51 ± 121.07 | Długość: 125.0
+2026-05-11 19:24:44,184 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_1703936.png
+2026-05-11 19:24:44,186 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_1703936.pth
+2026-05-11 19:24:50,912 [INFO] iter: 1736704, critic_loss: 2.6177, actor_loss: 0.0048
+2026-05-11 19:24:57,671 [INFO] iter: 1769472, critic_loss: 2.6446, actor_loss: 0.0061
+2026-05-11 19:25:03,992 [INFO] iter: 1802240, critic_loss: 2.6734, actor_loss: 0.0036
+2026-05-11 19:25:10,861 [INFO] iter: 1835008, critic_loss: 2.6601, actor_loss: 0.0047
+2026-05-11 19:25:10,861 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:25:11,165 [INFO] Wynik Ewaluacji: Nagroda: 301.81 ± 68.58 | Długość: 125.0
+2026-05-11 19:25:11,651 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_1835008.png
+2026-05-11 19:25:11,652 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_1835008.pth
+2026-05-11 19:25:18,017 [INFO] iter: 1867776, critic_loss: 2.6234, actor_loss: 0.0075
+2026-05-11 19:25:24,624 [INFO] iter: 1900544, critic_loss: 2.6400, actor_loss: 0.0024
+2026-05-11 19:25:30,947 [INFO] iter: 1933312, critic_loss: 2.6602, actor_loss: 0.0027
+2026-05-11 19:25:37,448 [INFO] iter: 1966080, critic_loss: 2.6624, actor_loss: 0.0046
+2026-05-11 19:25:37,449 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:25:37,745 [INFO] Wynik Ewaluacji: Nagroda: 385.59 ± 64.52 | Długość: 125.0
+2026-05-11 19:25:38,081 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_1966080.png
+2026-05-11 19:25:38,083 [INFO] Model saved to: RL/logs/rl_ppo/best_model.pth
+2026-05-11 19:25:38,083 [INFO] New best model saved! Średnia nagroda: 385.59
+2026-05-11 19:25:38,084 [INFO] Model saved to: RL/logs/rl_ppo/checkpoint_1966080.pth
+2026-05-11 19:25:44,615 [INFO] iter: 1998848, critic_loss: 2.6574, actor_loss: 0.0056
+2026-05-11 19:25:51,018 [INFO] iter: 2031616, critic_loss: 2.6454, actor_loss: 0.0051
+2026-05-11 19:25:51,018 [INFO] Trening zakończony!
+2026-05-11 19:25:51,019 [INFO] Training finished
+2026-05-11 19:25:51,019 [INFO] Evaluation begin on 5 episodes...
+2026-05-11 19:25:51,319 [INFO] Wynik Ewaluacji: Nagroda: 312.14 ± 56.28 | Długość: 125.0
+2026-05-11 19:25:51,645 [INFO] saved agent rollout plot to RL/logs/rl_ppo/agent_rollout_2031616.png
+2026-05-11 19:25:51,646 [INFO] Model saved to: /home/igorsiata/studia/Reaction-Wheel-Pendulum/RL/models/ppo_pendulum_model.pth

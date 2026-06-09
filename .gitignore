@@ -6,7 +6,6 @@ work_in_progress
 __pycache__
 .env
 logs
-models
 runs
 RL/datasets
 .pytest_cache/
